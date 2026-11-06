@@ -81,6 +81,14 @@ public final class ExperienceService implements IPetService {
         keep(changeNature(pet, pet.temperament().nudge(Temperament.Trait.ENERGY, 1)));
     }
 
+    /** Its owner found somewhere new: every pet out with them grows a little more curious. */
+    public void explored(java.util.List<OutPet> out) {
+        for (OutPet live : out) {
+            Pet pet = current(live);
+            keep(changeNature(pet, pet.temperament().nudge(Temperament.Trait.CURIOSITY, 1)));
+        }
+    }
+
     /** Its owner gave it a treat. @return whether it ate */
     public boolean fed(OutPet live, Player owner, long now) {
         if (now - live.lastFed() < TREAT_EVERY) {

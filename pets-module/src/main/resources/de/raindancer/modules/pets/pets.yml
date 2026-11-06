@@ -6,7 +6,8 @@
 #   speed:    blocks per tick, following and ridden           size:   how tall, in player heights (0.15–0.6);
 #                                                                     always smaller than the wild mob
 #   flies:    flies when following and when ridden            baby:   the young version, where there is one
-#   unlock:   free | earn <activity> [thing] <count> | buy <price> | permission | supporter
+#   unlock:   free | earn <activity> [thing] <count> [+ <activity> [thing] <count> …] | buy <price> | permission | supporter
+#             With "+", every part has to be done: "earn boss wither 3 + raid 1".
 #             Only common pets can be bought; anything rarer is earned, granted or a supporters' thank-you.
 #             activities: monster boss fish breed harvest mine dig excavate chop forage craft cook brew build
 #             tame explore travel raid trade enchant …  ("earn boss ender_dragon 1": slay the dragon once)
@@ -423,8 +424,8 @@ species:
     damage: 12
     speed: 0.6
     flies: true
-    unlock: earn boss ender_dragon 1
-    blurb: For whoever slew the dragon — a dragon of their own.
+    unlock: earn boss ender_dragon 3 + boss wither 1 + boss warden 1 + boss elder_guardian 1 + raid 1 + monster 2500 + explore 100
+    blurb: For whoever has beaten every boss there is, and the dragon three times — a dragon of their own.
   wither:
     title: Wither
     mob: WITHER
@@ -437,8 +438,8 @@ species:
     speed: 0.5
     flies: true
     missile: WITHER_SKULL
-    unlock: earn boss wither 3
-    blurb: Three heads, all on your side.
+    unlock: earn boss wither 3 + boss ender_dragon 1 + boss warden 1 + boss elder_guardian 1 + raid 1 + monster 2500 + explore 100
+    blurb: For whoever has beaten every boss there is, and the Wither three times. Three heads, all on your side.
   warden:
     title: Warden
     mob: WARDEN
@@ -449,8 +450,8 @@ species:
     health: 160
     damage: 14
     speed: 0.32
-    unlock: earn boss warden 1
-    blurb: It heard you were in trouble.
+    unlock: earn boss warden 3 + boss ender_dragon 1 + boss wither 1 + boss elder_guardian 1 + raid 1 + monster 2500 + explore 100
+    blurb: For whoever has beaten every boss there is, and the Warden three times. It heard you were in trouble.
 
   # ------------------------------------------------------------------ villagers, monsters and more
   cow:

@@ -128,7 +128,8 @@ public final class SummonService implements IPetService {
                 .rideable(settings.riding())
                 .attackTicks((int) Math.round((species.role().fighting() == Fighting.RANGED ? 30 : 20) / speedFactor))
                 .name(name(pet, settings.ownerInName() ? ownerName : ""))
-                .particle(pet.particle(), shape(pet.particleShape()));
+                .particle(pet.particle(), shape(pet.particleShape()))
+                .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness());
     }
 
     public static de.raindancer.core.ui.effect.ParticleShape shape(String name) {

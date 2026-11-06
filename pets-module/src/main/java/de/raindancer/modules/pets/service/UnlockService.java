@@ -31,10 +31,15 @@ public final class UnlockService implements IPetService {
     public void did(Player player, Activity activity) {
         for (Species species : collection.catalogue().all()) {
             Unlock unlock = species.unlock();
-            if (!unlock.counts(activity.kind(), activity.what()) || collection.owns(player.getUniqueId(), species.id())) {
+            java.util.List<Integer> parts = unlock.matching(activity.kind(), activity.what());
+            if (parts.isEmpty() || collection.owns(player.getUniqueId(), species.id())) {
                 continue;
             }
-            if (collection.addProgress(player.getUniqueId(), species, activity.amount())) {
+            boolean opened = false;
+            for (int part : parts) {
+                opened |= collection.addProgress(player, species, part, activity.amount());
+            }
+            if (opened) {
                 messages.send(player, "pets.earned", "species", species.title(),
                         "rarity", species.rarity().title());
             }

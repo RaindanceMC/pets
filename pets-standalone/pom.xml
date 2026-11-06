@@ -24,7 +24,10 @@
         <plugin.name>RainsPets</plugin.name>
         <!-- 0.1.0: pets that fight beside you — vanilla animals in four roles, levels, modes, knock-outs instead of death,
              unlocked by playing, bought, granted, or kept for supporters. -->
-        <plugin.version>0.1.0</plugin.version>
+        <!-- 0.2.0: pets explore while their owner stands about or they stay — how far and how often is a new trait,
+             curiosity (and a Curious personality); a pet's particles picked like on the cosmetics page (Core's particle
+             chooser); an unlock can ask for several things at once, and every mythic asks for every boss. -->
+        <plugin.version>0.2.0</plugin.version>
     </properties>
 
     <dependencies>

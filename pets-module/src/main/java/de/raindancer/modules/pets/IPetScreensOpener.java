@@ -11,4 +11,6 @@ public interface IPetScreensOpener {
     void species(Player viewer);
 
     void pet(Player viewer, Pet pet);
+
+    void particles(Player viewer, Pet pet);
 }

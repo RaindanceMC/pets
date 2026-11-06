@@ -6,7 +6,6 @@ import de.raindancer.core.ui.menu.Menu;
 import de.raindancer.core.ui.menu.PaginatedMenu;
 import de.raindancer.modules.pets.PetServices;
 import de.raindancer.modules.pets.model.Species;
-import de.raindancer.modules.pets.model.Unlock;
 import de.raindancer.modules.pets.rules.UnlockRule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -77,9 +76,13 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
             case CLAIMABLE -> lore.add("<yellow>Click<gray> to take it.");
             case BUYABLE -> lore.add("<yellow>Click<gray> to buy it for <white>" + Fees.format(verdict.price()) + "<gray>.");
             case LOCKED -> {
-                lore.add("<gray>Earned by " + earning(species.unlock()) + ":");
-                lore.add(PetLook.bar(verdict.progress(), verdict.needed()) + " <gray>" + verdict.progress() + "/"
-                        + verdict.needed());
+                lore.add("<gray>Earned by " + (verdict.parts().size() > 1 ? "all of these" : "") + ":");
+                for (UnlockRule.Part part : verdict.parts()) {
+                    long shown = Math.min(part.done(), part.requirement().count());
+                    lore.add((part.finished() ? "<green>✔ " : "<gray>• ") + earning(part.requirement()) + " "
+                            + PetLook.bar(shown, part.requirement().count()) + " <gray>" + shown + "/"
+                            + part.requirement().count());
+                }
             }
             case SUPPORTERS_ONLY -> lore.add("<light_purple>A thank-you for the server's supporters — /support");
             case RANK_ONLY -> lore.add("<gray>Given by a rank.");
@@ -87,7 +90,7 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
         return Icons.of(species.icon(), "<color:" + species.rarity().colour() + ">" + species.title(), lore);
     }
 
-    private static String earning(Unlock unlock) {
+    private static String earning(de.raindancer.modules.pets.model.Requirement unlock) {
         String what = unlock.what().isEmpty() ? "" : " " + unlock.what().toLowerCase(Locale.ROOT).replace('_', ' ');
         return switch (unlock.activity()) {
             case MONSTER -> "slaying" + (what.isEmpty() ? " monsters" : what + "s");

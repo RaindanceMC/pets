@@ -50,6 +50,12 @@ class SpeciesCatalogueTest {
         all.forEach(species -> rarities.add(species.rarity()));
         assertThat(rarities).containsExactlyInAnyOrder(de.raindancer.modules.pets.model.Rarity.values());
         assertThat(all).extracting(Species::id).contains("ender_dragon", "wither", "warden");
+        Species mythicDragon = all.stream().filter(s -> s.id().equals("ender_dragon")).findFirst().orElseThrow();
+        assertThat(mythicDragon.unlock().needs()).extracting(de.raindancer.modules.pets.model.Requirement::what)
+                .contains("ENDER_DRAGON", "WITHER", "WARDEN", "ELDER_GUARDIAN");
+        for (Species mythic : all.stream().filter(s -> s.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC).toList()) {
+            assertThat(mythic.unlock().needs()).as(mythic.id()).hasSizeGreaterThanOrEqualTo(7);
+        }
         assertThat(all).filteredOn(Species::flies).hasSizeGreaterThanOrEqualTo(5);
         assertThat(all).filteredOn(species -> species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC)
                 .extracting(Species::id).contains("ender_dragon", "wither", "warden");
@@ -102,6 +108,12 @@ class SpeciesCatalogueTest {
                     mob: BEE
                     role: fighter
                     unlock: buy 1.5k
+                  wither:
+                    title: Wither
+                    mob: WITHER
+                    role: ranged
+                    rarity: mythic
+                    unlock: earn boss wither 3 + raid 1 + boss elder_guardian 1
                   panda:
                     title: Panda
                     mob: PANDA
@@ -115,7 +127,10 @@ class SpeciesCatalogueTest {
             read = SpeciesCatalogue.read(in, problems::add);
         }
 
-        assertThat(read).extracting(Species::id).containsExactly("wolf", "fox", "bee");
+        assertThat(read).extracting(Species::id).containsExactly("wolf", "fox", "bee", "wither");
+        assertThat(read.get(3).unlock().needs()).hasSize(3);
+        assertThat(read.get(3).unlock().needs().get(1).activity()).isEqualTo(de.raindancer.core.world.activity.ActivityKind.RAID);
+        assertThat(read.get(3).unlock().needs().get(2).what()).isEqualTo("ELDER_GUARDIAN");
         assertThat(problems).hasSize(3);
         assertThat(problems.get(2)).contains("panda").contains("only common pets can be bought");
         assertThat(problems.get(0)).contains("dragon");

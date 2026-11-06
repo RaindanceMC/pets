@@ -7,10 +7,13 @@ import java.util.Random;
  * {@link #MOST_NUDGE} either way, so a timid pet can be made bolder but never fearless.
  */
 public record Temperament(int innateCourage, int innateEnergy, int innateTemper,
-                          int nudgeCourage, int nudgeEnergy, int nudgeTemper) {
+                          int nudgeCourage, int nudgeEnergy, int nudgeTemper, int innateCuriosity, int nudgeCuriosity) {
 
     /** How far an owner can bend one trait. */
     public static final int MOST_NUDGE = 30;
+    /** How far the least and the most curious pet explores, in blocks. */
+    public static final double LEAST_WANDER = 3;
+    public static final double MOST_WANDER = 12;
     /** How much one trait at its extreme changes what it governs. */
     private static final double SWAY = 0.15;
 
@@ -20,7 +23,9 @@ public record Temperament(int innateCourage, int innateEnergy, int innateTemper,
         /** Low: slow. High: quick. */
         ENERGY,
         /** Low: gentle, heals more. High: hits harder. */
-        TEMPER
+        TEMPER,
+        /** Low: stays close. High: explores far and often while you stand about. */
+        CURIOSITY
     }
 
     public Temperament {
@@ -30,10 +35,13 @@ public record Temperament(int innateCourage, int innateEnergy, int innateTemper,
         nudgeCourage = clamp(nudgeCourage, MOST_NUDGE);
         nudgeEnergy = clamp(nudgeEnergy, MOST_NUDGE);
         nudgeTemper = clamp(nudgeTemper, MOST_NUDGE);
+        innateCuriosity = clamp(innateCuriosity, 100);
+        nudgeCuriosity = clamp(nudgeCuriosity, MOST_NUDGE);
     }
 
     public static Temperament of(Personality personality) {
-        return new Temperament(personality.courage(), personality.energy(), personality.temper(), 0, 0, 0);
+        return new Temperament(personality.courage(), personality.energy(), personality.temper(), 0, 0, 0,
+                personality.curiosity(), 0);
     }
 
     /** Born near one personality, picked at random, with some scatter of its own. */
@@ -41,7 +49,7 @@ public record Temperament(int innateCourage, int innateEnergy, int innateTemper,
         Personality[] all = Personality.values();
         Personality around = all[random.nextInt(all.length)];
         return new Temperament(around.courage() + scatter(random), around.energy() + scatter(random),
-                around.temper() + scatter(random), 0, 0, 0);
+                around.temper() + scatter(random), 0, 0, 0, around.curiosity() + scatter(random), 0);
     }
 
     private static int scatter(Random random) {
@@ -60,18 +68,34 @@ public record Temperament(int innateCourage, int innateEnergy, int innateTemper,
         return clamp(innateTemper + nudgeTemper, 100);
     }
 
+    public int curiosity() {
+        return clamp(innateCuriosity + nudgeCuriosity, 100);
+    }
+
     public Personality personality() {
-        return Personality.nearest(courage(), energy(), temper());
+        return Personality.nearest(courage(), energy(), temper(), curiosity());
+    }
+
+    /** How far it explores while its owner stands about. */
+    public double wanderRadius() {
+        return LEAST_WANDER + (MOST_WANDER - LEAST_WANDER) * (curiosity() + 100) / 200.0;
+    }
+
+    /** How eagerly, 0.05 to 1. */
+    public double wanderEagerness() {
+        return Math.max(0.05, (curiosity() + 100) / 200.0);
     }
 
     public Temperament nudge(Trait trait, int by) {
         return switch (trait) {
             case COURAGE -> new Temperament(innateCourage, innateEnergy, innateTemper, nudgeCourage + by,
-                    nudgeEnergy, nudgeTemper);
+                    nudgeEnergy, nudgeTemper, innateCuriosity, nudgeCuriosity);
             case ENERGY -> new Temperament(innateCourage, innateEnergy, innateTemper, nudgeCourage,
-                    nudgeEnergy + by, nudgeTemper);
+                    nudgeEnergy + by, nudgeTemper, innateCuriosity, nudgeCuriosity);
             case TEMPER -> new Temperament(innateCourage, innateEnergy, innateTemper, nudgeCourage, nudgeEnergy,
-                    nudgeTemper + by);
+                    nudgeTemper + by, innateCuriosity, nudgeCuriosity);
+            case CURIOSITY -> new Temperament(innateCourage, innateEnergy, innateTemper, nudgeCourage, nudgeEnergy,
+                    nudgeTemper, innateCuriosity, nudgeCuriosity + by);
         };
     }
 

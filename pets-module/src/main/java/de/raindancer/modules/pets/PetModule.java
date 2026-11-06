@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PetModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.1.0")
+    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.2.0")
             .describedAs("Pets that fight beside you: follow, defend, level up, can be ridden, and come back after "
                     + "a knock-out")
             .by("Raindancer118");
@@ -100,6 +100,11 @@ public final class PetModule implements FlexModule {
             public void pet(Player viewer, Pet pet) {
                 new PetMenu(built[0], viewer, null, pet.id()).open();
             }
+
+            @Override
+            public void particles(Player viewer, Pet pet) {
+                new de.raindancer.modules.pets.screen.PetParticleMenu(built[0], viewer, null, pet.id()).open();
+            }
         };
         PetHooks hooks = new PetHooks(collection, experience, context.core().messages(), server::getPlayer,
                 screens::collection, clock, now);
@@ -116,7 +121,12 @@ public final class PetModule implements FlexModule {
             hooks.settings(fresh);
         });
 
-        activities = Activities.listen(context.plugin(), unlocks::did);
+        activities = Activities.listen(context.plugin(), (player, activity) -> {
+            unlocks.did(player, activity);
+            if (activity.kind() == de.raindancer.core.world.activity.ActivityKind.EXPLORE) {
+                experience.explored(summoning.of(player.getUniqueId()));
+            }
+        });
         context.listener(new PetSessionListener(built[0]));
         for (Player online : server.getOnlinePlayers()) {
             collection.load(online.getUniqueId());

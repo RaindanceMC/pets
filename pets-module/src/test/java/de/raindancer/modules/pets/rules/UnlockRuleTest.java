@@ -103,4 +103,25 @@ class UnlockRuleTest {
         assertThat(rule.judge(species(Unlock.buy("0")), facts(false, false, false, 0)).state())
                 .isEqualTo(UnlockRule.State.CLAIMABLE);
     }
+
+    @Test
+    @DisplayName("an unlock with several parts opens only once every part is done")
+    void everyPart() {
+        Unlock everyBoss = Unlock.earnAll(java.util.List.of(
+                new de.raindancer.modules.pets.model.Requirement(ActivityKind.BOSS, "ENDER_DRAGON", 1),
+                new de.raindancer.modules.pets.model.Requirement(ActivityKind.BOSS, "WITHER", 1),
+                new de.raindancer.modules.pets.model.Requirement(ActivityKind.RAID, "", 1)));
+        Species dragon = species(everyBoss);
+        UnlockRule.Verdict halfway = rule.judge(dragon,
+                new UnlockRule.Facts(false, false, false, java.util.List.of(1L, 0L, 1L)));
+        assertThat(halfway.state()).isEqualTo(UnlockRule.State.LOCKED);
+        assertThat(halfway.parts()).hasSize(3);
+        assertThat(halfway.parts().get(1).done()).isZero();
+        assertThat(rule.judge(dragon, new UnlockRule.Facts(false, false, false, java.util.List.of(1L, 2L, 1L))).state())
+                .isEqualTo(UnlockRule.State.CLAIMABLE);
+        assertThat(everyBoss.matching(ActivityKind.BOSS, "wither")).containsExactly(1);
+        assertThat(everyBoss.matching(ActivityKind.RAID, "anything")).containsExactly(2);
+        assertThat(Unlock.progressKey("ender_dragon", 0)).isEqualTo("ender_dragon");
+        assertThat(Unlock.progressKey("ender_dragon", 2)).isEqualTo("ender_dragon#2");
+    }
 }

@@ -30,7 +30,7 @@ final class PetLook {
                 + pet.personality().blurb());
         Temperament nature = pet.temperament();
         lore.add("<dark_gray>Courage " + nature.courage() + " · Energy " + nature.energy() + " · Temper "
-                + nature.temper());
+                + nature.temper() + " · Curiosity " + nature.curiosity());
         lore.add("<gray>Mode: <white>" + pet.mode().title());
         return lore;
     }

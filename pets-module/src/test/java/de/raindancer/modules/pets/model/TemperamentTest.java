@@ -50,9 +50,9 @@ class TemperamentTest {
     @Test
     @DisplayName("traits never leave −100…100, however born and however nudged")
     void clamped() {
-        Temperament wild = new Temperament(100, 100, 100, 0, 0, 0).nudge(Temperament.Trait.TEMPER, 30);
+        Temperament wild = new Temperament(100, 100, 100, 0, 0, 0, 0, 0).nudge(Temperament.Trait.TEMPER, 30);
         assertThat(wild.temper()).isEqualTo(100);
-        assertThat(new Temperament(500, -500, 0, 0, 0, 0).innateCourage()).isEqualTo(100);
+        assertThat(new Temperament(500, -500, 0, 0, 0, 0, 0, 0).innateCourage()).isEqualTo(100);
     }
 
     @Test
@@ -83,5 +83,18 @@ class TemperamentTest {
     void fleeing() {
         assertThat(Temperament.of(Personality.TIMID).fleesBelow()).isGreaterThan(0.2);
         assertThat(Temperament.of(Personality.BRAVE).fleesBelow()).isZero();
+    }
+
+    @Test
+    @DisplayName("a curious pet explores further and more eagerly than an incurious one")
+    void curiosity() {
+        Temperament curious = Temperament.of(Personality.CURIOUS);
+        Temperament lazy = Temperament.of(Personality.LAZY);
+        assertThat(curious.curiosity()).isGreaterThan(50);
+        assertThat(curious.wanderRadius()).isGreaterThan(lazy.wanderRadius());
+        assertThat(curious.wanderEagerness()).isGreaterThan(lazy.wanderEagerness());
+        assertThat(lazy.wanderRadius()).isGreaterThanOrEqualTo(Temperament.LEAST_WANDER);
+        assertThat(curious.wanderRadius()).isLessThanOrEqualTo(Temperament.MOST_WANDER);
+        assertThat(curious.nudge(Temperament.Trait.CURIOSITY, 500).nudgeCuriosity()).isEqualTo(Temperament.MOST_NUDGE);
     }
 }

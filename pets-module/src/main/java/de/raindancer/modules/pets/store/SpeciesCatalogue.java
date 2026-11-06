@@ -43,7 +43,7 @@ import java.util.function.Supplier;
  *     size: 0.35             # player heights, 0.15 to 0.6; always smaller than the wild mob
  *     flies: false
  *     baby: true
- *     unlock: earn forage 150   # free | earn &lt;activity&gt; [thing] &lt;count&gt; | buy &lt;price&gt; | permission | supporter
+ *     unlock: earn forage 150   # free | earn &lt;activity&gt; [thing] &lt;count&gt; [+ more parts] | buy &lt;price&gt; | permission | supporter
  *     blurb: Quick and sly.
  *     missile: SNOWBALL      # a ranged pet's: SNOWBALL, LLAMA_SPIT, SMALL_FIREBALL, WITHER_SKULL, WIND_CHARGE, ARROW,
  *                            # SHULKER_BULLET, DRAGON_FIREBALL — none of them breaks or burns anything
@@ -159,6 +159,25 @@ public final class SpeciesCatalogue {
         return value;
     }
 
+    private static de.raindancer.modules.pets.model.Requirement requirement(String[] words) {
+        if (words.length < 2) {
+            throw new IllegalArgumentException("each part of earn is what and how often: boss wither 3");
+        }
+        ActivityKind kind;
+        try {
+            kind = ActivityKind.valueOf(words[0].toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException unknown) {
+            throw new IllegalArgumentException("'" + words[0] + "' is not something players do");
+        }
+        long count;
+        try {
+            count = Long.parseLong(words[words.length - 1]);
+        } catch (NumberFormatException notANumber) {
+            throw new IllegalArgumentException("each part of earn ends in a number: boss wither 3");
+        }
+        return new de.raindancer.modules.pets.model.Requirement(kind, words.length >= 3 ? words[1] : "", count);
+    }
+
     static Unlock unlock(String written) {
         String[] words = written.trim().split("\\s+");
         String way = words[0].toLowerCase(Locale.ROOT);
@@ -179,22 +198,15 @@ public final class SpeciesCatalogue {
                 return Unlock.buy(words[1]);
             }
             case "earn" -> {
-                if (words.length < 3) {
+                String rest = written.trim().substring(4).trim();
+                if (rest.isEmpty()) {
                     throw new IllegalArgumentException("earn needs what and how often: earn forage 150");
                 }
-                ActivityKind kind;
-                try {
-                    kind = ActivityKind.valueOf(words[1].toUpperCase(Locale.ROOT));
-                } catch (IllegalArgumentException unknown) {
-                    throw new IllegalArgumentException("'" + words[1] + "' is not something players do");
+                java.util.List<de.raindancer.modules.pets.model.Requirement> needs = new java.util.ArrayList<>();
+                for (String part : rest.split("\\+")) {
+                    needs.add(requirement(part.trim().split("\\s+")));
                 }
-                long count;
-                try {
-                    count = Long.parseLong(words[words.length - 1]);
-                } catch (NumberFormatException notANumber) {
-                    throw new IllegalArgumentException("earn ends in a number: earn forage 150");
-                }
-                return words.length >= 4 ? Unlock.earn(kind, words[2], count) : Unlock.earn(kind, count);
+                return Unlock.earnAll(needs);
             }
             default -> throw new IllegalArgumentException("unlock '" + written
                     + "' is not free, earn …, buy …, permission or supporter");

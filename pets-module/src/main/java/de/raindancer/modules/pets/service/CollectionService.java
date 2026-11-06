@@ -156,8 +156,13 @@ public final class CollectionService implements IPetService {
 
     public UnlockRule.Verdict verdict(Player player, Species species) {
         UUID owner = player.getUniqueId();
+        Map<String, Long> done = of(owner).progress();
+        List<Long> progress = new ArrayList<>();
+        for (int part = 0; part < species.unlock().needs().size(); part++) {
+            progress.add(done.getOrDefault(de.raindancer.modules.pets.model.Unlock.progressKey(species.id(), part), 0L));
+        }
         return unlocks.judge(species, new UnlockRule.Facts(owns(owner, species.id()), isSupporter(player),
-                player.hasPermission(species.permission()), of(owner).progress().getOrDefault(species.id(), 0L)));
+                player.hasPermission(species.permission()), progress));
     }
 
     public boolean knows(Player player, Species species) {
@@ -234,24 +239,24 @@ public final class CollectionService implements IPetService {
     }
 
     /**
-     * Counts something a player did towards a species.
+     * Counts something a player did towards one part of earning a species.
      *
-     * @return whether this was the time it opened
+     * @return whether this was the time the whole species opened
      */
-    public boolean addProgress(UUID owner, Species species, long amount) {
+    public boolean addProgress(Player player, Species species, int part, long amount) {
+        UUID owner = player.getUniqueId();
         if (amount <= 0 || !loaded(owner)) {
             return false;
         }
-        long[] before = new long[1];
+        boolean before = verdict(player, species).state() == UnlockRule.State.CLAIMABLE;
+        String key = de.raindancer.modules.pets.model.Unlock.progressKey(species.id(), part);
         held.computeIfPresent(owner, (who, holdings) -> {
             Map<String, Long> progress = new HashMap<>(holdings.progress());
-            before[0] = progress.getOrDefault(species.id(), 0L);
-            progress.put(species.id(), before[0] + amount);
+            progress.merge(key, amount, Long::sum);
             return new Holdings(holdings.pets(), progress, holdings.seen());
         });
-        async.accept(() -> store.addProgress(owner, species.id(), amount));
-        long needed = species.unlock().count();
-        return before[0] < needed && before[0] + amount >= needed;
+        async.accept(() -> store.addProgress(owner, key, amount));
+        return !before && verdict(player, species).state() == UnlockRule.State.CLAIMABLE;
     }
 
     /** @return whether it was new to them */

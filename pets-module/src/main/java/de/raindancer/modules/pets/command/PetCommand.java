@@ -101,6 +101,10 @@ public final class PetCommand implements IPetCommand {
                 live.care().rename(player, pet, String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
             }
             case "particle" -> {
+                if (args.length == 2) {
+                    live.screens().particles(player, pet);
+                    return;
+                }
                 String particle = args.length > 2 && !args[2].equalsIgnoreCase("off")
                         ? args[2].toUpperCase(Locale.ROOT) : "";
                 de.raindancer.core.ui.effect.ParticleShape shape = args.length > 3

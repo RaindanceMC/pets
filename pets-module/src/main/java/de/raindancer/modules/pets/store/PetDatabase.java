@@ -21,7 +21,9 @@ public final class PetDatabase {
             "ALTER TABLE pets ADD COLUMN style TEXT NOT NULL DEFAULT ''",
             "CREATE TABLE seen (owner TEXT NOT NULL, species TEXT NOT NULL, PRIMARY KEY (owner, species))",
             "ALTER TABLE pets ADD COLUMN particle TEXT NOT NULL DEFAULT ''",
-            "ALTER TABLE pets ADD COLUMN particle_shape TEXT NOT NULL DEFAULT 'AURA'");
+            "ALTER TABLE pets ADD COLUMN particle_shape TEXT NOT NULL DEFAULT 'AURA'",
+            "ALTER TABLE pets ADD COLUMN curiosity INTEGER NOT NULL DEFAULT 0",
+            "ALTER TABLE pets ADD COLUMN nudge_curiosity INTEGER NOT NULL DEFAULT 0");
 
     private PetDatabase() {
     }

@@ -35,7 +35,8 @@ sections:
     title: Levels and personality
     text: |
       Every monster it finishes off brings experience, up to level {setting:pets:pets.highest-level|count}; each level adds health and bite.
-      Every pet is born with a personality — brave, timid, playful, lazy, fierce, gentle, cheeky, stoic or balanced — that changes how hard it hits, how fast it runs and how long it lasts. Fighting together makes it bolder and wilder, riding livelier, treats gentler (hold food and right-click it). It bends, but only so far.
+      Every pet is born with a personality — brave, timid, playful, lazy, fierce, gentle, cheeky, stoic, curious or balanced — that changes how hard it hits, how fast it runs, how long it lasts and how far it wanders. Fighting together makes it bolder and wilder, riding livelier, treats gentler (hold food and right-click it), finding new places with you more curious. It bends, but only so far.
+      Whenever you stand about, or have told it to stay, your pet goes exploring nearby — a curious one far and often, an incurious one hardly at all.
   - question: Can I name my pet?
     title: Names
     text: |

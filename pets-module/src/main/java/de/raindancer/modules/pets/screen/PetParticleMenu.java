@@ -1,30 +1,32 @@
 package de.raindancer.modules.pets.screen;
 
+import de.raindancer.core.ui.choose.ParticleCatalogue;
+import de.raindancer.core.ui.choose.ParticleChooser;
 import de.raindancer.core.ui.effect.ParticleShape;
 import de.raindancer.core.ui.menu.Icons;
 import de.raindancer.core.ui.menu.Menu;
-import de.raindancer.core.ui.menu.PaginatedMenu;
+import de.raindancer.core.ui.menu.MenuLayout;
 import de.raindancer.modules.pets.PetServices;
 import de.raindancer.modules.pets.model.Pet;
 import de.raindancer.modules.pets.service.CareService;
+import de.raindancer.modules.pets.service.SummonService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
-/** A particle effect for one pet — any the owner may wear themselves — and the shape it is worn in. */
-public final class PetParticleMenu extends PaginatedMenu<String> implements IPetScreen {
+/**
+ * A pet's particle effect, laid out like the cosmetics page: Core's particle chooser (groups, a preview on a left
+ * click) holding only what the owner may wear themselves, what it wears now, taking it off, and the shapes that fit
+ * a small body.
+ */
+public final class PetParticleMenu extends Menu implements IPetScreen {
 
     private static final MiniMessage MINI = MiniMessage.miniMessage();
-    private static final String NONE = "";
 
     private final PetServices services;
     private final UUID petId;
@@ -41,7 +43,7 @@ public final class PetParticleMenu extends PaginatedMenu<String> implements IPet
 
     @Override
     protected Component title() {
-        return MINI.deserialize("<dark_gray>Particles for " + pet().map(Pet::name).orElse("your pet"));
+        return MINI.deserialize("<dark_gray>Particles");
     }
 
     @Override
@@ -50,56 +52,62 @@ public final class PetParticleMenu extends PaginatedMenu<String> implements IPet
     }
 
     @Override
-    protected List<String> entries() {
-        List<String> all = new ArrayList<>();
-        all.add(NONE);
-        all.addAll(services.care().particlesOf(viewer));
-        return all;
-    }
-
-    @Override
-    protected ItemStack emptyIcon() {
-        return Icons.of(Material.BARRIER, "<gray>No particles", "<gray>You may not wear any yet — see /cosmetics.");
-    }
-
-    @Override
-    protected ItemStack icon(String particle) {
-        boolean worn = pet().map(now -> now.particle().equals(particle)).orElse(false);
-        if (particle.isEmpty()) {
-            return Icons.of(Material.GLASS_BOTTLE, "<white>None", "<gray>No particles on it.", "",
-                    worn ? "<green>Worn now." : "<yellow>Click<gray> to take them off.");
+    protected void render() {
+        Pet pet = pet().orElse(null);
+        if (pet == null) {
+            band(MenuLayout.RULES, 4, Icons.of(Material.BARRIER, "<red>Gone", "<gray>This pet is not yours any more."));
+            return;
         }
-        return Icons.of(worn ? Material.GLOWSTONE_DUST : Material.BLAZE_POWDER, "<white>" + readable(particle),
-                "<gray>One of the effects you may wear.", "",
-                worn ? "<green>Worn now." : "<yellow>Click<gray> to put it on.");
-    }
+        List<String> mine = services.care().particlesOf(viewer);
+        ParticleShape shape = SummonService.shape(pet.particleShape());
+        boolean wearing = !pet.particle().isEmpty();
 
-    private static String readable(String particle) {
-        String words = particle.toLowerCase(Locale.ROOT).replace('_', ' ');
-        return Character.toUpperCase(words.charAt(0)) + words.substring(1);
-    }
+        band(MenuLayout.WHO, 2, !mine.isEmpty(),
+                Icons.of(Material.BLAZE_POWDER, "<green>Pick a particle",
+                        "<gray>Any effect you may wear yourself.", "",
+                        "<dark_gray>Left-click one to see it, right-click to put it on."),
+                "You may not wear any particles yet — see /cosmetics",
+                click -> new ParticleChooser(viewer, services.brand(), this, "Pick a particle",
+                        particle -> pet().ifPresent(now -> services.care().particle(viewer, now, particle,
+                                SummonService.shape(now.particleShape()))),
+                        new ParticleCatalogue(() -> services.care().particlesOf(viewer))).open());
 
-    @Override
-    protected void onClick(String particle, InventoryClickEvent event) {
-        pet().ifPresentOrElse(now -> services.care().particle(viewer, now, particle,
-                        de.raindancer.modules.pets.service.SummonService.shape(now.particleShape())),
-                () -> services.messages().send(viewer, "pets.no-such-pet", "name", "?"));
-        refresh();
-    }
+        band(MenuLayout.WHO, 4, wearing
+                ? Icons.of(icon(pet.particle()), "<white>" + ParticleCatalogue.readable(pet.particle()),
+                        "<gray>" + shape.title() + ".", "<dark_gray>Worn around " + pet.name() + ".")
+                : Icons.of(Material.GLASS_BOTTLE, "<gray>No particle", "<dark_gray>Pick one on the left."));
 
-    @Override
-    protected void decorate() {
-        super.decorate();
-        ParticleShape shape = pet().map(now -> de.raindancer.modules.pets.service.SummonService.shape(now.particleShape()))
-                .orElse(ParticleShape.AURA);
-        List<ParticleShape> shapes = CareService.shapes();
-        ParticleShape next = shapes.get((shapes.indexOf(shape) + 1) % shapes.size());
-        toolbar(4, Icons.of(Material.FIREWORK_STAR, "<white>Shape: " + shape.title(),
-                        "<gray>Wings are for players; a pet", "<gray>wears its effect closer.", "",
-                        "<yellow>Click<gray> for " + next.title() + "."),
+        band(MenuLayout.WHO, 6, wearing,
+                Icons.of(Material.BUCKET, "<white>Take it off", "<gray>No particle on " + pet.name() + " any more."),
+                "Not wearing one",
                 click -> {
-                    pet().ifPresent(now -> services.care().particle(viewer, now, now.particle(), next));
+                    pet().ifPresent(now -> services.care().particle(viewer, now, "", shape));
                     refresh();
                 });
+
+        int column = 2;
+        for (ParticleShape each : CareService.shapes()) {
+            boolean on = each == shape && wearing;
+            band(MenuLayout.RULES, column, wearing,
+                    Icons.of(on ? Material.LIME_DYE : Material.GRAY_DYE, (on ? "<green>" : "<white>") + each.title(),
+                            on ? "<green>Drawn like this now." : "<gray>Click to draw it like this."),
+                    "Pick a particle first",
+                    click -> {
+                        pet().ifPresent(now -> services.care().particle(viewer, now, now.particle(), each));
+                        refresh();
+                    });
+            column++;
+        }
+    }
+
+    private static Material icon(String particle) {
+        Material material = Material.matchMaterial(ParticleCatalogue.iconFor(particle));
+        return material == null ? Material.GLASS : material;
+    }
+
+    @Override
+    protected List<String> helpLines() {
+        return List.of("<gray>The particles you may wear yourself,", "<gray>worn around your pet.",
+                "<gray>Wings are for players: a pet wears", "<gray>its effect closer to its body.");
     }
 }

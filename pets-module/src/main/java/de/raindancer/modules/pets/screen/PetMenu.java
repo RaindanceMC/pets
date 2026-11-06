@@ -130,6 +130,7 @@ public final class PetMenu extends Menu implements IPetScreen {
         return List.of("<gray>Everything about one pet.",
                 "<gray>Its nature changes a little with how you treat it:",
                 "<gray>fighting together makes it bolder, riding livelier,",
-                "<gray>treats gentler.");
+                "<gray>treats gentler, exploring with you more curious.",
+                "<gray>Stand about and it goes exploring nearby.");
     }
 }
