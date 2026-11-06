@@ -1,0 +1,744 @@
+{
+ "height": 100,
+ "offset": [
+  0,
+  1.0,
+  1.5
+ ],
+ "parts": [
+  {
+   "name": "root",
+   "model": null,
+   "parent": null,
+   "pivot": [
+    0,
+    0,
+    -48
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1,
+   "motion": {
+    "kind": "root"
+   }
+  },
+  {
+   "name": "body",
+   "model": "rainspets:ender_dragon_body",
+   "parent": "root",
+   "pivot": [
+    0,
+    20,
+    8
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 0.475,
+   "motion": null
+  },
+  {
+   "name": "neck_0",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    20,
+    -12
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "neck",
+    "index": 0
+   }
+  },
+  {
+   "name": "neck_1",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    20,
+    -12
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "neck",
+    "index": 1
+   }
+  },
+  {
+   "name": "neck_2",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    20,
+    -12
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "neck",
+    "index": 2
+   }
+  },
+  {
+   "name": "neck_3",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    20,
+    -12
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "neck",
+    "index": 3
+   }
+  },
+  {
+   "name": "neck_4",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    20,
+    -12
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "neck",
+    "index": 4
+   }
+  },
+  {
+   "name": "head",
+   "model": "rainspets:ender_dragon_head",
+   "parent": "root",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 0.95,
+   "motion": {
+    "kind": "head"
+   }
+  },
+  {
+   "name": "jaw",
+   "model": "rainspets:ender_dragon_jaw",
+   "parent": "head",
+   "pivot": [
+    0,
+    4,
+    -8
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "jaw"
+   }
+  },
+  {
+   "name": "tail_0",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 0
+   }
+  },
+  {
+   "name": "tail_1",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 1
+   }
+  },
+  {
+   "name": "tail_2",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 2
+   }
+  },
+  {
+   "name": "tail_3",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 3
+   }
+  },
+  {
+   "name": "tail_4",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 4
+   }
+  },
+  {
+   "name": "tail_5",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 5
+   }
+  },
+  {
+   "name": "tail_6",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 6
+   }
+  },
+  {
+   "name": "tail_7",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 7
+   }
+  },
+  {
+   "name": "tail_8",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 8
+   }
+  },
+  {
+   "name": "tail_9",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 9
+   }
+  },
+  {
+   "name": "tail_10",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 10
+   }
+  },
+  {
+   "name": "tail_11",
+   "model": "rainspets:ender_dragon_segment",
+   "parent": "root",
+   "pivot": [
+    0,
+    10,
+    60
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "tail",
+    "index": 11
+   }
+  },
+  {
+   "name": "left_wing",
+   "model": "rainspets:ender_dragon_left_wing",
+   "parent": "body",
+   "pivot": [
+    12,
+    -15,
+    -6
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 0.393103,
+   "motion": {
+    "kind": "wing",
+    "side": 1
+   }
+  },
+  {
+   "name": "left_wing_tip",
+   "model": "rainspets:ender_dragon_left_wing_tip",
+   "parent": "left_wing",
+   "pivot": [
+    56,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 0.393103,
+   "motion": {
+    "kind": "wing_tip",
+    "side": 1
+   }
+  },
+  {
+   "name": "right_wing",
+   "model": "rainspets:ender_dragon_right_wing",
+   "parent": "body",
+   "pivot": [
+    -12,
+    -15,
+    -6
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 0.393103,
+   "motion": {
+    "kind": "wing",
+    "side": -1
+   }
+  },
+  {
+   "name": "right_wing_tip",
+   "model": "rainspets:ender_dragon_right_wing_tip",
+   "parent": "right_wing",
+   "pivot": [
+    -56,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "modelScale": 0.393103,
+   "motion": {
+    "kind": "wing_tip",
+    "side": -1
+   }
+  },
+  {
+   "name": "left_front_leg",
+   "model": "rainspets:ender_dragon_left_front_leg",
+   "parent": "body",
+   "pivot": [
+    12,
+    0,
+    -6
+   ],
+   "rotation": [
+    1.3,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "left_front_leg_tip",
+   "model": "rainspets:ender_dragon_left_front_leg_tip",
+   "parent": "left_front_leg",
+   "pivot": [
+    0,
+    20,
+    -1
+   ],
+   "rotation": [
+    -0.5,
+    0,
+    0
+   ],
+   "modelScale": 0.991304,
+   "motion": {
+    "kind": "leg",
+    "side": -1
+   }
+  },
+  {
+   "name": "left_front_foot",
+   "model": "rainspets:ender_dragon_left_front_foot",
+   "parent": "left_front_leg_tip",
+   "pivot": [
+    0,
+    23,
+    0
+   ],
+   "rotation": [
+    0.75,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "left_hind_leg",
+   "model": "rainspets:ender_dragon_left_hind_leg",
+   "parent": "body",
+   "pivot": [
+    16,
+    -4,
+    34
+   ],
+   "rotation": [
+    1.0,
+    0,
+    0
+   ],
+   "modelScale": 0.814286,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "left_hind_leg_tip",
+   "model": "rainspets:ender_dragon_left_hind_leg_tip",
+   "parent": "left_hind_leg",
+   "pivot": [
+    0,
+    32,
+    -4
+   ],
+   "rotation": [
+    0.5,
+    0,
+    0
+   ],
+   "modelScale": 0.76,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "left_hind_foot",
+   "model": "rainspets:ender_dragon_left_hind_foot",
+   "parent": "left_hind_leg_tip",
+   "pivot": [
+    0,
+    31,
+    4
+   ],
+   "rotation": [
+    0.75,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "right_front_leg",
+   "model": "rainspets:ender_dragon_right_front_leg",
+   "parent": "body",
+   "pivot": [
+    -12,
+    0,
+    -6
+   ],
+   "rotation": [
+    1.3,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "right_front_leg_tip",
+   "model": "rainspets:ender_dragon_right_front_leg_tip",
+   "parent": "right_front_leg",
+   "pivot": [
+    0,
+    20,
+    -1
+   ],
+   "rotation": [
+    -0.5,
+    0,
+    0
+   ],
+   "modelScale": 0.991304,
+   "motion": {
+    "kind": "leg",
+    "side": -1
+   }
+  },
+  {
+   "name": "right_front_foot",
+   "model": "rainspets:ender_dragon_right_front_foot",
+   "parent": "right_front_leg_tip",
+   "pivot": [
+    0,
+    23,
+    0
+   ],
+   "rotation": [
+    0.75,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "right_hind_leg",
+   "model": "rainspets:ender_dragon_right_hind_leg",
+   "parent": "body",
+   "pivot": [
+    -16,
+    -4,
+    34
+   ],
+   "rotation": [
+    1.0,
+    0,
+    0
+   ],
+   "modelScale": 0.814286,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "right_hind_leg_tip",
+   "model": "rainspets:ender_dragon_right_hind_leg_tip",
+   "parent": "right_hind_leg",
+   "pivot": [
+    0,
+    32,
+    -4
+   ],
+   "rotation": [
+    0.5,
+    0,
+    0
+   ],
+   "modelScale": 0.76,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  },
+  {
+   "name": "right_hind_foot",
+   "model": "rainspets:ender_dragon_right_hind_foot",
+   "parent": "right_hind_leg_tip",
+   "pivot": [
+    0,
+    31,
+    4
+   ],
+   "rotation": [
+    0.75,
+    0,
+    0
+   ],
+   "modelScale": 1.0,
+   "motion": {
+    "kind": "leg",
+    "side": 1
+   }
+  }
+ ]
+}

@@ -18,7 +18,7 @@ class UnlockRuleTest {
 
     private static Species species(Unlock unlock) {
         return new Species("fox", "Fox", "FOX", Role.FIGHTER, de.raindancer.modules.pets.model.Rarity.COMMON,
-                Material.SWEET_BERRIES, 16, 3, 1.2, 0.35, false, true, unlock, "Quick and sly.", "SNOWBALL");
+                Material.SWEET_BERRIES, 16, 3, 1.2, 0.35, false, true, unlock, "Quick and sly.", "SNOWBALL", "");
     }
 
     private static UnlockRule.Facts facts(boolean owned, boolean supporter, boolean granted, long progress) {
@@ -123,5 +123,16 @@ class UnlockRuleTest {
         assertThat(everyBoss.matching(ActivityKind.RAID, "anything")).containsExactly(2);
         assertThat(Unlock.progressKey("ender_dragon", 0)).isEqualTo("ender_dragon");
         assertThat(Unlock.progressKey("ender_dragon", 2)).isEqualTo("ender_dragon#2");
+    }
+
+    @Test
+    @DisplayName("only a species granted by name hands it out — a staff group's * does not hand out every pet")
+    void grantedByName() {
+        assertThat(UnlockRule.grants(java.util.Set.of("*"), "ender_dragon")).isFalse();
+        assertThat(UnlockRule.grants(java.util.Set.of("pets.*"), "ender_dragon")).isFalse();
+        assertThat(UnlockRule.grants(java.util.Set.of("pets.species.ender_dragon"), "ender_dragon")).isTrue();
+        assertThat(UnlockRule.grants(java.util.Set.of("Pets.Species.Ender_Dragon"), "ender_dragon")).isTrue();
+        assertThat(UnlockRule.grants(java.util.Set.of("pets.species.*"), "ender_dragon")).isTrue();
+        assertThat(UnlockRule.grants(java.util.Set.of("pets.species.wither"), "ender_dragon")).isFalse();
     }
 }

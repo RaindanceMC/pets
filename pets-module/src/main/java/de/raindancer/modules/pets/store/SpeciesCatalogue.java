@@ -149,7 +149,8 @@ public final class SpeciesCatalogue {
                 Math.max(0.05, Math.min(1.5, entry.getDouble("speed", 0.3))),
                 entry.getDouble("size", 0.4), entry.getBoolean("flies", false),
                 entry.getBoolean("baby", false), unlock,
-                entry.getString("blurb", ""), entry.getString("missile", "SNOWBALL").trim().toUpperCase(Locale.ROOT));
+                entry.getString("blurb", ""), entry.getString("missile", "SNOWBALL").trim().toUpperCase(Locale.ROOT),
+                entry.getString("rig", "").trim().toLowerCase(Locale.ROOT));
     }
 
     private static double positive(double value, String what) {

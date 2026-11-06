@@ -162,7 +162,18 @@ public final class CollectionService implements IPetService {
             progress.add(done.getOrDefault(de.raindancer.modules.pets.model.Unlock.progressKey(species.id(), part), 0L));
         }
         return unlocks.judge(species, new UnlockRule.Facts(owns(owner, species.id()), isSupporter(player),
-                player.hasPermission(species.permission()), progress));
+                UnlockRule.grants(granted(player), species.id()), progress));
+    }
+
+    /** The nodes this player was granted, as written — see {@link UnlockRule#grants}. */
+    private static java.util.Set<String> granted(Player player) {
+        java.util.Set<String> held = new java.util.HashSet<>();
+        for (org.bukkit.permissions.PermissionAttachmentInfo info : player.getEffectivePermissions()) {
+            if (info.getValue() && info.getPermission().startsWith("pets.species.")) {
+                held.add(info.getPermission());
+            }
+        }
+        return held;
     }
 
     public boolean knows(Player player, Species species) {

@@ -1,0 +1,301 @@
+{
+ "textures": {
+  "dragon": "minecraft:entity/enderdragon/dragon",
+  "particle": "minecraft:entity/enderdragon/dragon",
+  "wing": "rainspets:block/mini_dragon_wing",
+  "wing_tip": "rainspets:block/mini_dragon_wing_tip"
+ },
+ "elements": [
+  {
+   "from": [
+    2.3,
+    0.4,
+    0.4
+   ],
+   "to": [
+    13.7,
+    11.8,
+    30.8
+   ],
+   "faces": {
+    "down": {
+     "uv": [
+      4.0,
+      0.0,
+      5.5,
+      4.0
+     ],
+     "texture": "#dragon"
+    },
+    "up": {
+     "uv": [
+      5.5,
+      0.0,
+      7.0,
+      4.0
+     ],
+     "texture": "#dragon"
+    },
+    "west": {
+     "uv": [
+      0.0,
+      4.0,
+      4.0,
+      5.5
+     ],
+     "texture": "#dragon"
+    },
+    "north": {
+     "uv": [
+      4.0,
+      4.0,
+      5.5,
+      5.5
+     ],
+     "texture": "#dragon"
+    },
+    "east": {
+     "uv": [
+      5.5,
+      4.0,
+      9.5,
+      5.5
+     ],
+     "texture": "#dragon"
+    },
+    "south": {
+     "uv": [
+      9.5,
+      4.0,
+      11.0,
+      5.5
+     ],
+     "texture": "#dragon"
+    }
+   }
+  },
+  {
+   "from": [
+    7.525,
+    -2.45,
+    3.25
+   ],
+   "to": [
+    8.475,
+    0.4,
+    8.95
+   ],
+   "faces": {
+    "down": {
+     "uv": [
+      14.5,
+      3.3125,
+      14.625,
+      4.0625
+     ],
+     "texture": "#dragon"
+    },
+    "up": {
+     "uv": [
+      14.625,
+      3.3125,
+      14.75,
+      4.0625
+     ],
+     "texture": "#dragon"
+    },
+    "west": {
+     "uv": [
+      13.75,
+      4.0625,
+      14.5,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "north": {
+     "uv": [
+      14.5,
+      4.0625,
+      14.625,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "east": {
+     "uv": [
+      14.625,
+      4.0625,
+      15.375,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "south": {
+     "uv": [
+      15.375,
+      4.0625,
+      15.5,
+      4.4375
+     ],
+     "texture": "#dragon"
+    }
+   }
+  },
+  {
+   "from": [
+    7.525,
+    -2.45,
+    12.75
+   ],
+   "to": [
+    8.475,
+    0.4,
+    18.45
+   ],
+   "faces": {
+    "down": {
+     "uv": [
+      14.5,
+      3.3125,
+      14.625,
+      4.0625
+     ],
+     "texture": "#dragon"
+    },
+    "up": {
+     "uv": [
+      14.625,
+      3.3125,
+      14.75,
+      4.0625
+     ],
+     "texture": "#dragon"
+    },
+    "west": {
+     "uv": [
+      13.75,
+      4.0625,
+      14.5,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "north": {
+     "uv": [
+      14.5,
+      4.0625,
+      14.625,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "east": {
+     "uv": [
+      14.625,
+      4.0625,
+      15.375,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "south": {
+     "uv": [
+      15.375,
+      4.0625,
+      15.5,
+      4.4375
+     ],
+     "texture": "#dragon"
+    }
+   }
+  },
+  {
+   "from": [
+    7.525,
+    -2.45,
+    22.25
+   ],
+   "to": [
+    8.475,
+    0.4,
+    27.95
+   ],
+   "faces": {
+    "down": {
+     "uv": [
+      14.5,
+      3.3125,
+      14.625,
+      4.0625
+     ],
+     "texture": "#dragon"
+    },
+    "up": {
+     "uv": [
+      14.625,
+      3.3125,
+      14.75,
+      4.0625
+     ],
+     "texture": "#dragon"
+    },
+    "west": {
+     "uv": [
+      13.75,
+      4.0625,
+      14.5,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "north": {
+     "uv": [
+      14.5,
+      4.0625,
+      14.625,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "east": {
+     "uv": [
+      14.625,
+      4.0625,
+      15.375,
+      4.4375
+     ],
+     "texture": "#dragon"
+    },
+    "south": {
+     "uv": [
+      15.375,
+      4.0625,
+      15.5,
+      4.4375
+     ],
+     "texture": "#dragon"
+    }
+   }
+  }
+ ],
+ "display": {
+  "fixed": {
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "translation": [
+    0,
+    0,
+    0
+   ],
+   "scale": [
+    1,
+    1,
+    1
+   ]
+  }
+ }
+}

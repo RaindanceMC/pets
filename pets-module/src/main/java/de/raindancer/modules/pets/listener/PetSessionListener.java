@@ -26,6 +26,9 @@ public final class PetSessionListener implements IPetListener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        if (!de.raindancer.modules.pets.service.CareService.SEE_OTHERS.isOn(player)) {
+            services.summoning().companions().seeOthers(player, false);
+        }
         services.collection().load(player.getUniqueId()).thenAccept(holdings ->
                 Scheduling.entityLater(services.plugin(), player, 20, () -> {
                     if (!player.isOnline()) {

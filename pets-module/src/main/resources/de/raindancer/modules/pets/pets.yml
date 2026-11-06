@@ -13,6 +13,8 @@
 #             tame explore travel raid trade enchant …  ("earn boss ender_dragon 1": slay the dragon once)
 #             Whatever the way, pets.species.<id> hands the species to a rank.
 #   missile:  what a ranged pet throws — none of them breaks or burns anything
+#   rig:      drawn as a model shipped with the plugin instead of the mob (ender_dragon: the client draws the
+#             real dragon at full size whatever its size says)
 species:
 
   # ------------------------------------------------------------------ common
@@ -416,6 +418,7 @@ species:
   ender_dragon:
     title: Ender Dragon
     mob: ENDER_DRAGON
+    rig: ender_dragon
     size: 0.6
     role: fighter
     rarity: mythic

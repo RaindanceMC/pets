@@ -46,6 +46,8 @@ public final class SummonService implements IPetService {
     private volatile PetSettings settings;
     private volatile Levels levels;
     private volatile Function<OutPet, CompanionHooks> hooks = out -> new CompanionHooks() { };
+    private final de.raindancer.modules.pets.store.RigCatalogue rigs = new de.raindancer.modules.pets.store.RigCatalogue(
+            path -> SummonService.class.getResourceAsStream("/de/raindancer/modules/pets/" + path));
 
     public SummonService(Plugin plugin, CompanionService companions, CollectionService collection, Clock clock,
                          PetSettings settings) {
@@ -114,7 +116,10 @@ public final class SummonService implements IPetService {
         } catch (IllegalArgumentException unknown) {
             missile = EntityType.SNOWBALL;
         }
-        return CompanionSpec.of(EntityType.valueOf(species.entityType()))
+        java.util.Optional<de.raindancer.core.world.companion.Rig> rig = rigs.find(species.rig());
+        // a rig is carried by an invisible allay: flies, the client scales it, and nothing of it glows through
+        EntityType body = rig.isPresent() ? EntityType.ALLAY : EntityType.valueOf(species.entityType());
+        return CompanionSpec.of(body)
                 .height(species.size())
                 .flies(species.flies())
                 .baby(species.baby())
@@ -129,7 +134,9 @@ public final class SummonService implements IPetService {
                 .attackTicks((int) Math.round((species.role().fighting() == Fighting.RANGED ? 30 : 20) / speedFactor))
                 .name(name(pet, settings.ownerInName() ? ownerName : ""))
                 .particle(pet.particle(), shape(pet.particleShape()))
-                .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness());
+                .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness())
+                .rig(rig.orElse(null))
+                .silent(pet.muted());
     }
 
     public static de.raindancer.core.ui.effect.ParticleShape shape(String name) {

@@ -79,6 +79,22 @@ public final class CareService implements IPetService {
         messages.send(player, staying ? "pets.staying" : "pets.following", "name", pet.name());
     }
 
+    /** Mutes a pet for everybody, or lets it be heard again. */
+    public void mute(Player player, Pet pet) {
+        Pet changed = experience.keep(pet.withMuted(!pet.muted()));
+        messages.send(player, changed.muted() ? "pets.muted" : "pets.unmuted", "name", pet.name());
+    }
+
+    /** Whether this player sees other players' pets — kept with them, on every server. */
+    public static final de.raindancer.core.ui.profile.PlayerSwitch SEE_OTHERS =
+            new de.raindancer.core.ui.profile.PlayerSwitch("rainspets", "see-others-pets", true);
+
+    public void toggleOthers(Player player) {
+        boolean see = SEE_OTHERS.toggle(player);
+        summoning.companions().seeOthers(player, see);
+        messages.send(player, see ? "pets.others-shown" : "pets.others-hidden");
+    }
+
     public void mode(Player player, Pet pet, Mode mode) {
         experience.keep(pet.withMode(mode));
         messages.send(player, "pets.mode-set", "name", pet.name(), "mode", mode.title());

@@ -1,0 +1,97 @@
+{
+ "textures": {
+  "dragon": "minecraft:entity/enderdragon/dragon",
+  "particle": "minecraft:entity/enderdragon/dragon",
+  "wing": "rainspets:block/mini_dragon_wing",
+  "wing_tip": "rainspets:block/mini_dragon_wing_tip"
+ },
+ "elements": [
+  {
+   "from": [
+    3.44,
+    6.48,
+    8.0
+   ],
+   "to": [
+    12.56,
+    30.8,
+    17.12
+   ],
+   "faces": {
+    "down": {
+     "uv": [
+      13.0,
+      0.0,
+      13.75,
+      0.75
+     ],
+     "texture": "#dragon"
+    },
+    "up": {
+     "uv": [
+      13.75,
+      0.0,
+      14.5,
+      0.75
+     ],
+     "texture": "#dragon"
+    },
+    "west": {
+     "uv": [
+      12.25,
+      0.75,
+      13.0,
+      2.75
+     ],
+     "texture": "#dragon"
+    },
+    "north": {
+     "uv": [
+      13.0,
+      0.75,
+      13.75,
+      2.75
+     ],
+     "texture": "#dragon"
+    },
+    "east": {
+     "uv": [
+      13.75,
+      0.75,
+      14.5,
+      2.75
+     ],
+     "texture": "#dragon"
+    },
+    "south": {
+     "uv": [
+      14.5,
+      0.75,
+      15.25,
+      2.75
+     ],
+     "texture": "#dragon"
+    }
+   }
+  }
+ ],
+ "display": {
+  "fixed": {
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "translation": [
+    0,
+    0,
+    0
+   ],
+   "scale": [
+    1,
+    1,
+    1
+   ]
+  }
+ }
+}

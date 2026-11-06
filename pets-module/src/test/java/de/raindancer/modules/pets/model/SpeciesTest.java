@@ -11,7 +11,7 @@ class SpeciesTest {
 
     private static Species sized(double size) {
         return new Species("x", "X", "WOLF", Role.FIGHTER, Rarity.COMMON, Material.BONE, 10, 2, 0.3, size, false,
-                false, Unlock.free(), "", "SNOWBALL");
+                false, Unlock.free(), "", "SNOWBALL", "");
     }
 
     @Test

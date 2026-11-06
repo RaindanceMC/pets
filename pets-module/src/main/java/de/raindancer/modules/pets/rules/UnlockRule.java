@@ -80,6 +80,22 @@ public final class UnlockRule implements IPetRule {
         };
     }
 
+    /**
+     * Whether these held nodes hand out a species: its own node, or {@code pets.species.*} — never a wider
+     * wildcard. A staff group with {@code *} answers yes to every hasPermission, which would hand them every pet,
+     * so the granted nodes are read as written (the same reason Core's NumberedLimit reads them).
+     */
+    public static boolean grants(java.util.Set<String> held, String species) {
+        String own = ("pets.species." + species).toLowerCase(java.util.Locale.ROOT);
+        for (String node : held) {
+            String lower = node.toLowerCase(java.util.Locale.ROOT);
+            if (lower.equals(own) || lower.equals("pets.species.*")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String describe() {
         return "whether a player may have a species";

@@ -14,15 +14,18 @@ import org.bukkit.Material;
  * @param flies      whether it flies when following and when ridden
  * @param baby       whether it is the young version, where the mob has one
  * @param missile    what a ranged pet throws, as Bukkit's {@code EntityType} name
+ * @param rig        drawn as this model (a rig shipped with the plugin) instead of its mob, empty for none — for a
+ *                   mob the client will not shrink, the ender dragon
  */
 public record Species(String id, String title, String entityType, Role role, Rarity rarity, Material icon,
                       double health, double damage, double speed, double size, boolean flies, boolean baby,
-                      Unlock unlock, String blurb, String missile) {
+                      Unlock unlock, String blurb, String missile, String rig) {
 
     public static final double SMALLEST = 0.15;
     public static final double LARGEST = 0.6;
 
     public Species {
+        rig = rig == null ? "" : rig;
         size = Math.max(SMALLEST, Math.min(LARGEST, size));
     }
 

@@ -121,6 +121,7 @@ public final class PetModule implements FlexModule {
             hooks.settings(fresh);
         });
 
+        offerPack(context);
         activities = Activities.listen(context.plugin(), (player, activity) -> {
             unlocks.did(player, activity);
             if (activity.kind() == de.raindancer.core.world.activity.ActivityKind.EXPLORE) {
@@ -133,6 +134,24 @@ public final class PetModule implements FlexModule {
         }
         PetCommands.ready(built[0]);
         log.info("Pets is up: {} species.", catalogue.all().size());
+    }
+
+    /** The mini ender dragon's models, into Core's resource pack. */
+    private void offerPack(ModuleContext context) {
+        String root = "/de/raindancer/modules/pets/pack/";
+        try (java.io.InputStream list = PetModule.class.getResourceAsStream(root + "files.txt")) {
+            if (list == null) {
+                return;
+            }
+            List<String> files = new String(list.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8).lines()
+                    .map(String::strip).filter(line -> !line.isEmpty()).toList();
+            de.raindancer.core.content.pack.JarPack.offer(context.plugin(), context.core().resourcePacks(),
+                    PetModule.class, root, files, "Pets", "models", "The mini ender dragon");
+            context.closeWith(() -> context.core().resourcePacks().withdraw("pets:models"));
+        } catch (java.io.IOException failure) {
+            log.warn("The pets' models could not be offered ({}); the ender dragon pet shows as nothing.",
+                    failure.getMessage());
+        }
     }
 
     @Override
