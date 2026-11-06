@@ -64,7 +64,7 @@ public final class UnlockRule implements IPetRule {
             case FREE -> Verdict.of(State.CLAIMABLE);
             case SUPPORTER -> Verdict.of(facts.supporter() ? State.CLAIMABLE : State.SUPPORTERS_ONLY);
             case PERMISSION -> Verdict.of(State.RANK_ONLY);
-            case EARN -> {
+            case EARN, DROP -> {
                 List<Part> parts = new ArrayList<>();
                 List<de.raindancer.modules.pets.model.Requirement> needs = species.unlock().needs();
                 for (int i = 0; i < needs.size(); i++) {

@@ -53,12 +53,6 @@ class SpeciesCatalogueTest {
         assertThat(rarities).containsExactlyInAnyOrder(de.raindancer.modules.pets.model.Rarity.values());
         // the client will not shrink an ender dragon, so there is no dragon pet
         assertThat(all).extracting(Species::id).contains("wither", "warden").doesNotContain("ender_dragon");
-        Species mythicWither = all.stream().filter(s -> s.id().equals("wither")).findFirst().orElseThrow();
-        assertThat(mythicWither.unlock().needs()).extracting(de.raindancer.modules.pets.model.Requirement::what)
-                .contains("ENDER_DRAGON", "WITHER", "WARDEN", "ELDER_GUARDIAN");
-        for (Species mythic : all.stream().filter(s -> s.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC).toList()) {
-            assertThat(mythic.unlock().needs()).as(mythic.id()).hasSizeGreaterThanOrEqualTo(7);
-        }
         assertThat(all).filteredOn(Species::flies).hasSizeGreaterThanOrEqualTo(5);
         assertThat(all).filteredOn(species -> species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC)
                 .extracting(Species::id).contains("wither", "warden");
@@ -94,6 +88,44 @@ class SpeciesCatalogueTest {
                     assertThat(monsters).as(species.id() + " monsters of any kind").isGreaterThanOrEqualTo(15000);
                 }
                 default -> { }
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("drop: a mob that lets it fall, and how rarely — 1/800 or 0.125%")
+    void dropWritten() {
+        Unlock blaze = SpeciesCatalogue.unlock("drop monster blaze 1/800");
+        assertThat(blaze.way()).isEqualTo(Unlock.Way.DROP);
+        assertThat(blaze.what()).isEqualTo("BLAZE");
+        assertThat(blaze.activity()).isEqualTo(ActivityKind.MONSTER);
+        assertThat(blaze.chance()).isEqualTo(1.0 / 800);
+        assertThat(SpeciesCatalogue.unlock("drop boss wither 0.5%").chance()).isEqualTo(0.005);
+        for (String broken : List.of("drop", "drop monster blaze", "drop monster blaze 0", "drop monster blaze 2",
+                "drop monster blaze 1/0", "drop fish salmon 1/10", "drop monster blaze lots")) {
+            org.assertj.core.api.Assertions.assertThatThrownBy(() -> SpeciesCatalogue.unlock(broken)).as(broken)
+                    .isInstanceOf(IllegalArgumentException.class);
+        }
+    }
+
+    @Test
+    @DisplayName("legendary and mythic pets are only ever dropped (or given): a mythic once in a hundred boss kills or rarer")
+    void rarestDrop() {
+        List<Species> all = SpeciesCatalogue.read(shipped(), problem -> { });
+        for (Species species : all) {
+            Unlock.Way way = species.unlock().way();
+            if (species.rarity() == de.raindancer.modules.pets.model.Rarity.LEGENDARY
+                    || species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC) {
+                assertThat(way).as(species.id()).isIn(Unlock.Way.DROP, Unlock.Way.SUPPORTER, Unlock.Way.PERMISSION);
+            }
+            if (species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC && way == Unlock.Way.DROP) {
+                assertThat(species.unlock().activity()).as(species.id()).isEqualTo(ActivityKind.BOSS);
+                assertThat(species.unlock().chance()).as(species.id()).isLessThanOrEqualTo(0.01);
+            }
+            if (way == Unlock.Way.DROP) {
+                assertThat(species.unlock().what()).as(species.id() + " drops from its own kind")
+                        .isEqualTo(species.entityType());
+                assertThat(species.unlock().chance()).as(species.id()).isLessThanOrEqualTo(0.05);
             }
         }
     }

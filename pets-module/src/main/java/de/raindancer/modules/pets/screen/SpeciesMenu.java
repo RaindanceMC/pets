@@ -76,6 +76,13 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
             case CLAIMABLE -> lore.add("<yellow>Click<gray> to take it.");
             case BUYABLE -> lore.add("<yellow>Click<gray> to buy it for <white>" + Fees.format(verdict.price()) + "<gray>.");
             case LOCKED -> {
+                if (species.unlock().way() == de.raindancer.modules.pets.model.Unlock.Way.DROP) {
+                    String mob = species.unlock().what().toLowerCase(Locale.ROOT).replace('_', ' ');
+                    lore.add("<gray>Never earned, only found: now and then");
+                    lore.add("<gray>a slain " + mob + " lets one fall —");
+                    lore.add("<gray>about once in <white>" + Math.round(1 / species.unlock().chance()) + "<gray> kills.");
+                    break;
+                }
                 lore.add("<gray>Earned by " + (verdict.parts().size() > 1 ? "all of these" : "") + ":");
                 for (UnlockRule.Part part : verdict.parts()) {
                     long shown = Math.min(part.done(), part.requirement().count());

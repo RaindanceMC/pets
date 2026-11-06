@@ -8,6 +8,8 @@
 #   flies:    flies when following and when ridden            baby:   the young version, where there is one
 #   unlock:   free | earn <activity> [thing] <count> [+ <activity> [thing] <count> …] | buy <price> | permission | supporter
 #             With "+", every part has to be done: "earn boss wither 3 + raid 1".
+#             drop monster|boss <mob> 1/<n>: never earned, only found — one kill in about n of that mob lets it fall
+#             (spawner mobs never); a legendary or mythic one that falls is told to the whole server.
 #             Only common pets can be bought; anything rarer is earned, granted or a supporters' thank-you.
 #             activities: monster boss fish breed harvest mine dig excavate chop forage craft cook brew build
 #             tame explore travel raid trade enchant …  ("earn boss ender_dragon 1": slay the dragon once)
@@ -287,7 +289,7 @@ species:
     damage: 5.5
     speed: 0.5
     flies: true
-    unlock: earn monster phantom 200 + explore 150 + monster 1500
+    unlock: drop monster phantom 1/500
     blurb: Swoops out of the night — for you, for once.
   blaze:
     title: Blaze
@@ -301,7 +303,7 @@ species:
     speed: 0.36
     flies: true
     missile: SMALL_FIREBALL
-    unlock: earn monster blaze 400 + brew 300 + monster 1500
+    unlock: drop monster blaze 1/800
     blurb: Throws fire that burns only what it hits.
   hoglin:
     title: Hoglin
@@ -314,7 +316,7 @@ species:
     damage: 6
     speed: 0.34
     baby: true
-    unlock: earn monster hoglin 200 + explore 150 + monster 1500
+    unlock: drop monster hoglin 1/400
     blurb: Tusks first.
   vex:
     title: Vex
@@ -327,7 +329,7 @@ species:
     damage: 6
     speed: 0.48
     flies: true
-    unlock: earn monster vex 150 + raid 3 + monster 1500
+    unlock: drop monster vex 1/400
     blurb: Small, sharp and very, very loyal.
   sniffer:
     title: Sniffer
@@ -356,7 +358,7 @@ species:
     speed: 0.42
     flies: true
     missile: WIND_CHARGE
-    unlock: earn monster breeze 150 + boss elder_guardian 1 + raid 3 + monster 4000 + explore 250
+    unlock: drop monster breeze 1/600
     blurb: A gust that answers to you.
   ravager:
     title: Ravager
@@ -368,7 +370,7 @@ species:
     health: 80
     damage: 8
     speed: 0.32
-    unlock: earn raid 15 + monster ravager 30 + boss elder_guardian 1 + monster 4000 + explore 250
+    unlock: drop monster ravager 1/100
     blurb: The raid's beast, broken in.
   ghast:
     title: Ghast
@@ -382,7 +384,7 @@ species:
     speed: 0.38
     flies: true
     missile: SMALL_FIREBALL
-    unlock: earn monster ghast 150 + boss wither 1 + brew 200 + monster 4000 + explore 250
+    unlock: drop monster ghast 1/700
     blurb: Cries a lot. Hits hard.
   elder_guardian:
     title: Elder Guardian
@@ -396,7 +398,7 @@ species:
     speed: 0.32
     flies: true
     missile: SHULKER_BULLET
-    unlock: earn boss elder_guardian 8 + boss wither 1 + monster guardian 500 + monster 4000 + explore 250
+    unlock: drop boss elder_guardian 1/25
     blurb: An ocean monument's warden, floating at your side.
   happy_ghast:
     title: Happy Ghast
@@ -425,8 +427,8 @@ species:
     speed: 0.5
     flies: true
     missile: WITHER_SKULL
-    unlock: earn boss wither 10 + boss ender_dragon 3 + boss warden 3 + boss elder_guardian 5 + raid 20 + monster 15000 + explore 500 + travel 250000
-    blurb: For whoever has beaten every boss there is, and the Wither ten times. Three heads, all on your side.
+    unlock: drop boss wither 1/150
+    blurb: Once in a long while a slain Wither leaves one behind. Three heads, all on your side.
   warden:
     title: Warden
     mob: WARDEN
@@ -437,8 +439,8 @@ species:
     health: 160
     damage: 14
     speed: 0.32
-    unlock: earn boss warden 10 + boss ender_dragon 3 + boss wither 3 + boss elder_guardian 5 + raid 20 + monster 15000 + explore 500 + travel 250000
-    blurb: For whoever has beaten every boss there is, and the Warden ten times. It heard you were in trouble.
+    unlock: drop boss warden 1/150
+    blurb: Once in a long while a slain Warden leaves one behind. It heard you were in trouble.
 
   # ------------------------------------------------------------------ villagers, monsters and more
   cow:
@@ -655,7 +657,7 @@ species:
     health: 30
     damage: 6
     speed: 0.4
-    unlock: earn monster enderman 250 + explore 40
+    unlock: drop monster enderman 1/400
     blurb: Don't look it in the eyes. It is shy.
   piglin:
     title: Piglin
@@ -669,7 +671,7 @@ species:
     speed: 0.34
     baby: true
     missile: ARROW
-    unlock: earn monster piglin 150 + explore 40
+    unlock: drop monster piglin 1/300
     blurb: Works for gold. Fights for you.
   zombified_piglin:
     title: Zombified Piglin
@@ -682,7 +684,7 @@ species:
     damage: 5
     speed: 0.34
     baby: true
-    unlock: earn monster zombified_piglin 300 + explore 40
+    unlock: drop monster zombified_piglin 1/600
     blurb: Angry at everybody but you.
   wither_skeleton:
     title: Wither Skeleton
@@ -694,7 +696,7 @@ species:
     health: 28
     damage: 6
     speed: 0.34
-    unlock: earn monster wither_skeleton 200 + explore 40
+    unlock: drop monster wither_skeleton 1/300
     blurb: A dark blade at your back.
   bogged:
     title: Bogged
@@ -707,7 +709,7 @@ species:
     damage: 4
     speed: 0.32
     missile: ARROW
-    unlock: earn monster bogged 100 + explore 40
+    unlock: drop monster bogged 1/200
     blurb: Its arrows smell of swamp.
   strider:
     title: Strider
@@ -733,7 +735,7 @@ species:
     damage: 4.5
     speed: 0.32
     missile: ARROW
-    unlock: earn monster pillager 150 + raid 1
+    unlock: drop monster pillager 1/300
     blurb: Raids on your behalf now.
   vindicator:
     title: Vindicator
@@ -745,7 +747,7 @@ species:
     health: 26
     damage: 6
     speed: 0.34
-    unlock: earn monster vindicator 100 + raid 1
+    unlock: drop monster vindicator 1/150
     blurb: Its axe swings your way no more.
   guardian:
     title: Guardian
@@ -759,7 +761,7 @@ species:
     speed: 0.34
     flies: true
     missile: SHULKER_BULLET
-    unlock: earn monster guardian 200 + fish 200
+    unlock: drop monster guardian 1/400
     blurb: Floats beside you and stares down your foes.
   evoker:
     title: Evoker
@@ -772,7 +774,7 @@ species:
     damage: 6
     speed: 0.32
     missile: SHULKER_BULLET
-    unlock: earn monster evoker 50 + raid 5 + monster 1500
+    unlock: drop monster evoker 1/40
     blurb: Spells, at your service.
   piglin_brute:
     title: Piglin Brute
@@ -784,7 +786,7 @@ species:
     health: 40
     damage: 7
     speed: 0.34
-    unlock: earn monster piglin_brute 75 + explore 150 + monster 1500
+    unlock: drop monster piglin_brute 1/60
     blurb: The bastion's bouncer.
   zoglin:
     title: Zoglin
@@ -797,7 +799,7 @@ species:
     damage: 6.5
     speed: 0.34
     baby: true
-    unlock: earn monster zoglin 100 + monster hoglin 200 + monster 1500
+    unlock: drop monster zoglin 1/150
     blurb: Feral, fierce, yours.
   creaking:
     title: Creaking

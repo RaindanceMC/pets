@@ -124,4 +124,39 @@ class UnlockRuleTest {
         assertThat(Unlock.progressKey("ender_dragon", 0)).isEqualTo("ender_dragon");
         assertThat(Unlock.progressKey("ender_dragon", 2)).isEqualTo("ender_dragon#2");
     }
+
+    @Test
+    @DisplayName("a dropped pet: locked until its mob let it fall, then there to take")
+    void dropped() {
+        Unlock blaze = Unlock.drop(ActivityKind.MONSTER, "BLAZE", 1.0 / 800);
+        assertThat(blaze.way()).isEqualTo(Unlock.Way.DROP);
+        assertThat(blaze.chance()).isEqualTo(1.0 / 800);
+        assertThat(blaze.counts(ActivityKind.MONSTER, "blaze")).isTrue();
+        assertThat(blaze.counts(ActivityKind.MONSTER, "zombie")).isFalse();
+        assertThat(blaze.counts(ActivityKind.BOSS, "blaze")).isFalse();
+
+        UnlockRule.Verdict notYet = rule.judge(species(blaze), facts(false, false, false, 0));
+        assertThat(notYet.state()).isEqualTo(UnlockRule.State.LOCKED);
+        assertThat(rule.judge(species(blaze), facts(false, false, false, 1)).state())
+                .isEqualTo(UnlockRule.State.CLAIMABLE);
+    }
+
+    @Test
+    @DisplayName("a roll below the chance drops it, anything else does not")
+    void roll() {
+        Unlock wither = Unlock.drop(ActivityKind.BOSS, "WITHER", 0.01);
+        assertThat(wither.drops(0.0)).isTrue();
+        assertThat(wither.drops(0.0099)).isTrue();
+        assertThat(wither.drops(0.01)).isFalse();
+        assertThat(wither.drops(0.5)).isFalse();
+        assertThat(Unlock.earn(ActivityKind.BOSS, "WITHER", 1).drops(0.0)).as("only a drop drops").isFalse();
+    }
+
+    @Test
+    @DisplayName("a drop is kept apart from kills counted when the species was still earned, so old counts open nothing")
+    void dropKeptApart() {
+        assertThat(Unlock.drop(ActivityKind.MONSTER, "BLAZE", 0.001).keyFor("blaze", 0)).isEqualTo("blaze#dropped");
+        assertThat(Unlock.earn(ActivityKind.MONSTER, "BLAZE", 10).keyFor("blaze", 0)).isEqualTo("blaze");
+        assertThat(Unlock.earn(ActivityKind.MONSTER, "BLAZE", 10).keyFor("blaze", 2)).isEqualTo("blaze#2");
+    }
 }

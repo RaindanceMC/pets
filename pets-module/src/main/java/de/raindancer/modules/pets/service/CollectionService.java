@@ -159,7 +159,7 @@ public final class CollectionService implements IPetService {
         Map<String, Long> done = of(owner).progress();
         List<Long> progress = new ArrayList<>();
         for (int part = 0; part < species.unlock().needs().size(); part++) {
-            progress.add(done.getOrDefault(de.raindancer.modules.pets.model.Unlock.progressKey(species.id(), part), 0L));
+            progress.add(done.getOrDefault(species.unlock().keyFor(species.id(), part), 0L));
         }
         return unlocks.judge(species, new UnlockRule.Facts(owns(owner, species.id()), isSupporter(player),
                 player.hasPermission(species.permission()), progress));
@@ -249,7 +249,7 @@ public final class CollectionService implements IPetService {
             return false;
         }
         boolean before = verdict(player, species).state() == UnlockRule.State.CLAIMABLE;
-        String key = de.raindancer.modules.pets.model.Unlock.progressKey(species.id(), part);
+        String key = species.unlock().keyFor(species.id(), part);
         held.computeIfPresent(owner, (who, holdings) -> {
             Map<String, Long> progress = new HashMap<>(holdings.progress());
             progress.merge(key, amount, Long::sum);

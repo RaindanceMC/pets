@@ -14,7 +14,7 @@ sections:
   - question: How do I get a pet?
     title: Getting one
     text: |
-      {run:/pets species} shows every species, from common to mythic. Common ones are free or bought; everything rarer is earned by playing — fishing, foraging, slaying monsters, even a boss — given by a rank, or a thank-you for the server's supporters.
+      {run:/pets species} shows every species, from common to mythic. Common ones are free or bought; everything rarer is earned by playing — fishing, foraging, slaying monsters — given by a rank, or a thank-you for the server's supporters. The rarest are only ever found: once in a long while a blaze, a ravager or a wither lets its own kind fall for whoever slew it.
       Rarer pets stay a question mark until you have seen one out with somebody.
   - question: How do I call and send home my pet?
     title: Out and home

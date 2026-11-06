@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PetModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.5.0")
+    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.6.0")
             .describedAs("Pets that fight beside you: follow, defend, level up, can be ridden, and come back after "
                     + "a knock-out")
             .by("Raindancer118");
@@ -82,7 +82,8 @@ public final class PetModule implements FlexModule {
         PetNameRule names = new PetNameRule();
         CareService care = new CareService(collection, summoning, experience, names, context.core().messages(),
                 clock, now);
-        UnlockService unlocks = new UnlockService(collection, context.core().messages(), now);
+        UnlockService unlocks = new UnlockService(collection, context.core().messages(), now,
+                server::getOnlinePlayers, () -> java.util.concurrent.ThreadLocalRandom.current().nextDouble());
 
         PetServices[] built = new PetServices[1];
         IPetScreensOpener screens = new IPetScreensOpener() {

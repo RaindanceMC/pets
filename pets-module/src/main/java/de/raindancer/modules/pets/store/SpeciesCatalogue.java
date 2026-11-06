@@ -43,7 +43,7 @@ import java.util.function.Supplier;
  *     size: 0.35             # player heights, 0.15 to 0.6; always smaller than the wild mob
  *     flies: false
  *     baby: true
- *     unlock: earn forage 150   # free | earn &lt;activity&gt; [thing] &lt;count&gt; [+ more parts] | buy &lt;price&gt; | permission | supporter
+ *     unlock: earn forage 150   # free | earn &lt;activity&gt; [thing] &lt;count&gt; [+ more parts] | drop monster|boss &lt;mob&gt; 1/&lt;n&gt; | buy &lt;price&gt; | permission | supporter
  *     blurb: Quick and sly.
  *     missile: SNOWBALL      # a ranged pet's: SNOWBALL, LLAMA_SPIT, SMALL_FIREBALL, WITHER_SKULL, WIND_CHARGE, ARROW,
  *                            # SHULKER_BULLET, DRAGON_FIREBALL — none of them breaks or burns anything
@@ -208,8 +208,41 @@ public final class SpeciesCatalogue {
                 }
                 return Unlock.earnAll(needs);
             }
+            case "drop" -> {
+                return drop(words);
+            }
             default -> throw new IllegalArgumentException("unlock '" + written
-                    + "' is not free, earn …, buy …, permission or supporter");
+                    + "' is not free, earn …, drop …, buy …, permission or supporter");
         }
+    }
+
+    /** {@code drop monster blaze 1/800}, {@code drop boss wither 0.5%}. */
+    private static Unlock drop(String[] words) {
+        if (words.length != 4) {
+            throw new IllegalArgumentException("drop needs a monster or boss, which one and how rarely: drop monster blaze 1/800");
+        }
+        de.raindancer.core.world.activity.ActivityKind kind = switch (words[1].toLowerCase(Locale.ROOT)) {
+            case "monster" -> de.raindancer.core.world.activity.ActivityKind.MONSTER;
+            case "boss" -> de.raindancer.core.world.activity.ActivityKind.BOSS;
+            default -> throw new IllegalArgumentException("only a monster or a boss drops a pet, not " + words[1]);
+        };
+        double chance;
+        try {
+            String written = words[3];
+            if (written.endsWith("%")) {
+                chance = Double.parseDouble(written.substring(0, written.length() - 1)) / 100;
+            } else if (written.contains("/")) {
+                String[] split = written.split("/", 2);
+                chance = Double.parseDouble(split[0]) / Double.parseDouble(split[1]);
+            } else {
+                chance = Double.parseDouble(written);
+            }
+        } catch (NumberFormatException notANumber) {
+            throw new IllegalArgumentException("a drop's chance is written 1/800 or 0.125%, not " + words[3]);
+        }
+        if (!(chance > 0 && chance <= 1)) {
+            throw new IllegalArgumentException("a drop's chance lies above 0 and at most 1 in 1, not " + words[3]);
+        }
+        return Unlock.drop(kind, words[2], chance);
     }
 }

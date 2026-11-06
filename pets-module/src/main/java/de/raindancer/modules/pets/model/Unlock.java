@@ -9,9 +9,10 @@ import java.util.List;
  * How a species is had.
  *
  * @param needs for {@link Way#EARN}: every one of these, done often enough
- * @param price for {@link Way#BUY}: money as written, like {@code 2.5k}
+ * @param price  for {@link Way#BUY}: money as written, like {@code 2.5k}
+ * @param chance for {@link Way#DROP}: how likely one kill lets it fall, above 0 and at most 1
  */
-public record Unlock(Way way, List<Requirement> needs, String price) {
+public record Unlock(Way way, List<Requirement> needs, String price, double chance) {
 
     public enum Way {
         /** Anybody may take it. */
@@ -23,12 +24,18 @@ public record Unlock(Way way, List<Requirement> needs, String price) {
         /** Only given by a rank: {@code pets.species.<id>}. */
         PERMISSION,
         /** Kept for the server's supporters. */
-        SUPPORTER
+        SUPPORTER,
+        /** Now and then let fall by a mob a player slays: its one need is that mob, its chance how rarely. */
+        DROP
     }
 
     public Unlock {
         needs = needs == null ? List.of() : List.copyOf(needs);
         price = price == null ? "" : price.trim();
+    }
+
+    public Unlock(Way way, List<Requirement> needs, String price) {
+        this(way, needs, price, 0);
     }
 
     public static Unlock free() {
@@ -45,6 +52,15 @@ public record Unlock(Way way, List<Requirement> needs, String price) {
 
     public static Unlock earnAll(List<Requirement> needs) {
         return new Unlock(Way.EARN, needs, "");
+    }
+
+    public static Unlock drop(ActivityKind activity, String what, double chance) {
+        return new Unlock(Way.DROP, List.of(new Requirement(activity, what, 1)), "", chance);
+    }
+
+    /** Whether this roll (0 inclusive to 1 exclusive) of one kill lets it fall. */
+    public boolean drops(double roll) {
+        return way == Way.DROP && roll < chance;
     }
 
     public static Unlock buy(String price) {
@@ -80,7 +96,7 @@ public record Unlock(Way way, List<Requirement> needs, String price) {
     /** The parts doing this counts towards. */
     public List<Integer> matching(ActivityKind kind, String thing) {
         List<Integer> parts = new ArrayList<>();
-        if (way != Way.EARN) {
+        if (way != Way.EARN && way != Way.DROP) {
             return parts;
         }
         for (int i = 0; i < needs.size(); i++) {
@@ -89,6 +105,11 @@ public record Unlock(Way way, List<Requirement> needs, String price) {
             }
         }
         return parts;
+    }
+
+    /** Where this unlock keeps a part's progress — a drop apart, so kills once counted towards earning open nothing. */
+    public String keyFor(String species, int part) {
+        return way == Way.DROP ? species + "#dropped" : progressKey(species, part);
     }
 
     /** Where a part's progress is kept: the species itself for the first (as before parts existed). */

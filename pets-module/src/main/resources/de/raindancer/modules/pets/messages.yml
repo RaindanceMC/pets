@@ -36,6 +36,8 @@ pets:
   no-economy: "<red>Nothing can be bought here right now."
   not-loaded: "<yellow>Your pets are still being fetched — try again in a moment."
   earned: "<gold>✦ You earned the <white><species></white> <gray>(<rarity>)</gray>! Take it in <white>/pets species</white>."
+  dropped: "<gold>✦ What luck — the <white><species></white> <gray>(<rarity>)</gray> came out of that fight with you! Take it in <white>/pets species</white>."
+  dropped-for: "<gold>✦ <white><player></white> just found a <white><rarity></white> pet: the <white><species></white>!"
   discovered: "<aqua>You spotted a <white><rarity></white> pet: the <white><species></white>. It is in <white>/pets species</white> now."
   unknown-yet: "<gray>Nobody has shown you this pet yet."
   muted: "<gray><white><name></white> is quiet now."

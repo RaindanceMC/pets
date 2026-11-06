@@ -2,3 +2,5 @@
 pets:
   fed: "<green><white><name></white> was fed."
   adopted: "<green>The <white><species></white> <gray>(<rarity>)</gray> is yours. Call it from <white>/pets</white>."
+  dropped: "<gold>The <white><species></white> <gray>(<rarity>)</gray> dropped for you. Take it in <white>/pets species</white>."
+  dropped-for: "<gold><white><player></white> found the <white><species></white> <gray>(<rarity>)</gray>."
