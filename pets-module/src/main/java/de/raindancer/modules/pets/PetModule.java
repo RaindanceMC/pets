@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PetModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.9.0")
+    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.10.0")
             .describedAs("Pets that fight beside you: follow, defend, level up, can be ridden, and come back after "
                     + "a knock-out")
             .by("Raindancer118");
@@ -105,6 +105,11 @@ public final class PetModule implements FlexModule {
             @Override
             public void particles(Player viewer, Pet pet) {
                 new de.raindancer.modules.pets.screen.PetParticleMenu(built[0], viewer, null, pet.id()).open();
+            }
+
+            @Override
+            public void skills(Player viewer, Pet pet) {
+                new de.raindancer.modules.pets.screen.PetTreeMenu(built[0], viewer, null, pet.id()).open();
             }
         };
         PetHooks hooks = new PetHooks(collection, experience, context.core().messages(), server::getPlayer,

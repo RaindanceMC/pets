@@ -21,7 +21,9 @@ pets:
   knocked-out: "<red><white><name></white> was knocked out! It can come back in <white><seconds>s</white>."
 
   # ---------------------------------------------------------------- growing
-  level-up: "<gold>✦ <white><name></white> reached level <white><level></white>!"
+  calling: "<light_purple><white><name></white> follows a new calling: <white><role></white>."
+  skills-reset: "<gray>Every skill point of <white><name></white> is back to spend."
+  level-up: "<gold>✦ <white><name></white> reached level <white><level></white>! <gray>A skill point to spend: <white>/pets skills <name></white>."
   personality-changed: "<light_purple><white><name></white> has become <white><personality></white>."
   fed: "<green><white><name></white> loved that."
   not-hungry: "<gray><white><name></white> is not hungry yet."
@@ -63,7 +65,7 @@ pets:
 
   # ---------------------------------------------------------------- the command
   only-a-player: "<red>Pets belong to players."
-  usage: "<gray>/pets <white>[call|home|stay|follow|mode|tactic|rename|colours|particle|mute] <pet></white>, <white>/pets species</white>, <white>/pets hideothers</white> or <white>/pets squabbles</white>."
+  usage: "<gray>/pets <white>[call|home|stay|follow|mode|tactic|rename|colours|particle|mute|skills] <pet></white>, <white>/pets species</white>, <white>/pets hideothers</white> or <white>/pets squabbles</white>."
   which-pet: "<yellow>Which pet? Its name, or its species."
   no-such-pet: "<red>You have no pet called <white><name></white>."
   bad-mode: "<red>A mode is aggressive, defensive or passive."
@@ -71,7 +73,9 @@ pets:
 
   # ---------------------------------------------------------------- staff
   no-permission: "<red>That is for staff."
-  admin-usage: "<gray>/pets admin <white>give <player> <species> [name]</white> · <white>take <player> <pet></white> · <white>personality <player> <pet> <personality></white> · <white>list <player></white>"
+  admin-usage: "<gray>/pets admin <white>give <player> <species> [name]</white> · <white>take <player> <pet></white> · <white>personality <player> <pet> <personality></white> · <white>level <player> <pet> <level></white> · <white>list <player></white>"
+  admin-level: "<green><white><player></white>'s <white><name></white> is level <white><level></white> now."
+  bad-level: "<red>A level from 1 to <highest>."
   unknown-player: "<red>Nobody called <white><player></white> has played here."
   unknown-species: "<red>There is no species <white><species></white> — see <white>/pets species</white>."
   admin-given: "<green><white><player></white> has <white><name></white> the <white><species></white> now."

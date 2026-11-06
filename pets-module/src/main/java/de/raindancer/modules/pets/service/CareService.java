@@ -80,6 +80,39 @@ public final class CareService implements IPetService {
     }
 
     /** Mutes a pet for everybody, or lets it be heard again. */
+    /** Hours between two resets of a pet's skill tree. */
+    public static final int SKILL_RESET_HOURS = 24;
+
+    /** Takes the next rank of a node in its tree. @return why not, if not */
+    public java.util.Optional<de.raindancer.core.ui.tree.SkillTree.Refusal> learn(Player player, Pet pet, String node) {
+        de.raindancer.modules.pets.model.Species species = collection.speciesOf(pet).orElse(null);
+        if (species == null) {
+            return java.util.Optional.of(de.raindancer.core.ui.tree.SkillTree.Refusal.NEEDS);
+        }
+        de.raindancer.modules.pets.rules.TreeRule.Learnt learnt = summoning.tree().learn(pet.skills(), node,
+                pet.level(), species);
+        if (learnt.refusal().isEmpty()) {
+            experience.keep(pet.withSkills(learnt.ranks(), pet.skillsReset()));
+            de.raindancer.modules.pets.model.Role before = summoning.tree().role(species, pet.skills());
+            de.raindancer.modules.pets.model.Role now = summoning.tree().role(species, learnt.ranks());
+            if (before != now) {
+                messages.send(player, "pets.calling", "name", pet.name(), "role", now.title());
+            }
+        }
+        return learnt.refusal();
+    }
+
+    /** Every skill point back, once a day. @return whether it happened */
+    public boolean resetSkills(Player player, Pet pet, long now) {
+        if (pet.skills().isEmpty() || !de.raindancer.modules.pets.rules.TreeRule.mayReset(pet.skillsReset(), now,
+                SKILL_RESET_HOURS)) {
+            return false;
+        }
+        experience.keep(pet.withSkills(java.util.Map.of(), now));
+        messages.send(player, "pets.skills-reset", "name", pet.name());
+        return true;
+    }
+
     public void mute(Player player, Pet pet) {
         Pet changed = experience.keep(pet.withMuted(!pet.muted()));
         messages.send(player, changed.muted() ? "pets.muted" : "pets.unmuted", "name", pet.name());

@@ -132,7 +132,7 @@ public final class SpeciesCatalogue {
         }
         Role role = Role.parse(entry.getString("role"))
                 .orElseThrow(() -> new IllegalArgumentException("role '" + entry.getString("role")
-                        + "' is not fighter, guard, ranged or healer"));
+                        + "' is not fighter, guard, ranged, healer, gatherer, support or scout"));
         Rarity rarity = Rarity.parse(entry.getString("rarity", "common"))
                 .orElseThrow(() -> new IllegalArgumentException("rarity '" + entry.getString("rarity")
                         + "' is not common, uncommon, rare, epic, legendary or mythic"));

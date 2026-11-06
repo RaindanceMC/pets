@@ -27,7 +27,7 @@
         <!-- 0.2.0: pets explore while their owner stands about or they stay — how far and how often is a new trait,
              curiosity (and a Curious personality); a pet's particles picked like on the cosmetics page (Core's particle
              chooser); an unlock can ask for several things at once, and every mythic asks for every boss. -->
-        <plugin.version>0.9.0</plugin.version>
+        <plugin.version>0.10.0</plugin.version>
     </properties>
 
     <dependencies>

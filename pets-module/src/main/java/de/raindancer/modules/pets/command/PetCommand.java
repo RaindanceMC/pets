@@ -32,8 +32,8 @@ import java.util.stream.Stream;
 public final class PetCommand implements IPetCommand {
 
     private static final List<String> OWN = List.of("call", "home", "stay", "follow", "mode", "tactic", "rename", "colours",
-            "particle", "mute", "species", "hideothers", "squabbles");
-    private static final List<String> ADMIN = List.of("give", "take", "personality", "list");
+            "particle", "mute", "skills", "species", "hideothers", "squabbles");
+    private static final List<String> ADMIN = List.of("give", "take", "personality", "level", "list");
 
     private final Supplier<PetServices> services;
 
@@ -118,6 +118,7 @@ public final class PetCommand implements IPetCommand {
                 live.care().rename(player, pet, String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
             }
             case "mute" -> live.care().mute(player, pet);
+            case "skills" -> live.screens().skills(player, pet);
             case "particle" -> {
                 if (args.length == 2) {
                     live.screens().particles(player, pet);
@@ -196,6 +197,22 @@ public final class PetCommand implements IPetCommand {
                 Pet changed = live.experience().setPersonality(pet, personality.get());
                 live.messages().send(sender, "pets.admin-personality", "player", who, "name", changed.name(),
                         "personality", personality.get().title());
+            });
+            case "level" -> withPet(live, sender, owner, who, args, pet -> {
+                int highest = live.summoning().levels().maxLevel();
+                int level;
+                try {
+                    level = args.length > 3 ? Integer.parseInt(args[3]) : -1;
+                } catch (NumberFormatException notANumber) {
+                    level = -1;
+                }
+                if (level < 1 || level > highest) {
+                    live.messages().send(sender, "pets.bad-level", "highest", highest);
+                    return;
+                }
+                Pet changed = live.experience().keep(pet.withProgress(level, 0));
+                live.messages().send(sender, "pets.admin-level", "player", who, "name", changed.name(),
+                        "level", level);
             });
             case "list" -> live.collection().petsOf(owner).thenAccept(pets -> {
                 if (pets.isEmpty()) {

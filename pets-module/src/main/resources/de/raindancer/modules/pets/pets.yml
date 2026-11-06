@@ -74,7 +74,7 @@ species:
     title: Cat
     mob: CAT
     size: 0.28
-    role: fighter
+    role: scout
     rarity: common
     icon: COD
     health: 16
@@ -82,7 +82,7 @@ species:
     speed: 0.38
     baby: true
     unlock: earn fish 60
-    blurb: Comes for the fish, stays for the fights.
+    blurb: Sees in the dark. Hisses at creepers before you see them.
 
   # ------------------------------------------------------------------ uncommon
   fox:
@@ -128,7 +128,7 @@ species:
     title: Parrot
     mob: PARROT
     size: 0.18
-    role: healer
+    role: support
     rarity: uncommon
     icon: FEATHER
     health: 12
@@ -136,12 +136,12 @@ species:
     speed: 0.4
     flies: true
     unlock: earn explore 20
-    blurb: Sings your wounds shut.
+    blurb: Sings you on. Loudly.
   bee:
     title: Bee
     mob: BEE
     size: 0.18
-    role: fighter
+    role: support
     rarity: uncommon
     icon: HONEYCOMB
     health: 14
@@ -149,7 +149,7 @@ species:
     speed: 0.38
     flies: true
     unlock: supporter
-    blurb: A thank-you for supporting the server. Stings, but only the bad guys.
+    blurb: A thank-you for supporting the server. Buzzes you on.
   frog:
     title: Frog
     mob: FROG
@@ -220,7 +220,7 @@ species:
     title: Bat
     mob: BAT
     size: 0.18
-    role: fighter
+    role: scout
     rarity: rare
     icon: BLACK_DYE
     health: 14
@@ -228,7 +228,7 @@ species:
     speed: 0.45
     flies: true
     unlock: earn explore 100 + mine 1500
-    blurb: Flits about. Bites ankles.
+    blurb: Flits about and squeaks when something is coming.
   axolotl:
     title: Axolotl
     mob: AXOLOTL
@@ -245,7 +245,7 @@ species:
     title: Allay
     mob: ALLAY
     size: 0.22
-    role: healer
+    role: gatherer
     rarity: rare
     icon: AMETHYST_SHARD
     health: 18
@@ -253,7 +253,7 @@ species:
     speed: 0.42
     flies: true
     unlock: supporter
-    blurb: A thank-you for supporting the server. Hums a healing song.
+    blurb: A thank-you for supporting the server. Brings you whatever lies about.
 
   # ------------------------------------------------------------------ epic
   camel:
@@ -849,3 +849,130 @@ species:
     ability: illusion
     unlock: permission
     blurb: Given by a rank. Now you see it.
+
+  # ------------------------------------------------------------------ added with the new roles
+  silverfish:
+    title: Silverfish
+    mob: SILVERFISH
+    size: 0.15
+    role: scout
+    rarity: common
+    icon: STONE_BRICKS
+    health: 10
+    damage: 2
+    speed: 0.4
+    unlock: earn mine 400
+    blurb: Wriggles ahead and finds what hides in the stone.
+  ocelot:
+    title: Ocelot
+    mob: OCELOT
+    size: 0.3
+    role: scout
+    rarity: uncommon
+    icon: COD
+    health: 16
+    damage: 3
+    speed: 0.44
+    baby: true
+    unlock: earn explore 25
+    blurb: Never seen, always watching.
+  donkey:
+    title: Donkey
+    mob: DONKEY
+    size: 0.4
+    role: gatherer
+    rarity: uncommon
+    icon: CHEST
+    health: 26
+    damage: 2.5
+    speed: 0.32
+    baby: true
+    unlock: earn travel 12000
+    blurb: Carries everything you dropped back to you.
+  mule:
+    title: Mule
+    mob: MULE
+    size: 0.42
+    role: gatherer
+    rarity: uncommon
+    icon: LEAD
+    health: 28
+    damage: 3
+    speed: 0.32
+    baby: true
+    unlock: earn breed 40 + travel 8000
+    blurb: Stubborn, strong, and fetches like a dog.
+  cave_spider:
+    title: Cave Spider
+    mob: CAVE_SPIDER
+    size: 0.2
+    role: fighter
+    rarity: uncommon
+    icon: FERMENTED_SPIDER_EYE
+    health: 14
+    damage: 4
+    speed: 0.4
+    unlock: earn monster cave_spider 80
+    blurb: Small, fast and very, very rude.
+  magma_cube:
+    title: Magma Cube
+    mob: MAGMA_CUBE
+    size: 0.3
+    role: guard
+    rarity: uncommon
+    icon: MAGMA_CREAM
+    health: 30
+    damage: 3
+    speed: 0.3
+    unlock: earn monster magma_cube 60
+    blurb: Bounces in front of you and burns whatever bites it.
+  trader_llama:
+    title: Trader Llama
+    mob: TRADER_LLAMA
+    size: 0.45
+    role: gatherer
+    rarity: rare
+    icon: BLUE_CARPET
+    health: 30
+    damage: 3
+    speed: 0.34
+    baby: true
+    unlock: earn trade 150 + explore 40
+    blurb: Picks everything up. Spits at everything else.
+  wandering_trader:
+    title: Wandering Trader
+    mob: WANDERING_TRADER
+    size: 0.4
+    role: gatherer
+    rarity: rare
+    icon: EMERALD
+    health: 26
+    damage: 2.5
+    speed: 0.34
+    unlock: earn trade 300 + explore 60
+    blurb: Has seen everything, and picks it all up.
+  zombie_villager:
+    title: Zombie Villager
+    mob: ZOMBIE_VILLAGER
+    size: 0.4
+    role: support
+    rarity: rare
+    icon: GOLDEN_APPLE
+    health: 26
+    damage: 3.5
+    speed: 0.32
+    baby: true
+    unlock: drop monster zombie_villager 1/150
+    blurb: Half cured, wholly yours. Mumbles encouragement.
+  endermite:
+    title: Endermite
+    mob: ENDERMITE
+    size: 0.15
+    role: scout
+    rarity: rare
+    icon: ENDER_PEARL
+    health: 12
+    damage: 2.5
+    speed: 0.42
+    unlock: drop monster endermite 1/30
+    blurb: Born of a pearl. Knows where everything is.

@@ -51,7 +51,8 @@ public final class ExperienceService implements IPetService {
     /** It finished something off. */
     public void killed(OutPet live, boolean boss, boolean farmed) {
         Pet pet = current(live);
-        int gained = farmed ? 0 : settings.killExperience() * (boss ? BOSS_TIMES : 1);
+        int gained = farmed ? 0 : (int) Math.round(settings.killExperience() * (boss ? BOSS_TIMES : 1)
+                * summoning.tree().boosts(pet.skills()).factor("xp"));
         Levels.Progress progress = summoning.levels().gain(pet.level(), pet.xp(), gained);
         Pet grown = pet.withProgress(progress.level(), progress.xp());
         Temperament nature = grown.temperament();

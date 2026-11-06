@@ -53,7 +53,7 @@ public record PetSettings(
         String worldsWithout,
 
         @In("pets/growing") @Title("Highest level") @Range(min = 1, max = 100)
-        @Describe("How far a pet can grow. Each level adds to its health and its bite.")
+        @Describe("How far a pet can grow. Each level adds to its health and its bite, and gives a skill point.")
         @Key("pets.highest-level")
         int highestLevel,
 

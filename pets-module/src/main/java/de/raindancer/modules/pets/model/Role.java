@@ -13,7 +13,13 @@ public enum Role {
     /** Keeps its distance and throws. */
     RANGED("Ranged", "Fights from afar"),
     /** Mends its owner and itself. */
-    HEALER("Healer", "Keeps you standing");
+    HEALER("Healer", "Keeps you standing"),
+    /** Fetches loose drops and experience to its owner. */
+    GATHERER("Gatherer", "Brings you what lies about"),
+    /** Keeps its owner quicker, stronger, tougher. */
+    SUPPORT("Support", "Sings you on"),
+    /** Fast, and marks the monsters near its owner for their eyes. */
+    SCOUT("Scout", "Sees them coming");
 
     private final String title;
     private final String blurb;
@@ -30,7 +36,13 @@ public enum Role {
             case GUARD -> de.raindancer.core.world.companion.Fighting.GUARD;
             case RANGED -> de.raindancer.core.world.companion.Fighting.RANGED;
             case HEALER -> de.raindancer.core.world.companion.Fighting.HEALER;
+            case GATHERER, SUPPORT, SCOUT -> de.raindancer.core.world.companion.Fighting.MELEE;
         };
+    }
+
+    /** Its node in the skill tree: taking it makes a pet of any species follow this role. */
+    public String calling() {
+        return "calling_" + name().toLowerCase(Locale.ROOT);
     }
 
     public String title() {

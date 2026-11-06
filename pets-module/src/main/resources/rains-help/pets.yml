@@ -37,9 +37,14 @@ sections:
   - question: How does my pet grow?
     title: Levels and personality
     text: |
-      Every monster it finishes off brings experience, up to level {setting:pets:pets.highest-level|count}; each level adds health and bite.
+      Every monster it finishes off brings experience, up to level {setting:pets:pets.highest-level|count}; each level adds health and bite, and gives it a skill point.
       Every pet is born with a personality — brave, timid, playful, lazy, fierce, gentle, cheeky, stoic, curious or balanced — that changes how hard it hits, how fast it runs, how long it lasts and how far it wanders. Fighting together makes it bolder and wilder, riding livelier, treats gentler (hold food and right-click it), finding new places with you more curious. It bends, but only so far.
       Whenever you stand about, or have told it to stay, your pet goes exploring nearby — a curious one far and often, an incurious one hardly at all.
+  - question: What is a pet's skill tree?
+    title: Skill tree and roles
+    text: |
+      {cmd:/pets skills <pet>}, or the book on its page in {run:/pets}: every pet has its own tree to spend its points on. Seven branches are roles — fighter, guard, ranged, healer, gatherer (fetches drops and experience to you), support (keeps Speed, Strength and more on you) and scout (fast, marks monsters near you for your eyes) — each opening with its calling. A pet follows one calling at a time: its own species' is free, another costs points and makes it that role. Bond and Steed are for any pet: tougher, quicker to learn, faster to ride, a stronger power when ridden.
+      Every branch ends in a mastery badge, free once the rest of it is taken. Shift-click the middle button to take every point back, once a day.
   - question: Can I name my pet?
     title: Names
     text: |

@@ -45,6 +45,8 @@ public final class SummonService implements IPetService {
     private final Map<UUID, OutPet> byCompanion = new ConcurrentHashMap<>();
     private volatile PetSettings settings;
     private volatile Levels levels;
+    private final de.raindancer.modules.pets.rules.TreeRule tree = new de.raindancer.modules.pets.rules.TreeRule(
+            de.raindancer.modules.pets.rules.TreeRule.shipped());
     /** Owners who turned squabbling off for their own pets. */
     private final java.util.Set<UUID> calm = ConcurrentHashMap.newKeySet();
     private volatile Function<OutPet, CompanionHooks> hooks = out -> new CompanionHooks() { };
@@ -114,39 +116,81 @@ public final class SummonService implements IPetService {
 
     // ------------------------------------------------------------------ making
 
-    /** What Core makes for this pet: its species, grown to its level, bent by its nature. */
+    /** What Core makes for this pet: its species, grown to its level, bent by its nature and its skill tree. */
     public CompanionSpec spec(Pet pet, Species species, String ownerName) {
+        de.raindancer.modules.pets.rules.TreeRule.Boosts skill = tree.boosts(pet.skills());
+        de.raindancer.modules.pets.model.Role role = tree.role(species, pet.skills());
+        Fighting fighting = role.fighting();
         double speedFactor = pet.temperament().speedFactor();
-        double strength = species.role().fighting() == Fighting.HEALER
-                ? pet.temperament().healFactor() : pet.temperament().damageFactor();
+        double strength = fighting == Fighting.HEALER
+                ? pet.temperament().healFactor() * skill.factor("heal")
+                : pet.temperament().damageFactor() * skill.factor("damage");
         EntityType missile;
         try {
             missile = EntityType.valueOf(species.missile());
         } catch (IllegalArgumentException unknown) {
             missile = EntityType.SNOWBALL;
         }
-        double health = levels.health(species.health(), pet.level()) * pet.temperament().healthFactor();
+        double health = levels.health(species.health(), pet.level()) * pet.temperament().healthFactor()
+                * skill.factor("health");
+        double scouting = role == de.raindancer.modules.pets.model.Role.SCOUT ? SCOUT_SPEED : 1;
         return CompanionSpec.of(EntityType.valueOf(species.entityType()))
                 .height(species.size())
                 .flies(species.flies())
                 .baby(species.baby())
-                .fighting(species.role().fighting())
+                .fighting(fighting)
                 .stance(pet.mode().stance())
                 .health(health)
                 .damage(levels.damage(species.damage(), pet.level()) * strength)
-                .speed(species.speed() * speedFactor)
+                .speed(species.speed() * speedFactor * skill.factor("speed") * scouting)
                 .fleesBelow(pet.temperament().fleesBelow())
                 .missile(missile)
                 .rideable(settings.riding())
-                .attackTicks((int) Math.round((species.role().fighting() == Fighting.RANGED ? 30 : 20) / speedFactor))
+                .attackTicks((int) Math.round((fighting == Fighting.RANGED ? 30 : 20) / speedFactor
+                        / skill.factor("attack_speed")))
                 .name(name(pet, species.rarity(), settings.ownerInName() ? ownerName : ""))
                 .particle(pet.particle(), shape(pet.particleShape()))
                 .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness())
                 .silent(pet.muted())
                 .ability(species.ability())
+                .abilityPower(skill.factor("ability_power"))
+                .abilityHaste(skill.factor("ability_haste"))
                 .tactic(pet.tactic().core())
                 .grumpiness(settings.squabbles() && !calm.contains(pet.owner()) ? pet.temperament().grumpiness() : 0)
-                .regenPerSecond(levels.regenPerSecond(health, pet.level()));
+                .regenPerSecond(levels.regenPerSecond(health, pet.level()) * skill.factor("regen"))
+                .lifesteal(skill.share("lifesteal"))
+                .toughness(skill.share("toughness"))
+                .thorns(skill.share("thorns"))
+                .collectRadius((role == de.raindancer.modules.pets.model.Role.GATHERER ? GATHER_REACH : 0)
+                        + skill.plain("collect"))
+                .spotRadius((role == de.raindancer.modules.pets.model.Role.SCOUT ? SCOUT_REACH : 0) + skill.plain("spot"))
+                .auras(auras(role, skill));
+    }
+
+    /** A gatherer's reach, a scout's sight and speed, before any skill. */
+    static final double GATHER_REACH = 5;
+    static final double SCOUT_REACH = 16;
+    static final double SCOUT_SPEED = 1.1;
+
+    /** The effects a pet keeps on its owner: a support's Speed I to begin with, every aura_ node a level more. */
+    static java.util.Map<String, Integer> auras(de.raindancer.modules.pets.model.Role role,
+                                                de.raindancer.modules.pets.rules.TreeRule.Boosts skill) {
+        java.util.Map<String, Integer> levels = new java.util.TreeMap<>();
+        if (role == de.raindancer.modules.pets.model.Role.SUPPORT) {
+            levels.put("speed", 1);
+        }
+        skill.sums().forEach((effect, value) -> {
+            if (effect.startsWith("aura_") && value > 0) {
+                levels.merge(effect.substring(5), (int) Math.round(value), Integer::sum);
+            }
+        });
+        java.util.Map<String, Integer> amplifiers = new java.util.TreeMap<>();
+        levels.forEach((effect, level) -> amplifiers.put(effect, Math.min(3, level) - 1));
+        return amplifiers;
+    }
+
+    public de.raindancer.modules.pets.rules.TreeRule tree() {
+        return tree;
     }
 
     public static de.raindancer.core.ui.effect.ParticleShape shape(String name) {

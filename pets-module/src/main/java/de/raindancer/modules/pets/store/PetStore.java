@@ -29,7 +29,7 @@ public final class PetStore {
             List<Pet> pets = new ArrayList<>();
             try (PreparedStatement query = connection.prepareStatement(
                     "SELECT id, species, name, level, xp, mode, out_now, resting_until, adopted, courage, energy, "
-                            + "temper, nudge_courage, nudge_energy, nudge_temper, style, particle, particle_shape, curiosity, nudge_curiosity, muted, tactic FROM pets WHERE owner = ? "
+                            + "temper, nudge_courage, nudge_energy, nudge_temper, style, particle, particle_shape, curiosity, nudge_curiosity, muted, tactic, skills, skills_reset FROM pets WHERE owner = ? "
                             + "ORDER BY adopted, id")) {
                 query.setString(1, owner.toString());
                 try (ResultSet rows = query.executeQuery()) {
@@ -41,7 +41,8 @@ public final class PetStore {
                                 new Temperament(rows.getInt(10), rows.getInt(11), rows.getInt(12), rows.getInt(13),
                                         rows.getInt(14), rows.getInt(15), rows.getInt(19), rows.getInt(20)), rows.getString(16),
                                 rows.getString(17), rows.getString(18), rows.getInt(21) != 0,
-                                Tactic.parse(rows.getString(22)).orElse(Tactic.BALANCED)));
+                                Tactic.parse(rows.getString(22)).orElse(Tactic.BALANCED),
+                                Pet.decodeSkills(rows.getString(23)), rows.getLong(24)));
                     }
                 }
             }
@@ -53,8 +54,8 @@ public final class PetStore {
         return database.write(connection -> {
             try (PreparedStatement row = connection.prepareStatement(
                     "INSERT INTO pets (id, owner, species, name, level, xp, mode, out_now, resting_until, adopted, "
-                            + "courage, energy, temper, nudge_courage, nudge_energy, nudge_temper, style, particle, particle_shape, curiosity, nudge_curiosity, muted, tactic) "
-                            + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET "
+                            + "courage, energy, temper, nudge_courage, nudge_energy, nudge_temper, style, particle, particle_shape, curiosity, nudge_curiosity, muted, tactic, skills, skills_reset) "
+                            + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET "
                             + "owner = excluded.owner, species = excluded.species, name = excluded.name, "
                             + "level = excluded.level, xp = excluded.xp, mode = excluded.mode, "
                             + "out_now = excluded.out_now, resting_until = excluded.resting_until, "
@@ -62,7 +63,8 @@ public final class PetStore {
                             + "nudge_courage = excluded.nudge_courage, nudge_energy = excluded.nudge_energy, "
                             + "nudge_temper = excluded.nudge_temper, style = excluded.style, particle = excluded.particle, "
                             + "particle_shape = excluded.particle_shape, curiosity = excluded.curiosity, "
-                            + "nudge_curiosity = excluded.nudge_curiosity, muted = excluded.muted, tactic = excluded.tactic")) {
+                            + "nudge_curiosity = excluded.nudge_curiosity, muted = excluded.muted, tactic = excluded.tactic, skills = excluded.skills, "
+                            + "skills_reset = excluded.skills_reset")) {
                 Temperament nature = pet.temperament();
                 row.setString(1, pet.id().toString());
                 row.setString(2, pet.owner().toString());
@@ -87,6 +89,8 @@ public final class PetStore {
                 row.setInt(21, nature.nudgeCuriosity());
                 row.setInt(22, pet.muted() ? 1 : 0);
                 row.setString(23, pet.tactic().name());
+                row.setString(24, pet.encodeSkills());
+                row.setLong(25, pet.skillsReset());
                 row.executeUpdate();
             }
         });

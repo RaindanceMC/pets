@@ -13,4 +13,6 @@ public interface IPetScreensOpener {
     void pet(Player viewer, Pet pet);
 
     void particles(Player viewer, Pet pet);
+
+    void skills(Player viewer, Pet pet);
 }

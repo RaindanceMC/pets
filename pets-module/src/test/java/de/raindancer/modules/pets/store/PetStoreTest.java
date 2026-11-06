@@ -38,7 +38,8 @@ class PetStoreTest {
                 .withTemperament(rex.temperament().nudge(Temperament.Trait.ENERGY, 12))
                 .withStyle("#ff0000,#00ff00|bold")
                 .withParticle("TRIAL_SPAWNER_DETECTION", "HALO")
-                .withMuted(true);
+                .withMuted(true)
+                .withSkills(java.util.Map.of("calling_guard", 1, "thick_hide", 3), 123_456L);
         assertThat(store.save(grown)).isTrue();
         assertThat(store.of(ALICE)).containsExactly(grown);
     }

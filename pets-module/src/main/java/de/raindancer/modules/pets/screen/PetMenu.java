@@ -104,6 +104,12 @@ public final class PetMenu extends Menu implements IPetScreen {
                     services.care().tactic(viewer, pet, pet.tactic().next());
                     refresh();
                 });
+        int left = services.summoning().tree().left(pet.level(), pet.skills(), species);
+        band(MenuLayout.WHO, 6, Icons.of(Material.ENCHANTED_BOOK, "<white>Skill tree",
+                        "<gray>A point every level: its role, its strengths,", "<gray>its power when ridden.",
+                        "<gray>Role now: <white>" + services.summoning().tree().role(species, pet.skills()).title(),
+                        "<green>Points to spend: <white>" + left, "", "<yellow>Click<gray> to open it."),
+                click -> new PetTreeMenu(services, viewer, this, pet.id()).open());
         band(MenuLayout.LAND, 3, Icons.of(Material.NAME_TAG, "<white>Rename it",
                         "<gray>Called " + pet.name() + " now.", "", "<yellow>Click<gray> and type its new name."),
                 click -> rename(pet));

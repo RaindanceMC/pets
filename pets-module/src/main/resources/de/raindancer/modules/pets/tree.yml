@@ -1,0 +1,106 @@
+# Rain's Pets — the skill tree every pet grows on, read by Core's SkillTree. A point a level.
+# Seven role branches, each opening with its calling: a pet follows one calling at a time (they shut each
+# other), its own species' is free, another costs its points; the role's nodes need its calling. Two branches
+# for any pet: Bond and Steed. Every branch ends in a mastery badge, free once the rest of it is taken.
+# Effects (per rank): percent unless said — health damage speed attack_speed regen heal xp ability_power
+# ability_haste lifesteal toughness thorns; collect and spot in blocks; aura_<effect> in levels of that effect.
+branches:
+  fighter:
+    title: Fighter
+    icon: iron_sword
+    blurb: "Bites hard and keeps biting."
+  guard:
+    title: Guard
+    icon: shield
+    blurb: "Takes the hits meant for you, and gives some back."
+  ranged:
+    title: Ranged
+    icon: bow
+    blurb: "Keeps its distance and never misses twice."
+  healer:
+    title: Healer
+    icon: golden_apple
+    blurb: "Keeps you standing, and itself."
+  gatherer:
+    title: Gatherer
+    icon: hopper
+    blurb: "Fetches what lies about to you: drops and experience."
+  support:
+    title: Support
+    icon: note_block
+    blurb: "Sings you faster, stronger, tougher."
+  scout:
+    title: Scout
+    icon: spyglass
+    blurb: "Fast, and sees monsters coming before you do."
+  bond:
+    title: Bond
+    icon: red_dye
+    blurb: "Whatever it is, it is yours: tougher, quicker to learn, quicker to mend."
+  steed:
+    title: Steed
+    icon: saddle
+    blurb: "Carries you faster — and a legendary's power hits harder, sooner."
+
+nodes:
+  calling_fighter: {branch: fighter, at: [0, 1], title: "Calling: Fighter", icon: iron_sword, choice: true, cost: 3, excludes: [calling_guard, calling_ranged, calling_healer, calling_gatherer, calling_support, calling_scout], effects: {calling_fighter: 1}}
+  sharp_teeth: {branch: fighter, at: [1, 0], title: "Sharp Teeth", icon: bone, ranks: 3, level: 2, level-step: 3, requires: [calling_fighter], effects: {damage: 6}}
+  quick_bite: {branch: fighter, at: [1, 2], title: "Quick Bite", icon: feather, ranks: 2, level: 6, level-step: 3, requires: [calling_fighter], effects: {attack_speed: 6}}
+  bloodlust: {branch: fighter, at: [2, 1], title: "Bloodlust", icon: redstone, ranks: 2, level: 10, level-step: 3, requires: [sharp_teeth, quick_bite], effects: {lifesteal: 5}}
+  ferocity: {branch: fighter, at: [3, 1], title: "Ferocity", icon: blaze_powder, ranks: 1, level: 20, capstone: true, cost: 2, requires: [bloodlust], effects: {damage: 12, attack_speed: 5}}
+  apex: {branch: fighter, at: [4, 1], title: "Apex Predator", icon: netherite_sword, mastery: true, cost: 0, requires: [ferocity], effects: {damage: 10, lifesteal: 5}}
+
+  calling_guard: {branch: guard, at: [0, 4], title: "Calling: Guard", icon: shield, choice: true, cost: 3, excludes: [calling_fighter, calling_ranged, calling_healer, calling_gatherer, calling_support, calling_scout], effects: {calling_guard: 1}}
+  thick_hide: {branch: guard, at: [1, 3], title: "Thick Hide", icon: leather, ranks: 3, level: 2, level-step: 3, requires: [calling_guard], effects: {health: 8}}
+  iron_skin: {branch: guard, at: [1, 5], title: "Iron Skin", icon: iron_ingot, ranks: 2, level: 6, level-step: 3, requires: [calling_guard], effects: {toughness: 5}}
+  spikes: {branch: guard, at: [2, 4], title: "Spikes", icon: cactus, ranks: 2, level: 10, level-step: 3, requires: [thick_hide, iron_skin], effects: {thorns: 12}}
+  bulwark: {branch: guard, at: [3, 4], title: "Bulwark", icon: iron_block, ranks: 1, level: 20, capstone: true, cost: 2, requires: [spikes], effects: {toughness: 10, health: 10}}
+  fortress: {branch: guard, at: [4, 4], title: "Living Fortress", icon: netherite_chestplate, mastery: true, cost: 0, requires: [bulwark], effects: {toughness: 5, thorns: 10, health: 10}}
+
+  calling_ranged: {branch: ranged, at: [0, 7], title: "Calling: Ranged", icon: bow, choice: true, cost: 3, excludes: [calling_fighter, calling_guard, calling_healer, calling_gatherer, calling_support, calling_scout], effects: {calling_ranged: 1}}
+  steady_aim: {branch: ranged, at: [1, 6], title: "Steady Aim", icon: arrow, ranks: 3, level: 2, level-step: 3, requires: [calling_ranged], effects: {damage: 6}}
+  quick_draw: {branch: ranged, at: [1, 8], title: "Quick Draw", icon: string, ranks: 2, level: 6, level-step: 3, requires: [calling_ranged], effects: {attack_speed: 8}}
+  keen_eye: {branch: ranged, at: [2, 7], title: "Keen Eye", icon: spyglass, ranks: 1, level: 10, requires: [steady_aim, quick_draw], effects: {spot: 10}}
+  volley: {branch: ranged, at: [3, 7], title: "Volley", icon: crossbow, ranks: 1, level: 20, capstone: true, cost: 2, requires: [keen_eye], effects: {attack_speed: 15, damage: 10}}
+  deadeye: {branch: ranged, at: [4, 7], title: "Deadeye", icon: target, mastery: true, cost: 0, requires: [volley], effects: {damage: 12, attack_speed: 8}}
+
+  calling_healer: {branch: healer, at: [0, 10], title: "Calling: Healer", icon: golden_apple, choice: true, cost: 3, excludes: [calling_fighter, calling_guard, calling_ranged, calling_gatherer, calling_support, calling_scout], effects: {calling_healer: 1}}
+  gentle_touch: {branch: healer, at: [1, 9], title: "Gentle Touch", icon: glistering_melon_slice, ranks: 3, level: 2, level-step: 3, requires: [calling_healer], effects: {heal: 8}}
+  quick_hands: {branch: healer, at: [1, 11], title: "Quick Hands", icon: sugar, ranks: 2, level: 6, level-step: 3, requires: [calling_healer], effects: {attack_speed: 8}}
+  self_care: {branch: healer, at: [2, 10], title: "Self-care", icon: sweet_berries, ranks: 2, level: 10, level-step: 3, requires: [gentle_touch, quick_hands], effects: {regen: 20}}
+  sanctuary: {branch: healer, at: [3, 10], title: "Sanctuary", icon: beacon, ranks: 1, level: 20, capstone: true, cost: 2, requires: [self_care], effects: {aura_regeneration: 1}}
+  lifebinder: {branch: healer, at: [4, 10], title: "Lifebinder", icon: totem_of_undying, mastery: true, cost: 0, requires: [sanctuary], effects: {heal: 15, regen: 30}}
+
+  calling_gatherer: {branch: gatherer, at: [0, 13], title: "Calling: Gatherer", icon: hopper, choice: true, cost: 3, excludes: [calling_fighter, calling_guard, calling_ranged, calling_healer, calling_support, calling_scout], effects: {calling_gatherer: 1}}
+  long_reach: {branch: gatherer, at: [1, 12], title: "Long Reach", icon: fishing_rod, ranks: 3, level: 2, level-step: 3, requires: [calling_gatherer], effects: {collect: 1.5}}
+  quick_paws: {branch: gatherer, at: [1, 14], title: "Quick Paws", icon: rabbit_foot, ranks: 2, level: 6, level-step: 3, requires: [calling_gatherer], effects: {speed: 5}}
+  magpie: {branch: gatherer, at: [2, 13], title: "Magpie", icon: experience_bottle, ranks: 2, level: 10, level-step: 3, requires: [long_reach, quick_paws], effects: {xp: 10}}
+  vacuum: {branch: gatherer, at: [3, 13], title: "Vacuum", icon: ender_pearl, ranks: 1, level: 20, capstone: true, cost: 2, requires: [magpie], effects: {collect: 4}}
+  hoarder: {branch: gatherer, at: [4, 13], title: "Hoarder", icon: chest, mastery: true, cost: 0, requires: [vacuum], effects: {collect: 2, xp: 20}}
+
+  calling_support: {branch: support, at: [0, 16], title: "Calling: Support", icon: note_block, choice: true, cost: 3, excludes: [calling_fighter, calling_guard, calling_ranged, calling_healer, calling_gatherer, calling_scout], effects: {calling_support: 1}}
+  swift_song: {branch: support, at: [1, 15], title: "Swift Song", icon: sugar, ranks: 1, level: 4, requires: [calling_support], effects: {aura_speed: 1}}
+  work_song: {branch: support, at: [1, 17], title: "Work Song", icon: golden_pickaxe, ranks: 1, level: 8, requires: [calling_support], effects: {aura_haste: 1}}
+  war_song: {branch: support, at: [2, 16], title: "War Song", icon: blaze_powder, ranks: 1, level: 12, requires: [swift_song, work_song], effects: {aura_strength: 1}}
+  anthem: {branch: support, at: [3, 16], title: "Anthem", icon: jukebox, ranks: 1, level: 20, capstone: true, cost: 2, requires: [war_song], effects: {aura_resistance: 1}}
+  chorus: {branch: support, at: [4, 16], title: "Chorus", icon: bell, mastery: true, cost: 0, requires: [anthem], effects: {aura_strength: 1, aura_speed: 1}}
+
+  calling_scout: {branch: scout, at: [0, 19], title: "Calling: Scout", icon: spyglass, choice: true, cost: 3, excludes: [calling_fighter, calling_guard, calling_ranged, calling_healer, calling_gatherer, calling_support], effects: {calling_scout: 1}}
+  sharp_eyes: {branch: scout, at: [1, 18], title: "Sharp Eyes", icon: ender_eye, ranks: 2, level: 2, level-step: 3, requires: [calling_scout], effects: {spot: 6}}
+  fleet_foot: {branch: scout, at: [1, 20], title: "Fleet Foot", icon: rabbit_foot, ranks: 3, level: 6, level-step: 3, requires: [calling_scout], effects: {speed: 6}}
+  light_step: {branch: scout, at: [2, 19], title: "Light Step", icon: feather, ranks: 2, level: 10, level-step: 3, requires: [sharp_eyes, fleet_foot], effects: {toughness: 4}}
+  hawkeye: {branch: scout, at: [3, 19], title: "Hawkeye", icon: spyglass, ranks: 1, level: 20, capstone: true, cost: 2, requires: [light_step], effects: {spot: 12, speed: 8}}
+  pathfinder: {branch: scout, at: [4, 19], title: "Pathfinder", icon: compass, mastery: true, cost: 0, requires: [hawkeye], effects: {speed: 10, spot: 10}}
+
+  loyal_heart: {branch: bond, at: [0, 22], title: "Loyal Heart", icon: red_dye, ranks: 3, level: 1, level-step: 3, effects: {health: 5}}
+  quick_learner: {branch: bond, at: [1, 21], title: "Quick Learner", icon: book, ranks: 3, level: 4, level-step: 3, requires: [loyal_heart], effects: {xp: 10}}
+  second_wind: {branch: bond, at: [1, 23], title: "Second Wind", icon: golden_carrot, ranks: 2, level: 8, level-step: 3, requires: [loyal_heart], effects: {regen: 15}}
+  soulbound: {branch: bond, at: [2, 22], title: "Soulbound", icon: heart_of_the_sea, ranks: 1, level: 20, capstone: true, cost: 2, requires: [quick_learner, second_wind], effects: {health: 10, regen: 25}}
+  kindred: {branch: bond, at: [3, 22], title: "Kindred Spirits", icon: nether_star, mastery: true, cost: 0, requires: [soulbound], effects: {xp: 20, health: 5}}
+
+  saddle_trained: {branch: steed, at: [0, 25], title: "Saddle Trained", icon: saddle, ranks: 3, level: 2, level-step: 3, effects: {speed: 5}}
+  sure_footed: {branch: steed, at: [1, 24], title: "Sure-footed", icon: leather_boots, ranks: 2, level: 6, level-step: 3, requires: [saddle_trained], effects: {toughness: 3}}
+  wild_power: {branch: steed, at: [1, 26], title: "Wild Power", icon: blaze_rod, ranks: 3, level: 10, level-step: 3, requires: [saddle_trained], effects: {ability_power: 10}}
+  swift_recovery: {branch: steed, at: [2, 25], title: "Swift Recovery", icon: clock, ranks: 3, level: 12, level-step: 3, capstone: true, cost: 2, requires: [sure_footed, wild_power], effects: {ability_haste: 10}}
+  legend: {branch: steed, at: [3, 25], title: "Legend", icon: dragon_breath, mastery: true, cost: 0, requires: [swift_recovery], effects: {ability_power: 15, ability_haste: 15, speed: 5}}
+
