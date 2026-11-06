@@ -14,7 +14,7 @@ sections:
   - question: How do I get a pet?
     title: Getting one
     text: |
-      {run:/pets species} shows every species, from common to mythic. Common ones are free or bought; everything rarer is earned by playing — fishing, foraging, slaying monsters — given by a rank, or a thank-you for the server's supporters. The rarest are only ever found: once in a long while a blaze, a ravager or a wither lets its own kind fall for whoever slew it.
+      {run:/pets species} shows every species, from common to mythic. Common ones are free or bought; everything rarer is earned by playing — fishing, foraging, slaying monsters — given by a rank, or a thank-you for the server's supporters. The rarest are only ever found: once in a long while a slain monster lets one of its own kind fall for whoever slew it — and when it is a legendary or a mythic, the whole server hears of it.
       Rarer pets stay a question mark until you have seen one out with somebody.
   - question: How do I call and send home my pet?
     title: Out and home
@@ -25,7 +25,7 @@ sections:
     title: Riding
     when: pets:pets.riding
     text: |
-      Right-click your own pet to climb on; walk with the usual keys, sprint to go faster. A flying pet flies with you — look where you want to go, jump to climb. Sneak to get off. Legendary and mythic pets have a power of their own: swing at the air while you ride — the wither shoots wither skulls, the warden a sonic boom, the blaze a volley of fire. It hurts only what you may fight and breaks nothing; then it needs a few seconds again.
+      Right-click your own pet to climb on; walk with the usual keys, sprint to go faster. A flying pet flies with you — look where you want to go, jump to climb. Sneak to get off. Legendary and mythic pets have a power of their own: swing at the air while you ride to set it off. It hurts only what you may fight and breaks nothing; then it needs a few seconds again.
   - question: How does my pet fight?
     title: Fighting
     text: |
