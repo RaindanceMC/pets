@@ -77,9 +77,15 @@ public record PetSettings(
         @In("pets") @Title("Owner's name behind a pet's")
         @Describe("Off, a pet shows only its own name; whoever right-clicks somebody else's pet is told whose it is.")
         @Key("pets.owner-in-name")
-        boolean ownerInName) {
+        boolean ownerInName,
 
-    public static final PetSettings DEFAULTS = new PetSettings(1, 2, 120, true, 24, "", 30, 12, true, 16, false);
+        @In("pets") @Title("Pets squabble")
+        @Describe("Fierce pets now and then square up to other players' pets — they huff and hop, nobody is hurt. "
+                + "Off, no pet ever does; on, each player can still turn it off for their own (/pets squabbles).")
+        @Key("pets.squabbles")
+        boolean squabbles) {
+
+    public static final PetSettings DEFAULTS = new PetSettings(1, 2, 120, true, 24, "", 30, 12, true, 16, false, true);
 
     public int outFor(boolean supporter) {
         int everybody = Math.max(1, Math.min(5, outAtOnce));

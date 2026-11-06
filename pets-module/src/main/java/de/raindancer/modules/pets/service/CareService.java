@@ -95,6 +95,17 @@ public final class CareService implements IPetService {
         messages.send(player, see ? "pets.others-shown" : "pets.others-hidden");
     }
 
+    /** Whether this player's pets square up to other people's — kept with them, on every server. */
+    public static final de.raindancer.core.ui.profile.PlayerSwitch SQUABBLES =
+            new de.raindancer.core.ui.profile.PlayerSwitch("rainspets", "squabbles", true);
+
+    public void toggleSquabbles(Player player) {
+        boolean on = SQUABBLES.toggle(player);
+        summoning.squabbles(player.getUniqueId(), on);
+        summoning.of(player.getUniqueId()).forEach(live -> summoning.refresh(live.pet(), player.getName()));
+        messages.send(player, on ? "pets.squabbles-on" : "pets.squabbles-off");
+    }
+
     public void mode(Player player, Pet pet, Mode mode) {
         experience.keep(pet.withMode(mode));
         messages.send(player, "pets.mode-set", "name", pet.name(), "mode", mode.title());

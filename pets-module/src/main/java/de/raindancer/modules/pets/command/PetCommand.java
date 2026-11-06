@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 public final class PetCommand implements IPetCommand {
 
     private static final List<String> OWN = List.of("call", "home", "stay", "follow", "mode", "tactic", "rename", "colours",
-            "particle", "mute", "species", "hideothers");
+            "particle", "mute", "species", "hideothers", "squabbles");
     private static final List<String> ADMIN = List.of("give", "take", "personality", "list");
 
     private final Supplier<PetServices> services;
@@ -64,6 +64,10 @@ public final class PetCommand implements IPetCommand {
         }
         if (verb.equals("hideothers")) {
             live.care().toggleOthers(player);
+            return;
+        }
+        if (verb.equals("squabbles")) {
+            live.care().toggleSquabbles(player);
             return;
         }
         if (!OWN.contains(verb)) {

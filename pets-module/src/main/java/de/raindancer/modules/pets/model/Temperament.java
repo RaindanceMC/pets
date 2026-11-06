@@ -120,6 +120,11 @@ public record Temperament(int innateCourage, int innateEnergy, int innateTemper,
         return 1 + SWAY * courage() / 100.0;
     }
 
+    /** How often it squares up to other people's pets — for show; a fierce one does, a gentle one never. */
+    public double grumpiness() {
+        return Math.max(0, temper()) / 100.0;
+    }
+
     /** Below this share of its health a pet backs off to its owner; 0 for one that never does. */
     public double fleesBelow() {
         return courage() >= 0 ? 0 : -courage() / 100.0 * 0.4;

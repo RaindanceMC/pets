@@ -97,4 +97,14 @@ class TemperamentTest {
         assertThat(curious.wanderRadius()).isLessThanOrEqualTo(Temperament.MOST_WANDER);
         assertThat(curious.nudge(Temperament.Trait.CURIOSITY, 500).nudgeCuriosity()).isEqualTo(Temperament.MOST_NUDGE);
     }
+
+    @Test
+    @DisplayName("a fierce pet is grumpy with other people's pets, a gentle one never")
+    void grumpy() {
+        assertThat(Temperament.of(Personality.FIERCE).grumpiness()).isGreaterThan(0.3);
+        assertThat(Temperament.of(Personality.GENTLE).grumpiness()).isZero();
+        for (Personality personality : Personality.values()) {
+            assertThat(Temperament.of(personality).grumpiness()).isBetween(0.0, 1.0);
+        }
+    }
 }

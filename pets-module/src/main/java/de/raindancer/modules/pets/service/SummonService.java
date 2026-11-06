@@ -45,6 +45,8 @@ public final class SummonService implements IPetService {
     private final Map<UUID, OutPet> byCompanion = new ConcurrentHashMap<>();
     private volatile PetSettings settings;
     private volatile Levels levels;
+    /** Owners who turned squabbling off for their own pets. */
+    private final java.util.Set<UUID> calm = ConcurrentHashMap.newKeySet();
     private volatile Function<OutPet, CompanionHooks> hooks = out -> new CompanionHooks() { };
 
     public SummonService(Plugin plugin, CompanionService companions, CollectionService collection, Clock clock,
@@ -81,6 +83,15 @@ public final class SummonService implements IPetService {
 
     public Plugin plugin() {
         return plugin;
+    }
+
+    /** Whether this owner's pets may square up to other people's — their own switch. */
+    public void squabbles(UUID owner, boolean on) {
+        if (on) {
+            calm.remove(owner);
+        } else {
+            calm.add(owner);
+        }
     }
 
     // ------------------------------------------------------------------ asking
@@ -133,6 +144,7 @@ public final class SummonService implements IPetService {
                 .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness())
                 .silent(pet.muted())
                 .tactic(pet.tactic().core())
+                .grumpiness(settings.squabbles() && !calm.contains(pet.owner()) ? pet.temperament().grumpiness() : 0)
                 .regenPerSecond(levels.regenPerSecond(health, pet.level()));
     }
 

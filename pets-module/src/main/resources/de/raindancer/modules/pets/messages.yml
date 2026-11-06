@@ -43,6 +43,8 @@ pets:
   muted: "<gray><white><name></white> is quiet now."
   unmuted: "<gray><white><name></white> can be heard again."
   others-hidden: "<gray>Other players' pets are out of your sight now — and out of your ears. <white>/pets hideothers</white> again to see them."
+  squabbles-on: "<gray>Your fierce pets may square up to other players' pets again — for show, nobody gets hurt."
+  squabbles-off: "<gray>Your pets leave other players' pets in peace now. <white>/pets squabbles</white> again to let them huff."
   others-shown: "<gray>You see other players' pets again."
   whose: "<gray><white><name></white>, <owner>'s <species>."
   gift: "<gold>✦ A gift: <white><name></white> the <white><species></white> is yours now."
@@ -61,7 +63,7 @@ pets:
 
   # ---------------------------------------------------------------- the command
   only-a-player: "<red>Pets belong to players."
-  usage: "<gray>/pets <white>[call|home|stay|follow|mode|tactic|rename|colours|particle|mute] <pet></white>, <white>/pets species</white> or <white>/pets hideothers</white>."
+  usage: "<gray>/pets <white>[call|home|stay|follow|mode|tactic|rename|colours|particle|mute] <pet></white>, <white>/pets species</white>, <white>/pets hideothers</white> or <white>/pets squabbles</white>."
   which-pet: "<yellow>Which pet? Its name, or its species."
   no-such-pet: "<red>You have no pet called <white><name></white>."
   bad-mode: "<red>A mode is aggressive, defensive or passive."
