@@ -54,4 +54,15 @@ class LevelsTest {
         assertThat(levels.damage(4, 11)).isEqualTo(6.4, within(1e-9));
         assertThat(levels.health(20, 99)).isEqualTo(levels.health(20, 30));
     }
+
+    @Test
+    @DisplayName("a pet mends to full in about a minute, a seasoned one quicker")
+    void mending() {
+        double young = levels.regenPerSecond(40, 1);
+        double old = levels.regenPerSecond(40, 30);
+        assertThat(40 / young).isEqualTo(60, within(0.01));
+        assertThat(40 / old).isEqualTo(35, within(0.01));
+        assertThat(levels.regenPerSecond(40, 99)).isEqualTo(old);
+        assertThat(new Levels(1).regenPerSecond(30, 1)).isEqualTo(0.5, within(1e-9));
+    }
 }

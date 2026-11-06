@@ -5,6 +5,7 @@ import de.raindancer.modules.pets.model.Mode;
 import de.raindancer.modules.pets.model.Personality;
 import de.raindancer.modules.pets.model.Pet;
 import de.raindancer.modules.pets.model.Species;
+import de.raindancer.modules.pets.model.Tactic;
 import de.raindancer.modules.pets.service.CollectionService;
 import de.raindancer.modules.pets.util.PermissionNodes;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -30,7 +31,7 @@ import java.util.stream.Stream;
  */
 public final class PetCommand implements IPetCommand {
 
-    private static final List<String> OWN = List.of("call", "home", "stay", "follow", "mode", "rename", "colours",
+    private static final List<String> OWN = List.of("call", "home", "stay", "follow", "mode", "tactic", "rename", "colours",
             "particle", "mute", "species", "hideothers");
     private static final List<String> ADMIN = List.of("give", "take", "personality", "list");
 
@@ -96,6 +97,14 @@ public final class PetCommand implements IPetCommand {
                     return;
                 }
                 live.care().mode(player, pet, mode.get());
+            }
+            case "tactic" -> {
+                Optional<Tactic> tactic = args.length > 2 ? Tactic.parse(args[2]) : Optional.of(pet.tactic().next());
+                if (tactic.isEmpty()) {
+                    live.messages().send(player, "pets.bad-tactic");
+                    return;
+                }
+                live.care().tactic(player, pet, tactic.get());
             }
             case "rename" -> {
                 if (args.length < 3) {
@@ -249,6 +258,9 @@ public final class PetCommand implements IPetCommand {
             }
         } else if (args.length == 3 && args[0].equalsIgnoreCase("mode")) {
             Stream.of(Mode.values()).forEach(mode -> options.add(mode.name().toLowerCase(Locale.ROOT)));
+        } else if (args.length == 3 && args[0].equalsIgnoreCase("tactic")) {
+            Stream.of(Tactic.values()).forEach(tactic -> options.add(
+                    tactic.name().toLowerCase(Locale.ROOT).replace('_', '-')));
         }
         return options.stream().filter(option -> option.toLowerCase(Locale.ROOT).startsWith(typed)).limit(50)
                 .toList();

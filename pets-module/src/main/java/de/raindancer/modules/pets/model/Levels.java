@@ -44,6 +44,12 @@ public record Levels(int maxLevel) {
         return base * (1 + DAMAGE_PER_LEVEL * (clamp(level) - 1));
     }
 
+    /** Half hearts a second it mends out of fights: to full in a minute at level one, 35 seconds at the top. */
+    public double regenPerSecond(double maxHealth, int level) {
+        double grown = maxLevel <= 1 ? 0 : (clamp(level) - 1) / (double) (maxLevel - 1);
+        return maxHealth / (60 - 25 * grown);
+    }
+
     private int clamp(int level) {
         return Math.max(1, Math.min(maxLevel, level));
     }

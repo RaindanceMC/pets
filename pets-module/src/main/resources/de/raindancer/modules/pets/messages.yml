@@ -17,6 +17,7 @@ pets:
   staying: "<gray><white><name></white> waits here."
   following: "<gray><white><name></white> follows you again."
   mode-set: "<gray><white><name></white> is now <white><mode></white>."
+  tactic-set: "<gray><white><name></white> now fights <white><tactic></white>."
   knocked-out: "<red><white><name></white> was knocked out! It can come back in <white><seconds>s</white>."
 
   # ---------------------------------------------------------------- growing
@@ -58,10 +59,11 @@ pets:
 
   # ---------------------------------------------------------------- the command
   only-a-player: "<red>Pets belong to players."
-  usage: "<gray>/pets <white>[call|home|stay|follow|mode|rename|colours|particle|mute] <pet></white>, <white>/pets species</white> or <white>/pets hideothers</white>."
+  usage: "<gray>/pets <white>[call|home|stay|follow|mode|tactic|rename|colours|particle|mute] <pet></white>, <white>/pets species</white> or <white>/pets hideothers</white>."
   which-pet: "<yellow>Which pet? Its name, or its species."
   no-such-pet: "<red>You have no pet called <white><name></white>."
   bad-mode: "<red>A mode is aggressive, defensive or passive."
+  bad-tactic: "<red>A tactic is balanced, relentless, hit-and-run or cautious."
 
   # ---------------------------------------------------------------- staff
   no-permission: "<red>That is for staff."

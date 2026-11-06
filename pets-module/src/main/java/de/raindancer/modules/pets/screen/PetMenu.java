@@ -98,6 +98,12 @@ public final class PetMenu extends Menu implements IPetScreen {
                     services.care().mute(viewer, pet);
                     refresh();
                 });
+        band(MenuLayout.RULES, 7, Icons.of(Material.SHIELD, "<white>Tactic: " + pet.tactic().title(),
+                        "<gray>" + pet.tactic().blurb(), "", "<yellow>Click<gray> for " + pet.tactic().next().title() + "."),
+                click -> {
+                    services.care().tactic(viewer, pet, pet.tactic().next());
+                    refresh();
+                });
         band(MenuLayout.LAND, 3, Icons.of(Material.NAME_TAG, "<white>Rename it",
                         "<gray>Called " + pet.name() + " now.", "", "<yellow>Click<gray> and type its new name."),
                 click -> rename(pet));

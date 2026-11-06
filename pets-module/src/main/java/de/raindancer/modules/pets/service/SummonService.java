@@ -114,13 +114,14 @@ public final class SummonService implements IPetService {
         } catch (IllegalArgumentException unknown) {
             missile = EntityType.SNOWBALL;
         }
+        double health = levels.health(species.health(), pet.level()) * pet.temperament().healthFactor();
         return CompanionSpec.of(EntityType.valueOf(species.entityType()))
                 .height(species.size())
                 .flies(species.flies())
                 .baby(species.baby())
                 .fighting(species.role().fighting())
                 .stance(pet.mode().stance())
-                .health(levels.health(species.health(), pet.level()) * pet.temperament().healthFactor())
+                .health(health)
                 .damage(levels.damage(species.damage(), pet.level()) * strength)
                 .speed(species.speed() * speedFactor)
                 .fleesBelow(pet.temperament().fleesBelow())
@@ -130,7 +131,9 @@ public final class SummonService implements IPetService {
                 .name(name(pet, settings.ownerInName() ? ownerName : ""))
                 .particle(pet.particle(), shape(pet.particleShape()))
                 .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness())
-                .silent(pet.muted());
+                .silent(pet.muted())
+                .tactic(pet.tactic().core())
+                .regenPerSecond(levels.regenPerSecond(health, pet.level()));
     }
 
     public static de.raindancer.core.ui.effect.ParticleShape shape(String name) {

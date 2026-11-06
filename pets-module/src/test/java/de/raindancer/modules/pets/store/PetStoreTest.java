@@ -32,7 +32,8 @@ class PetStoreTest {
         assertThat(store.of(BOB)).isEmpty();
         assertThat(store.of(ALICE)).containsExactly(rex);
 
-        Pet grown = rex.withProgress(7, 42).withMode(Mode.AGGRESSIVE).withName("Rex II").withOut(true)
+        Pet grown = rex.withProgress(7, 42).withMode(Mode.AGGRESSIVE)
+                .withTactic(de.raindancer.modules.pets.model.Tactic.HIT_AND_RUN).withName("Rex II").withOut(true)
                 .withRestingUntil(Instant.ofEpochSecond(2_000))
                 .withTemperament(rex.temperament().nudge(Temperament.Trait.ENERGY, 12))
                 .withStyle("#ff0000,#00ff00|bold")

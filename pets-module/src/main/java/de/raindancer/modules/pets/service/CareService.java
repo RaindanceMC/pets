@@ -100,6 +100,11 @@ public final class CareService implements IPetService {
         messages.send(player, "pets.mode-set", "name", pet.name(), "mode", mode.title());
     }
 
+    public void tactic(Player player, Pet pet, de.raindancer.modules.pets.model.Tactic tactic) {
+        experience.keep(pet.withTactic(tactic));
+        messages.send(player, "pets.tactic-set", "name", pet.name(), "tactic", tactic.title());
+    }
+
     public boolean rename(Player player, Pet pet, String typed) {
         Optional<String> name = names.clean(typed);
         if (name.isEmpty()) {

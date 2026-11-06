@@ -24,7 +24,8 @@ public final class PetDatabase {
             "ALTER TABLE pets ADD COLUMN particle_shape TEXT NOT NULL DEFAULT 'AURA'",
             "ALTER TABLE pets ADD COLUMN curiosity INTEGER NOT NULL DEFAULT 0",
             "ALTER TABLE pets ADD COLUMN nudge_curiosity INTEGER NOT NULL DEFAULT 0",
-            "ALTER TABLE pets ADD COLUMN muted INTEGER NOT NULL DEFAULT 0");
+            "ALTER TABLE pets ADD COLUMN muted INTEGER NOT NULL DEFAULT 0",
+            "ALTER TABLE pets ADD COLUMN tactic TEXT NOT NULL DEFAULT 'BALANCED'");
 
     private PetDatabase() {
     }

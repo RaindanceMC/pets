@@ -30,6 +30,8 @@ sections:
     title: Fighting
     text: |
       Fighters bite, guards draw monsters onto themselves, ranged pets throw, healers mend you. {cmd:/pets mode <pet>} switches between aggressive (joins your fights, hunts monsters near you), defensive (only what hurts you) and passive.
+      {cmd:/pets tactic <pet>} picks how it fights: balanced (circles and darts in), relentless (presses in, chases further), hit and run (bites and backs off) or cautious (stays near you, comes back early when hurt). Pets go first for whatever hurts you, then the weakest and nearest, and leave a foe your other pets will finish anyway.
+      Out of a fight and near you, a hurt pet mends by itself — a seasoned one quicker — and keeps close to you until it has; a badly hurt one is slower and rests more.
       A beaten pet is never lost: it is knocked out for {setting:pets:pets.knocked-out-seconds|count} seconds and can be called again.
   - question: How does my pet grow?
     title: Levels and personality
