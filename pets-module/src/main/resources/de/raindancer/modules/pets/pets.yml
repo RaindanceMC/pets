@@ -14,6 +14,8 @@
 #             activities: monster boss fish breed harvest mine dig excavate chop forage craft cook brew build
 #             tame explore travel raid trade enchant …  ("earn boss ender_dragon 1": slay the dragon once)
 #             Whatever the way, pets.species.<id> hands the species to a rank.
+#   ability:  legendary and mythic only — what it does when its rider swings at the air: wither_skulls,
+#             sonic_boom, fireball, flame_volley, gust, roar, curse, mending_rain, illusion
 #   missile:  what a ranged pet throws — none of them breaks or burns anything
 species:
 
@@ -296,14 +298,15 @@ species:
     mob: BLAZE
     size: 0.4
     role: ranged
-    rarity: epic
+    rarity: legendary
     icon: BLAZE_ROD
     health: 26
     damage: 5
     speed: 0.36
     flies: true
     missile: SMALL_FIREBALL
-    unlock: drop monster blaze 1/800
+    ability: flame_volley
+    unlock: drop monster blaze 1/1000
     blurb: Throws fire that burns only what it hits.
   hoglin:
     title: Hoglin
@@ -358,6 +361,7 @@ species:
     speed: 0.42
     flies: true
     missile: WIND_CHARGE
+    ability: gust
     unlock: drop monster breeze 1/600
     blurb: A gust that answers to you.
   ravager:
@@ -370,6 +374,7 @@ species:
     health: 80
     damage: 8
     speed: 0.32
+    ability: roar
     unlock: drop monster ravager 1/100
     blurb: The raid's beast, broken in.
   ghast:
@@ -384,6 +389,7 @@ species:
     speed: 0.38
     flies: true
     missile: SMALL_FIREBALL
+    ability: fireball
     unlock: drop monster ghast 1/700
     blurb: Cries a lot. Hits hard.
   elder_guardian:
@@ -398,6 +404,7 @@ species:
     speed: 0.32
     flies: true
     missile: SHULKER_BULLET
+    ability: curse
     unlock: drop boss elder_guardian 1/20
     blurb: An ocean monument's warden, floating at your side.
   happy_ghast:
@@ -411,6 +418,7 @@ species:
     damage: 5
     speed: 0.36
     flies: true
+    ability: mending_rain
     unlock: supporter
     blurb: A thank-you for supporting the server. Floats you anywhere, mends you on the way.
 
@@ -427,6 +435,7 @@ species:
     speed: 0.5
     flies: true
     missile: WITHER_SKULL
+    ability: wither_skulls
     unlock: drop boss wither 1/30
     blurb: Once in a long while a slain Wither leaves one behind. Three heads, all on your side.
   warden:
@@ -439,6 +448,7 @@ species:
     health: 160
     damage: 14
     speed: 0.32
+    ability: sonic_boom
     unlock: drop boss warden 1/25
     blurb: Once in a long while a slain Warden leaves one behind. It heard you were in trouble.
 
@@ -836,5 +846,6 @@ species:
     damage: 7
     speed: 0.34
     missile: ARROW
+    ability: illusion
     unlock: permission
     blurb: Given by a rank. Now you see it.

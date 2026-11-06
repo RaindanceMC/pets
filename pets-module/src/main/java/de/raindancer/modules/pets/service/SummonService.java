@@ -143,6 +143,7 @@ public final class SummonService implements IPetService {
                 .particle(pet.particle(), shape(pet.particleShape()))
                 .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness())
                 .silent(pet.muted())
+                .ability(species.ability())
                 .tactic(pet.tactic().core())
                 .grumpiness(settings.squabbles() && !calm.contains(pet.owner()) ? pet.temperament().grumpiness() : 0)
                 .regenPerSecond(levels.regenPerSecond(health, pet.level()));

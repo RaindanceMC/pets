@@ -14,10 +14,19 @@ import org.bukkit.Material;
  * @param flies      whether it flies when following and when ridden
  * @param baby       whether it is the young version, where the mob has one
  * @param missile    what a ranged pet throws, as Bukkit's {@code EntityType} name
+ * @param ability    what it does when its rider swings — only legendary and mythic pets have one; null for none
  */
 public record Species(String id, String title, String entityType, Role role, Rarity rarity, Material icon,
                       double health, double damage, double speed, double size, boolean flies, boolean baby,
-                      Unlock unlock, String blurb, String missile) {
+                      Unlock unlock, String blurb, String missile,
+                      de.raindancer.core.world.companion.CompanionAbility ability) {
+
+    public Species(String id, String title, String entityType, Role role, Rarity rarity, Material icon,
+                   double health, double damage, double speed, double size, boolean flies, boolean baby,
+                   Unlock unlock, String blurb, String missile) {
+        this(id, title, entityType, role, rarity, icon, health, damage, speed, size, flies, baby, unlock, blurb,
+                missile, null);
+    }
 
     public static final double SMALLEST = 0.15;
     public static final double LARGEST = 0.6;

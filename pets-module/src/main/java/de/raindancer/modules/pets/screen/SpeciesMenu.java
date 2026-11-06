@@ -70,6 +70,9 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
         if (!species.blurb().isBlank()) {
             lore.add("<gray>" + species.blurb());
         }
+        if (species.ability() != null) {
+            lore.add("<gold>Ridden, swing at the air: <white>" + species.ability().title());
+        }
         lore.add("");
         switch (verdict.state()) {
             case OWNED -> lore.add("<green>Yours already.");

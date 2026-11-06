@@ -131,6 +131,44 @@ class SpeciesCatalogueTest {
     }
 
     @Test
+    @DisplayName("every legendary and mythic pet has an ability its rider sets off, nothing below them; the blaze is legendary")
+    void abilities() {
+        List<Species> all = SpeciesCatalogue.read(shipped(), problem -> { });
+        for (Species species : all) {
+            boolean top = species.rarity() == de.raindancer.modules.pets.model.Rarity.LEGENDARY
+                    || species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC;
+            if (top) {
+                assertThat(species.ability()).as(species.id()).isNotNull();
+            } else {
+                assertThat(species.ability()).as(species.id()).isNull();
+            }
+        }
+        assertThat(all).filteredOn(s -> s.id().equals("blaze")).singleElement()
+                .satisfies(blaze -> {
+                    assertThat(blaze.rarity()).isEqualTo(de.raindancer.modules.pets.model.Rarity.LEGENDARY);
+                    assertThat(blaze.ability()).isEqualTo(de.raindancer.core.world.companion.CompanionAbility.FLAME_VOLLEY);
+                });
+        assertThat(all).filteredOn(s -> s.id().equals("wither")).singleElement()
+                .extracting(Species::ability).isEqualTo(de.raindancer.core.world.companion.CompanionAbility.WITHER_SKULLS);
+    }
+
+    @Test
+    @DisplayName("an ability that is not one is a problem with the species, not a crash")
+    void unknownAbility() {
+        List<String> problems = new ArrayList<>();
+        SpeciesCatalogue.read(new java.io.ByteArrayInputStream("""
+                species:
+                  odd:
+                    mob: WITHER
+                    role: ranged
+                    rarity: mythic
+                    unlock: drop boss wither 1/30
+                    ability: laser_eyes
+                """.getBytes(java.nio.charset.StandardCharsets.UTF_8)), problems::add);
+        assertThat(problems).singleElement().asString().contains("odd").contains("laser_eyes");
+    }
+
+    @Test
     @DisplayName("every shipped species is a mob the server can make")
     void mobs() {
         for (Species species : SpeciesCatalogue.read(shipped(), problem -> { })) {

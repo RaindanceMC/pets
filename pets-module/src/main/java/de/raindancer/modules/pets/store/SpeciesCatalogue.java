@@ -45,6 +45,7 @@ import java.util.function.Supplier;
  *     baby: true
  *     unlock: earn forage 150   # free | earn &lt;activity&gt; [thing] &lt;count&gt; [+ more parts] | drop monster|boss &lt;mob&gt; 1/&lt;n&gt; | buy &lt;price&gt; | permission | supporter
  *     blurb: Quick and sly.
+ *     ability: wither_skulls # legendary and mythic only: what it does when its rider swings
  *     missile: SNOWBALL      # a ranged pet's: SNOWBALL, LLAMA_SPIT, SMALL_FIREBALL, WITHER_SKULL, WIND_CHARGE, ARROW,
  *                            # SHULKER_BULLET, DRAGON_FIREBALL — none of them breaks or burns anything
  * </pre>
@@ -149,7 +150,8 @@ public final class SpeciesCatalogue {
                 Math.max(0.05, Math.min(1.5, entry.getDouble("speed", 0.3))),
                 entry.getDouble("size", 0.4), entry.getBoolean("flies", false),
                 entry.getBoolean("baby", false), unlock,
-                entry.getString("blurb", ""), entry.getString("missile", "SNOWBALL").trim().toUpperCase(Locale.ROOT));
+                entry.getString("blurb", ""), entry.getString("missile", "SNOWBALL").trim().toUpperCase(Locale.ROOT),
+                ability(entry.getString("ability", "")));
     }
 
     private static double positive(double value, String what) {
@@ -176,6 +178,20 @@ public final class SpeciesCatalogue {
             throw new IllegalArgumentException("each part of earn ends in a number: boss wither 3");
         }
         return new de.raindancer.modules.pets.model.Requirement(kind, words.length >= 3 ? words[1] : "", count);
+    }
+
+    static de.raindancer.core.world.companion.CompanionAbility ability(String written) {
+        String name = written == null ? "" : written.trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+        try {
+            return de.raindancer.core.world.companion.CompanionAbility.valueOf(name.toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException unknown) {
+            throw new IllegalArgumentException("ability '" + name + "' is none of "
+                    + java.util.Arrays.stream(de.raindancer.core.world.companion.CompanionAbility.values())
+                    .map(each -> each.name().toLowerCase(Locale.ROOT)).toList());
+        }
     }
 
     static Unlock unlock(String written) {

@@ -25,7 +25,7 @@ sections:
     title: Riding
     when: pets:pets.riding
     text: |
-      Right-click your own pet to climb on; walk with the usual keys, sprint to go faster. A flying pet flies with you — look where you want to go, jump to climb. Sneak to get off.
+      Right-click your own pet to climb on; walk with the usual keys, sprint to go faster. A flying pet flies with you — look where you want to go, jump to climb. Sneak to get off. Legendary and mythic pets have a power of their own: swing at the air while you ride — the wither shoots wither skulls, the warden a sonic boom, the blaze a volley of fire. It hurts only what you may fight and breaks nothing; then it needs a few seconds again.
   - question: How does my pet fight?
     title: Fighting
     text: |
