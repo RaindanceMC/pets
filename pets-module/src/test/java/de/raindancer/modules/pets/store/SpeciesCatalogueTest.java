@@ -109,7 +109,7 @@ class SpeciesCatalogueTest {
     }
 
     @Test
-    @DisplayName("legendary and mythic pets are only ever dropped (or given): a mythic once in a hundred boss kills or rarer")
+    @DisplayName("legendary and mythic pets are only ever dropped (or given): a mythic from a boss, once in twenty kills or rarer")
     void rarestDrop() {
         List<Species> all = SpeciesCatalogue.read(shipped(), problem -> { });
         for (Species species : all) {
@@ -120,7 +120,7 @@ class SpeciesCatalogueTest {
             }
             if (species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC && way == Unlock.Way.DROP) {
                 assertThat(species.unlock().activity()).as(species.id()).isEqualTo(ActivityKind.BOSS);
-                assertThat(species.unlock().chance()).as(species.id()).isLessThanOrEqualTo(0.01);
+                assertThat(species.unlock().chance()).as(species.id()).isLessThanOrEqualTo(0.05);
             }
             if (way == Unlock.Way.DROP) {
                 assertThat(species.unlock().what()).as(species.id() + " drops from its own kind")

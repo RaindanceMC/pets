@@ -398,7 +398,7 @@ species:
     speed: 0.32
     flies: true
     missile: SHULKER_BULLET
-    unlock: drop boss elder_guardian 1/25
+    unlock: drop boss elder_guardian 1/20
     blurb: An ocean monument's warden, floating at your side.
   happy_ghast:
     title: Happy Ghast
@@ -427,7 +427,7 @@ species:
     speed: 0.5
     flies: true
     missile: WITHER_SKULL
-    unlock: drop boss wither 1/150
+    unlock: drop boss wither 1/30
     blurb: Once in a long while a slain Wither leaves one behind. Three heads, all on your side.
   warden:
     title: Warden
@@ -439,7 +439,7 @@ species:
     health: 160
     damage: 14
     speed: 0.32
-    unlock: drop boss warden 1/150
+    unlock: drop boss warden 1/25
     blurb: Once in a long while a slain Warden leaves one behind. It heard you were in trouble.
 
   # ------------------------------------------------------------------ villagers, monsters and more
