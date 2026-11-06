@@ -1,0 +1,74 @@
+# Rain's Pets — every line this module says. A floor: whatever an owner wrote in their own messages.yml wins.
+pets:
+
+  # ---------------------------------------------------------------- calling and sending home
+  called: "<green><white><name></white> is out with you."
+  already-out: "<yellow><white><name></white> is already out."
+  resting: "<yellow><white><name></white> is still knocked out — back in <white><seconds>s</white>."
+  too-many: "<yellow>You can have <white><count></white> pet(s) out at once. Send one home first."
+  not-here: "<red>Pets cannot come into this world."
+  not-here-sent-home: "<yellow><white><name></white> cannot come here and went home."
+  vanished: "<red>Your pets stay home while you are vanished."
+  species-gone: "<red><white><name></white>'s species is not offered here any more."
+  could-not-call: "<red><white><name></white> could not be called here."
+  sent-home: "<gray><white><name></white> went home."
+  all-home: "<gray>Every pet went home."
+  not-out: "<yellow><white><name></white> is not out."
+  staying: "<gray><white><name></white> waits here."
+  following: "<gray><white><name></white> follows you again."
+  mode-set: "<gray><white><name></white> is now <white><mode></white>."
+  knocked-out: "<red><white><name></white> was knocked out! It can come back in <white><seconds>s</white>."
+
+  # ---------------------------------------------------------------- growing
+  level-up: "<gold>✦ <white><name></white> reached level <white><level></white>!"
+  personality-changed: "<light_purple><white><name></white> has become <white><personality></white>."
+  fed: "<green><white><name></white> loved that."
+  not-hungry: "<gray><white><name></white> is not hungry yet."
+
+  # ---------------------------------------------------------------- getting one
+  adopted: "<green>A new friend: the <white><species></white> <gray>(<rarity>)</gray> is yours. Call it from <white>/pets</white>."
+  already-owned: "<yellow>You already have the <white><species></white>."
+  locked: "<yellow>The <white><species></white> is not earned yet."
+  supporters-only: "<light_purple>The <white><species></white> is a thank-you for the server's supporters — <white>/support</white>."
+  rank-only: "<yellow>The <white><species></white> is given by a rank."
+  too-poor: "<red>You cannot afford the <white><species></white> yet."
+  no-economy: "<red>Nothing can be bought here right now."
+  not-loaded: "<yellow>Your pets are still being fetched — try again in a moment."
+  earned: "<gold>✦ You earned the <white><species></white> <gray>(<rarity>)</gray>! Take it in <white>/pets species</white>."
+  discovered: "<aqua>You spotted a <white><rarity></white> pet: the <white><species></white>. It is in <white>/pets species</white> now."
+  unknown-yet: "<gray>Nobody has shown you this pet yet."
+  whose: "<gray><white><name></white>, <owner>'s <species>."
+  gift: "<gold>✦ A gift: <white><name></white> the <white><species></white> is yours now."
+
+  # ---------------------------------------------------------------- naming
+  ask-name: "<gray>Type a new name for <white><name></white> in chat, or <white>cancel</white>."
+  renamed: "<green><white><old></white> is called <white><name></white> now."
+  bad-name: "<red>A pet's name is up to <white><longest></white> letters, digits, spaces and . ' - _ ! ?"
+  busy: "<yellow>Answer the question you were asked first."
+  particle-on: "<green><white><name></white> is wearing it now."
+  particle-off: "<gray><white><name></white> took its particles off."
+  particle-not-yours: "<red>Only particles you may wear yourself — see <white>/cosmetics</white>."
+  styled: "<green><white><name></white>'s name is painted anew."
+  bad-style: "<red>That is not a style: <white><detail></white>. Try <white>#8932B8 #1D1D21 bold animated</white>."
+  style-not-yours: "<red>You may not paint names like that — only as you may paint your own."
+
+  # ---------------------------------------------------------------- the command
+  only-a-player: "<red>Pets belong to players."
+  usage: "<gray>/pets <white>[call|home|stay|follow|mode|rename|colours] <pet></white>, or <white>/pets species</white>."
+  which-pet: "<yellow>Which pet? Its name, or its species."
+  no-such-pet: "<red>You have no pet called <white><name></white>."
+  bad-mode: "<red>A mode is aggressive, defensive or passive."
+
+  # ---------------------------------------------------------------- staff
+  no-permission: "<red>That is for staff."
+  admin-usage: "<gray>/pets admin <white>give <player> <species> [name]</white> · <white>take <player> <pet></white> · <white>personality <player> <pet> <personality></white> · <white>list <player></white>"
+  unknown-player: "<red>Nobody called <white><player></white> has played here."
+  unknown-species: "<red>There is no species <white><species></white> — see <white>/pets species</white>."
+  admin-given: "<green><white><player></white> has <white><name></white> the <white><species></white> now."
+  admin-taken: "<green><white><name></white> was taken from <white><player></white>."
+  admin-no-such-pet: "<red><white><player></white> has no pet <white><name></white>."
+  admin-personality: "<green><white><player></white>'s <white><name></white> is <white><personality></white> now."
+  bad-personality: "<red>A personality is one of <white><all></white>."
+  admin-none: "<gray><white><player></white> has no pets."
+  admin-list-head: "<gray><white><player></white>'s pets (<white><count></white>):"
+  admin-list-line: "<dark_gray> · <white><name></white> <gray><species>, level <level>, <personality>"

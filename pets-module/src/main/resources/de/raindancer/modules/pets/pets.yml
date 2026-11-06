@@ -1,0 +1,850 @@
+# Rain's Pets — the species this server offers. Written once into plugins/RainsPets/pets.yml; edit that copy.
+#
+#   mob:      the vanilla mob (Bukkit's EntityType name)       role:   fighter | guard | ranged | healer
+#   rarity:   common | uncommon | rare | epic | legendary | mythic — the pages of /pets
+#   health:   half hearts at level one                        damage: a hit (a healer's mend) at level one
+#   speed:    blocks per tick, following and ridden           size:   how tall, in player heights (0.15–0.6);
+#                                                                     always smaller than the wild mob
+#   flies:    flies when following and when ridden            baby:   the young version, where there is one
+#   unlock:   free | earn <activity> [thing] <count> | buy <price> | permission | supporter
+#             Only common pets can be bought; anything rarer is earned, granted or a supporters' thank-you.
+#             activities: monster boss fish breed harvest mine dig excavate chop forage craft cook brew build
+#             tame explore travel raid trade enchant …  ("earn boss ender_dragon 1": slay the dragon once)
+#             Whatever the way, pets.species.<id> hands the species to a rank.
+#   missile:  what a ranged pet throws — none of them breaks or burns anything
+species:
+
+  # ------------------------------------------------------------------ common
+  wolf:
+    title: Wolf
+    mob: WOLF
+    size: 0.32
+    role: fighter
+    rarity: common
+    icon: BONE
+    health: 20
+    damage: 4
+    speed: 0.34
+    baby: true
+    unlock: free
+    blurb: Everybody's first friend.
+  pig:
+    title: Pig
+    mob: PIG
+    size: 0.32
+    role: guard
+    rarity: common
+    icon: CARROT_ON_A_STICK
+    health: 24
+    damage: 2
+    speed: 0.3
+    unlock: free
+    blurb: Sturdier than it looks, and it has always wanted to be ridden.
+  rabbit:
+    title: Rabbit
+    mob: RABBIT
+    size: 0.22
+    role: fighter
+    rarity: common
+    icon: RABBIT_FOOT
+    health: 12
+    damage: 3
+    speed: 0.42
+    unlock: buy 750
+    blurb: Small, fast, surprisingly bitey.
+  chicken:
+    title: Chicken
+    mob: CHICKEN
+    size: 0.22
+    role: healer
+    rarity: common
+    icon: EGG
+    health: 12
+    damage: 1.5
+    speed: 0.3
+    flies: true
+    unlock: earn breed 25
+    blurb: Clucks you back to health. Flaps, too.
+  cat:
+    title: Cat
+    mob: CAT
+    size: 0.28
+    role: fighter
+    rarity: common
+    icon: COD
+    health: 16
+    damage: 3.5
+    speed: 0.38
+    baby: true
+    unlock: earn fish 60
+    blurb: Comes for the fish, stays for the fights.
+
+  # ------------------------------------------------------------------ uncommon
+  fox:
+    title: Fox
+    mob: FOX
+    size: 0.3
+    role: fighter
+    rarity: uncommon
+    icon: SWEET_BERRIES
+    health: 18
+    damage: 4.5
+    speed: 0.4
+    baby: true
+    unlock: earn forage 200
+    blurb: Quick and sly.
+  goat:
+    title: Goat
+    mob: GOAT
+    size: 0.38
+    role: guard
+    rarity: uncommon
+    icon: GOAT_HORN
+    health: 28
+    damage: 3
+    speed: 0.32
+    unlock: earn mine 800
+    blurb: Rams first, asks never.
+  llama:
+    title: Llama
+    mob: LLAMA
+    size: 0.4
+    role: ranged
+    rarity: uncommon
+    icon: LEAD
+    health: 22
+    damage: 3
+    speed: 0.3
+    baby: true
+    missile: LLAMA_SPIT
+    unlock: earn trade 60
+    blurb: Spits at your enemies. Mostly.
+  parrot:
+    title: Parrot
+    mob: PARROT
+    size: 0.18
+    role: healer
+    rarity: uncommon
+    icon: FEATHER
+    health: 12
+    damage: 2
+    speed: 0.4
+    flies: true
+    unlock: earn explore 20
+    blurb: Sings your wounds shut.
+  bee:
+    title: Bee
+    mob: BEE
+    size: 0.18
+    role: fighter
+    rarity: uncommon
+    icon: HONEYCOMB
+    health: 14
+    damage: 3.5
+    speed: 0.38
+    flies: true
+    unlock: supporter
+    blurb: A thank-you for supporting the server. Stings, but only the bad guys.
+  frog:
+    title: Frog
+    mob: FROG
+    size: 0.2
+    role: fighter
+    rarity: uncommon
+    icon: SLIME_BALL
+    health: 16
+    damage: 4
+    speed: 0.36
+    unlock: supporter
+    blurb: A thank-you for supporting the server. Tongue first.
+
+  # ------------------------------------------------------------------ rare
+  polar_bear:
+    title: Polar Bear
+    mob: POLAR_BEAR
+    size: 0.42
+    role: guard
+    rarity: rare
+    icon: SNOW_BLOCK
+    health: 40
+    damage: 5
+    speed: 0.32
+    baby: true
+    unlock: earn travel 25000
+    blurb: A cub with a grudge against everything that hurts you.
+  panda:
+    title: Panda
+    mob: PANDA
+    size: 0.42
+    role: guard
+    rarity: rare
+    icon: BAMBOO
+    health: 38
+    damage: 4
+    speed: 0.28
+    baby: true
+    unlock: earn harvest 1500
+    blurb: Rolls into trouble and sits on it.
+  snow_golem:
+    title: Snow Golem
+    mob: SNOW_GOLEM
+    size: 0.4
+    role: ranged
+    rarity: rare
+    icon: SNOWBALL
+    health: 20
+    damage: 3.5
+    speed: 0.3
+    missile: SNOWBALL
+    unlock: earn build 3000
+    blurb: Never runs out of snowballs.
+  armadillo:
+    title: Armadillo
+    mob: ARMADILLO
+    size: 0.26
+    role: guard
+    rarity: rare
+    icon: ARMADILLO_SCUTE
+    health: 44
+    damage: 3
+    speed: 0.28
+    baby: true
+    unlock: earn excavate 1000
+    blurb: Rolls up, holds the line.
+  bat:
+    title: Bat
+    mob: BAT
+    size: 0.18
+    role: fighter
+    rarity: rare
+    icon: BLACK_DYE
+    health: 14
+    damage: 4
+    speed: 0.45
+    flies: true
+    unlock: earn explore 50
+    blurb: Flits about. Bites ankles.
+  axolotl:
+    title: Axolotl
+    mob: AXOLOTL
+    size: 0.2
+    role: healer
+    rarity: rare
+    icon: TROPICAL_FISH_BUCKET
+    health: 20
+    damage: 3
+    speed: 0.34
+    unlock: supporter
+    blurb: A thank-you for supporting the server. Plays dead so you don't have to.
+  allay:
+    title: Allay
+    mob: ALLAY
+    size: 0.22
+    role: healer
+    rarity: rare
+    icon: AMETHYST_SHARD
+    health: 18
+    damage: 3.5
+    speed: 0.42
+    flies: true
+    unlock: supporter
+    blurb: A thank-you for supporting the server. Hums a healing song.
+
+  # ------------------------------------------------------------------ epic
+  camel:
+    title: Camel
+    mob: CAMEL
+    size: 0.5
+    role: guard
+    rarity: epic
+    icon: CACTUS
+    health: 50
+    damage: 4
+    speed: 0.36
+    unlock: earn travel 60000
+    blurb: Carries you across any desert, kicks whatever follows.
+  iron_golem:
+    title: Iron Golem
+    mob: IRON_GOLEM
+    size: 0.5
+    role: guard
+    rarity: epic
+    icon: IRON_BLOCK
+    health: 60
+    damage: 7
+    speed: 0.28
+    unlock: earn trade 400
+    blurb: A village's protector, now yours.
+  phantom:
+    title: Phantom
+    mob: PHANTOM
+    size: 0.3
+    role: fighter
+    rarity: epic
+    icon: PHANTOM_MEMBRANE
+    health: 24
+    damage: 5.5
+    speed: 0.5
+    flies: true
+    unlock: earn monster phantom 60
+    blurb: Swoops out of the night — for you, for once.
+  blaze:
+    title: Blaze
+    mob: BLAZE
+    size: 0.4
+    role: ranged
+    rarity: epic
+    icon: BLAZE_ROD
+    health: 26
+    damage: 5
+    speed: 0.36
+    flies: true
+    missile: SMALL_FIREBALL
+    unlock: earn monster blaze 120
+    blurb: Throws fire that burns only what it hits.
+  hoglin:
+    title: Hoglin
+    mob: HOGLIN
+    size: 0.42
+    role: fighter
+    rarity: epic
+    icon: COOKED_PORKCHOP
+    health: 34
+    damage: 6
+    speed: 0.34
+    baby: true
+    unlock: earn monster hoglin 60
+    blurb: Tusks first.
+  vex:
+    title: Vex
+    mob: VEX
+    size: 0.22
+    role: fighter
+    rarity: epic
+    icon: IRON_SWORD
+    health: 18
+    damage: 6
+    speed: 0.48
+    flies: true
+    unlock: earn monster vex 40
+    blurb: Small, sharp and very, very loyal.
+  sniffer:
+    title: Sniffer
+    mob: SNIFFER
+    size: 0.5
+    role: guard
+    rarity: epic
+    icon: TORCHFLOWER_SEEDS
+    health: 60
+    damage: 4
+    speed: 0.28
+    baby: true
+    unlock: supporter
+    blurb: A thank-you for supporting the server. Ancient, gentle, enormous.
+
+  # ------------------------------------------------------------------ legendary
+  breeze:
+    title: Breeze
+    mob: BREEZE
+    size: 0.4
+    role: ranged
+    rarity: legendary
+    icon: BREEZE_ROD
+    health: 32
+    damage: 6
+    speed: 0.42
+    flies: true
+    missile: WIND_CHARGE
+    unlock: earn monster breeze 50
+    blurb: A gust that answers to you.
+  ravager:
+    title: Ravager
+    mob: RAVAGER
+    size: 0.52
+    role: guard
+    rarity: legendary
+    icon: SADDLE
+    health: 80
+    damage: 8
+    speed: 0.32
+    unlock: earn raid 3
+    blurb: The raid's beast, broken in.
+  ghast:
+    title: Ghast
+    mob: GHAST
+    size: 0.5
+    role: ranged
+    rarity: legendary
+    icon: GHAST_TEAR
+    health: 40
+    damage: 7
+    speed: 0.38
+    flies: true
+    missile: SMALL_FIREBALL
+    unlock: earn monster ghast 50
+    blurb: Cries a lot. Hits hard.
+  elder_guardian:
+    title: Elder Guardian
+    mob: ELDER_GUARDIAN
+    size: 0.48
+    role: ranged
+    rarity: legendary
+    icon: PRISMARINE_SHARD
+    health: 70
+    damage: 7
+    speed: 0.32
+    flies: true
+    missile: SHULKER_BULLET
+    unlock: earn boss elder_guardian 3
+    blurb: An ocean monument's warden, floating at your side.
+  happy_ghast:
+    title: Happy Ghast
+    mob: HAPPY_GHAST
+    size: 0.55
+    role: healer
+    rarity: legendary
+    icon: SNOWBALL
+    health: 60
+    damage: 5
+    speed: 0.36
+    flies: true
+    unlock: supporter
+    blurb: A thank-you for supporting the server. Floats you anywhere, mends you on the way.
+
+  # ------------------------------------------------------------------ mythic
+  ender_dragon:
+    title: Ender Dragon
+    mob: ENDER_DRAGON
+    size: 0.6
+    role: fighter
+    rarity: mythic
+    icon: DRAGON_HEAD
+    health: 120
+    damage: 12
+    speed: 0.6
+    flies: true
+    unlock: earn boss ender_dragon 1
+    blurb: For whoever slew the dragon — a dragon of their own.
+  wither:
+    title: Wither
+    mob: WITHER
+    size: 0.58
+    role: ranged
+    rarity: mythic
+    icon: WITHER_SKELETON_SKULL
+    health: 110
+    damage: 11
+    speed: 0.5
+    flies: true
+    missile: WITHER_SKULL
+    unlock: earn boss wither 3
+    blurb: Three heads, all on your side.
+  warden:
+    title: Warden
+    mob: WARDEN
+    size: 0.56
+    role: guard
+    rarity: mythic
+    icon: SCULK_SHRIEKER
+    health: 160
+    damage: 14
+    speed: 0.32
+    unlock: earn boss warden 1
+    blurb: It heard you were in trouble.
+
+  # ------------------------------------------------------------------ villagers, monsters and more
+  cow:
+    title: Cow
+    mob: COW
+    size: 0.3
+    role: guard
+    rarity: common
+    icon: MILK_BUCKET
+    health: 22
+    damage: 2
+    speed: 0.28
+    baby: true
+    unlock: buy 500
+    blurb: Steady, sturdy, and it moos at danger.
+  sheep:
+    title: Sheep
+    mob: SHEEP
+    size: 0.28
+    role: fighter
+    rarity: common
+    icon: WHITE_WOOL
+    health: 18
+    damage: 2.5
+    speed: 0.3
+    baby: true
+    unlock: buy 400
+    blurb: Fluffy until it is not.
+  villager:
+    title: Villager
+    mob: VILLAGER
+    size: 0.32
+    role: healer
+    rarity: common
+    icon: EMERALD
+    health: 16
+    damage: 2
+    speed: 0.3
+    baby: true
+    unlock: earn trade 30
+    blurb: Patches you up and haggles with the monsters.
+  zombie:
+    title: Zombie
+    mob: ZOMBIE
+    size: 0.32
+    role: fighter
+    rarity: common
+    icon: ROTTEN_FLESH
+    health: 20
+    damage: 3.5
+    speed: 0.3
+    baby: true
+    unlock: earn monster zombie 50
+    blurb: Slow, hungry, and on your side.
+  skeleton:
+    title: Skeleton
+    mob: SKELETON
+    size: 0.33
+    role: ranged
+    rarity: common
+    icon: ARROW
+    health: 18
+    damage: 3
+    speed: 0.32
+    missile: ARROW
+    unlock: earn monster skeleton 50
+    blurb: Never misses. Often.
+  spider:
+    title: Spider
+    mob: SPIDER
+    size: 0.2
+    role: fighter
+    rarity: common
+    icon: STRING
+    health: 16
+    damage: 3.5
+    speed: 0.38
+    unlock: earn monster spider 50
+    blurb: Eight legs of loyalty.
+  slime:
+    title: Slime
+    mob: SLIME
+    size: 0.22
+    role: guard
+    rarity: common
+    icon: SLIME_BALL
+    health: 20
+    damage: 2.5
+    speed: 0.3
+    unlock: earn monster slime 40
+    blurb: Bounces into the way of whatever comes for you.
+  creeper:
+    title: Creeper
+    mob: CREEPER
+    size: 0.3
+    role: fighter
+    rarity: uncommon
+    icon: GUNPOWDER
+    health: 20
+    damage: 4.5
+    speed: 0.32
+    unlock: earn monster creeper 80
+    blurb: Hugs. Never explodes. Promise.
+  husk:
+    title: Husk
+    mob: HUSK
+    size: 0.32
+    role: fighter
+    rarity: uncommon
+    icon: SAND
+    health: 22
+    damage: 4
+    speed: 0.3
+    baby: true
+    unlock: earn monster husk 60
+    blurb: Brought the desert with it.
+  drowned:
+    title: Drowned
+    mob: DROWNED
+    size: 0.32
+    role: ranged
+    rarity: uncommon
+    icon: TRIDENT
+    health: 22
+    damage: 4
+    speed: 0.3
+    baby: true
+    missile: TRIDENT
+    unlock: earn monster drowned 60
+    blurb: Throws its trident and never loses it.
+  stray:
+    title: Stray
+    mob: STRAY
+    size: 0.33
+    role: ranged
+    rarity: uncommon
+    icon: TIPPED_ARROW
+    health: 18
+    damage: 3.5
+    speed: 0.32
+    missile: ARROW
+    unlock: earn monster stray 50
+    blurb: Cold arrows from a cold friend.
+  witch:
+    title: Witch
+    mob: WITCH
+    size: 0.34
+    role: healer
+    rarity: uncommon
+    icon: GLASS_BOTTLE
+    health: 20
+    damage: 3
+    speed: 0.3
+    unlock: earn monster witch 30
+    blurb: Brews for you now.
+  mooshroom:
+    title: Mooshroom
+    mob: MOOSHROOM
+    size: 0.3
+    role: healer
+    rarity: uncommon
+    icon: RED_MUSHROOM
+    health: 22
+    damage: 2.5
+    speed: 0.28
+    baby: true
+    unlock: earn forage 400
+    blurb: Mushroom stew on legs.
+  horse:
+    title: Horse
+    mob: HORSE
+    size: 0.36
+    role: guard
+    rarity: uncommon
+    icon: LEATHER_HORSE_ARMOR
+    health: 30
+    damage: 3
+    speed: 0.42
+    baby: true
+    unlock: earn travel 15000
+    blurb: Small, fast, and built for riding.
+  turtle:
+    title: Turtle
+    mob: TURTLE
+    size: 0.2
+    role: guard
+    rarity: uncommon
+    icon: TURTLE_SCUTE
+    health: 30
+    damage: 2
+    speed: 0.24
+    baby: true
+    unlock: earn fish 150
+    blurb: Slow and steady holds the line.
+  copper_golem:
+    title: Copper Golem
+    mob: COPPER_GOLEM
+    size: 0.3
+    role: guard
+    rarity: uncommon
+    icon: COPPER_BLOCK
+    health: 30
+    damage: 3
+    speed: 0.3
+    unlock: earn mine 1500
+    blurb: Sorts your enemies into piles.
+  enderman:
+    title: Enderman
+    mob: ENDERMAN
+    size: 0.4
+    role: fighter
+    rarity: rare
+    icon: ENDER_PEARL
+    health: 30
+    damage: 6
+    speed: 0.4
+    unlock: earn monster enderman 100
+    blurb: Don't look it in the eyes. It is shy.
+  piglin:
+    title: Piglin
+    mob: PIGLIN
+    size: 0.33
+    role: ranged
+    rarity: rare
+    icon: GOLD_INGOT
+    health: 24
+    damage: 4
+    speed: 0.34
+    baby: true
+    missile: ARROW
+    unlock: earn monster piglin 60
+    blurb: Works for gold. Fights for you.
+  zombified_piglin:
+    title: Zombified Piglin
+    mob: ZOMBIFIED_PIGLIN
+    size: 0.33
+    role: fighter
+    rarity: rare
+    icon: GOLD_NUGGET
+    health: 26
+    damage: 5
+    speed: 0.34
+    baby: true
+    unlock: earn monster zombified_piglin 120
+    blurb: Angry at everybody but you.
+  wither_skeleton:
+    title: Wither Skeleton
+    mob: WITHER_SKELETON
+    size: 0.38
+    role: fighter
+    rarity: rare
+    icon: COAL
+    health: 28
+    damage: 6
+    speed: 0.34
+    unlock: earn monster wither_skeleton 80
+    blurb: A dark blade at your back.
+  bogged:
+    title: Bogged
+    mob: BOGGED
+    size: 0.33
+    role: ranged
+    rarity: rare
+    icon: BROWN_MUSHROOM
+    health: 20
+    damage: 4
+    speed: 0.32
+    missile: ARROW
+    unlock: earn monster bogged 40
+    blurb: Its arrows smell of swamp.
+  strider:
+    title: Strider
+    mob: STRIDER
+    size: 0.3
+    role: guard
+    rarity: rare
+    icon: WARPED_FUNGUS_ON_A_STICK
+    health: 30
+    damage: 3
+    speed: 0.3
+    baby: true
+    unlock: earn explore 35
+    blurb: Shivers in the cold, never in a fight.
+  pillager:
+    title: Pillager
+    mob: PILLAGER
+    size: 0.33
+    role: ranged
+    rarity: rare
+    icon: CROSSBOW
+    health: 24
+    damage: 4.5
+    speed: 0.32
+    missile: ARROW
+    unlock: earn monster pillager 60
+    blurb: Raids on your behalf now.
+  vindicator:
+    title: Vindicator
+    mob: VINDICATOR
+    size: 0.33
+    role: fighter
+    rarity: rare
+    icon: IRON_AXE
+    health: 26
+    damage: 6
+    speed: 0.34
+    unlock: earn monster vindicator 40
+    blurb: Its axe swings your way no more.
+  guardian:
+    title: Guardian
+    mob: GUARDIAN
+    size: 0.3
+    role: ranged
+    rarity: rare
+    icon: PRISMARINE_CRYSTALS
+    health: 28
+    damage: 5
+    speed: 0.34
+    flies: true
+    missile: SHULKER_BULLET
+    unlock: earn monster guardian 80
+    blurb: Floats beside you and stares down your foes.
+  evoker:
+    title: Evoker
+    mob: EVOKER
+    size: 0.33
+    role: ranged
+    rarity: epic
+    icon: TOTEM_OF_UNDYING
+    health: 30
+    damage: 6
+    speed: 0.32
+    missile: SHULKER_BULLET
+    unlock: earn monster evoker 15
+    blurb: Spells, at your service.
+  piglin_brute:
+    title: Piglin Brute
+    mob: PIGLIN_BRUTE
+    size: 0.34
+    role: fighter
+    rarity: epic
+    icon: GOLDEN_AXE
+    health: 40
+    damage: 7
+    speed: 0.34
+    unlock: earn monster piglin_brute 25
+    blurb: The bastion's bouncer.
+  zoglin:
+    title: Zoglin
+    mob: ZOGLIN
+    size: 0.42
+    role: fighter
+    rarity: epic
+    icon: CRIMSON_FUNGUS
+    health: 36
+    damage: 6.5
+    speed: 0.34
+    baby: true
+    unlock: earn monster zoglin 30
+    blurb: Feral, fierce, yours.
+  creaking:
+    title: Creaking
+    mob: CREAKING
+    size: 0.42
+    role: guard
+    rarity: epic
+    icon: CREAKING_HEART
+    health: 50
+    damage: 5
+    speed: 0.3
+    unlock: earn explore 80
+    blurb: Only moves when nobody watches. Except for you.
+  skeleton_horse:
+    title: Skeleton Horse
+    mob: SKELETON_HORSE
+    size: 0.36
+    role: guard
+    rarity: epic
+    icon: BONE_BLOCK
+    health: 36
+    damage: 4
+    speed: 0.44
+    unlock: earn monster skeleton 1000
+    blurb: Rattles across the land with you.
+  illusioner:
+    title: Illusioner
+    mob: ILLUSIONER
+    size: 0.33
+    role: ranged
+    rarity: legendary
+    icon: ENDER_EYE
+    health: 40
+    damage: 7
+    speed: 0.34
+    missile: ARROW
+    unlock: permission
+    blurb: Given by a rank. Now you see it.

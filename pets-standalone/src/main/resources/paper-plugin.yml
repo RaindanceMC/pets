@@ -1,0 +1,27 @@
+# Generated in shape by StandaloneDescriptor and checked by DescriptorTest — see that class for why every line
+# here matters, and for the two ways of writing this file that fail silently.
+name: ${plugin.name}
+version: '${plugin.version}'
+main: de.raindancer.modules.wrapper.ModulePlugin
+bootstrapper: de.raindancer.modules.wrapper.ModuleBootstrap
+api-version: '26.3'
+description: 'Pets that fight beside you: vanilla animals that follow, defend, level up and come back after a knock-out.'
+author: Raindancer118
+website: https://github.com/RaindanceMC/pets
+
+# Every pet is ticked on its own entity scheduler, and every owner's work on theirs; nothing touches
+# Bukkit.getScheduler().
+folia-supported: true
+
+dependencies:
+  # Both phases: the bootstrapper discovers the module and registers its commands, and needs RainsCore's classes then.
+  bootstrap:
+    RainsCore:
+      load: BEFORE
+      required: true
+      join-classpath: true
+  server:
+    RainsCore:
+      load: BEFORE
+      required: true
+      join-classpath: true

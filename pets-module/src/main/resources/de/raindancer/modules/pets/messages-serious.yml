@@ -1,0 +1,4 @@
+# The serious wording for this module: the same keys as messages.yml, said plainly.
+pets:
+  fed: "<green><white><name></white> was fed."
+  adopted: "<green>The <white><species></white> <gray>(<rarity>)</gray> is yours. Call it from <white>/pets</white>."
