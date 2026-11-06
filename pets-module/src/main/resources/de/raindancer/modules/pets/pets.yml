@@ -171,7 +171,7 @@ species:
     damage: 5
     speed: 0.32
     baby: true
-    unlock: earn travel 25000
+    unlock: earn travel 50000 + monster stray 40
     blurb: A cub with a grudge against everything that hurts you.
   panda:
     title: Panda
@@ -184,7 +184,7 @@ species:
     damage: 4
     speed: 0.28
     baby: true
-    unlock: earn harvest 1500
+    unlock: earn harvest 3000 + explore 40
     blurb: Rolls into trouble and sits on it.
   snow_golem:
     title: Snow Golem
@@ -197,7 +197,7 @@ species:
     damage: 3.5
     speed: 0.3
     missile: SNOWBALL
-    unlock: earn build 3000
+    unlock: earn build 6000 + craft 300
     blurb: Never runs out of snowballs.
   armadillo:
     title: Armadillo
@@ -210,7 +210,7 @@ species:
     damage: 3
     speed: 0.28
     baby: true
-    unlock: earn excavate 1000
+    unlock: earn excavate 2500 + explore 40
     blurb: Rolls up, holds the line.
   bat:
     title: Bat
@@ -223,7 +223,7 @@ species:
     damage: 4
     speed: 0.45
     flies: true
-    unlock: earn explore 50
+    unlock: earn explore 100 + mine 1500
     blurb: Flits about. Bites ankles.
   axolotl:
     title: Axolotl
@@ -262,7 +262,7 @@ species:
     health: 50
     damage: 4
     speed: 0.36
-    unlock: earn travel 60000
+    unlock: earn travel 150000 + explore 150 + trade 200
     blurb: Carries you across any desert, kicks whatever follows.
   iron_golem:
     title: Iron Golem
@@ -274,7 +274,7 @@ species:
     health: 60
     damage: 7
     speed: 0.28
-    unlock: earn trade 400
+    unlock: earn trade 1000 + build 10000 + raid 2
     blurb: A village's protector, now yours.
   phantom:
     title: Phantom
@@ -287,7 +287,7 @@ species:
     damage: 5.5
     speed: 0.5
     flies: true
-    unlock: earn monster phantom 60
+    unlock: earn monster phantom 200 + explore 150 + monster 1500
     blurb: Swoops out of the night — for you, for once.
   blaze:
     title: Blaze
@@ -301,7 +301,7 @@ species:
     speed: 0.36
     flies: true
     missile: SMALL_FIREBALL
-    unlock: earn monster blaze 120
+    unlock: earn monster blaze 400 + brew 300 + monster 1500
     blurb: Throws fire that burns only what it hits.
   hoglin:
     title: Hoglin
@@ -314,7 +314,7 @@ species:
     damage: 6
     speed: 0.34
     baby: true
-    unlock: earn monster hoglin 60
+    unlock: earn monster hoglin 200 + explore 150 + monster 1500
     blurb: Tusks first.
   vex:
     title: Vex
@@ -327,7 +327,7 @@ species:
     damage: 6
     speed: 0.48
     flies: true
-    unlock: earn monster vex 40
+    unlock: earn monster vex 150 + raid 3 + monster 1500
     blurb: Small, sharp and very, very loyal.
   sniffer:
     title: Sniffer
@@ -356,7 +356,7 @@ species:
     speed: 0.42
     flies: true
     missile: WIND_CHARGE
-    unlock: earn monster breeze 50
+    unlock: earn monster breeze 150 + boss elder_guardian 1 + raid 3 + monster 4000 + explore 250
     blurb: A gust that answers to you.
   ravager:
     title: Ravager
@@ -368,7 +368,7 @@ species:
     health: 80
     damage: 8
     speed: 0.32
-    unlock: earn raid 3
+    unlock: earn raid 15 + monster ravager 30 + boss elder_guardian 1 + monster 4000 + explore 250
     blurb: The raid's beast, broken in.
   ghast:
     title: Ghast
@@ -382,7 +382,7 @@ species:
     speed: 0.38
     flies: true
     missile: SMALL_FIREBALL
-    unlock: earn monster ghast 50
+    unlock: earn monster ghast 150 + boss wither 1 + brew 200 + monster 4000 + explore 250
     blurb: Cries a lot. Hits hard.
   elder_guardian:
     title: Elder Guardian
@@ -396,7 +396,7 @@ species:
     speed: 0.32
     flies: true
     missile: SHULKER_BULLET
-    unlock: earn boss elder_guardian 3
+    unlock: earn boss elder_guardian 8 + boss wither 1 + monster guardian 500 + monster 4000 + explore 250
     blurb: An ocean monument's warden, floating at your side.
   happy_ghast:
     title: Happy Ghast
@@ -425,8 +425,8 @@ species:
     speed: 0.5
     flies: true
     missile: WITHER_SKULL
-    unlock: earn boss wither 3 + boss ender_dragon 1 + boss warden 1 + boss elder_guardian 1 + raid 1 + monster 2500 + explore 100
-    blurb: For whoever has beaten every boss there is, and the Wither three times. Three heads, all on your side.
+    unlock: earn boss wither 10 + boss ender_dragon 3 + boss warden 3 + boss elder_guardian 5 + raid 20 + monster 15000 + explore 500 + travel 250000
+    blurb: For whoever has beaten every boss there is, and the Wither ten times. Three heads, all on your side.
   warden:
     title: Warden
     mob: WARDEN
@@ -437,8 +437,8 @@ species:
     health: 160
     damage: 14
     speed: 0.32
-    unlock: earn boss warden 3 + boss ender_dragon 1 + boss wither 1 + boss elder_guardian 1 + raid 1 + monster 2500 + explore 100
-    blurb: For whoever has beaten every boss there is, and the Warden three times. It heard you were in trouble.
+    unlock: earn boss warden 10 + boss ender_dragon 3 + boss wither 3 + boss elder_guardian 5 + raid 20 + monster 15000 + explore 500 + travel 250000
+    blurb: For whoever has beaten every boss there is, and the Warden ten times. It heard you were in trouble.
 
   # ------------------------------------------------------------------ villagers, monsters and more
   cow:
@@ -655,7 +655,7 @@ species:
     health: 30
     damage: 6
     speed: 0.4
-    unlock: earn monster enderman 100
+    unlock: earn monster enderman 250 + explore 40
     blurb: Don't look it in the eyes. It is shy.
   piglin:
     title: Piglin
@@ -669,7 +669,7 @@ species:
     speed: 0.34
     baby: true
     missile: ARROW
-    unlock: earn monster piglin 60
+    unlock: earn monster piglin 150 + explore 40
     blurb: Works for gold. Fights for you.
   zombified_piglin:
     title: Zombified Piglin
@@ -682,7 +682,7 @@ species:
     damage: 5
     speed: 0.34
     baby: true
-    unlock: earn monster zombified_piglin 120
+    unlock: earn monster zombified_piglin 300 + explore 40
     blurb: Angry at everybody but you.
   wither_skeleton:
     title: Wither Skeleton
@@ -694,7 +694,7 @@ species:
     health: 28
     damage: 6
     speed: 0.34
-    unlock: earn monster wither_skeleton 80
+    unlock: earn monster wither_skeleton 200 + explore 40
     blurb: A dark blade at your back.
   bogged:
     title: Bogged
@@ -707,7 +707,7 @@ species:
     damage: 4
     speed: 0.32
     missile: ARROW
-    unlock: earn monster bogged 40
+    unlock: earn monster bogged 100 + explore 40
     blurb: Its arrows smell of swamp.
   strider:
     title: Strider
@@ -720,7 +720,7 @@ species:
     damage: 3
     speed: 0.3
     baby: true
-    unlock: earn explore 35
+    unlock: earn explore 80 + travel 30000
     blurb: Shivers in the cold, never in a fight.
   pillager:
     title: Pillager
@@ -733,7 +733,7 @@ species:
     damage: 4.5
     speed: 0.32
     missile: ARROW
-    unlock: earn monster pillager 60
+    unlock: earn monster pillager 150 + raid 1
     blurb: Raids on your behalf now.
   vindicator:
     title: Vindicator
@@ -745,7 +745,7 @@ species:
     health: 26
     damage: 6
     speed: 0.34
-    unlock: earn monster vindicator 40
+    unlock: earn monster vindicator 100 + raid 1
     blurb: Its axe swings your way no more.
   guardian:
     title: Guardian
@@ -759,7 +759,7 @@ species:
     speed: 0.34
     flies: true
     missile: SHULKER_BULLET
-    unlock: earn monster guardian 80
+    unlock: earn monster guardian 200 + fish 200
     blurb: Floats beside you and stares down your foes.
   evoker:
     title: Evoker
@@ -772,7 +772,7 @@ species:
     damage: 6
     speed: 0.32
     missile: SHULKER_BULLET
-    unlock: earn monster evoker 15
+    unlock: earn monster evoker 50 + raid 5 + monster 1500
     blurb: Spells, at your service.
   piglin_brute:
     title: Piglin Brute
@@ -784,7 +784,7 @@ species:
     health: 40
     damage: 7
     speed: 0.34
-    unlock: earn monster piglin_brute 25
+    unlock: earn monster piglin_brute 75 + explore 150 + monster 1500
     blurb: The bastion's bouncer.
   zoglin:
     title: Zoglin
@@ -797,7 +797,7 @@ species:
     damage: 6.5
     speed: 0.34
     baby: true
-    unlock: earn monster zoglin 30
+    unlock: earn monster zoglin 100 + monster hoglin 200 + monster 1500
     blurb: Feral, fierce, yours.
   creaking:
     title: Creaking
@@ -809,7 +809,7 @@ species:
     health: 50
     damage: 5
     speed: 0.3
-    unlock: earn explore 80
+    unlock: earn explore 200 + forage 1500 + monster 1500
     blurb: Only moves when nobody watches. Except for you.
   skeleton_horse:
     title: Skeleton Horse
@@ -821,7 +821,7 @@ species:
     health: 36
     damage: 4
     speed: 0.44
-    unlock: earn monster skeleton 1000
+    unlock: earn monster skeleton 3000 + travel 100000 + explore 150
     blurb: Rattles across the land with you.
   illusioner:
     title: Illusioner

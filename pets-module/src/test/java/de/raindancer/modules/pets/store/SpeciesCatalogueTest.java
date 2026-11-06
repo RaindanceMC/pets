@@ -1,5 +1,7 @@
 package de.raindancer.modules.pets.store;
 
+import de.raindancer.core.world.activity.ActivityKind;
+import de.raindancer.modules.pets.model.Requirement;
 import de.raindancer.modules.pets.model.Role;
 import de.raindancer.modules.pets.model.Species;
 import de.raindancer.modules.pets.model.Unlock;
@@ -60,6 +62,40 @@ class SpeciesCatalogueTest {
         assertThat(all).filteredOn(Species::flies).hasSizeGreaterThanOrEqualTo(5);
         assertThat(all).filteredOn(species -> species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC)
                 .extracting(Species::id).contains("wither", "warden");
+    }
+
+    @Test
+    @DisplayName("the rarer a pet, the more it takes: several things at once, and big numbers")
+    void rarerIsHarder() {
+        List<Species> all = SpeciesCatalogue.read(shipped(), problem -> { });
+        for (Species species : all) {
+            if (species.unlock().way() != Unlock.Way.EARN) {
+                continue;
+            }
+            List<Requirement> needs = species.unlock().needs();
+            long monsters = needs.stream().filter(need -> need.activity() == ActivityKind.MONSTER && need.what().isEmpty())
+                    .mapToLong(Requirement::count).sum();
+            switch (species.rarity()) {
+                case RARE -> assertThat(needs).as(species.id()).hasSizeGreaterThanOrEqualTo(2);
+                case EPIC -> assertThat(needs).as(species.id()).hasSizeGreaterThanOrEqualTo(3);
+                case LEGENDARY -> {
+                    assertThat(needs).as(species.id()).hasSizeGreaterThanOrEqualTo(5);
+                    assertThat(needs).as(species.id() + " asks for a boss")
+                            .anyMatch(need -> need.activity() == ActivityKind.BOSS);
+                    assertThat(monsters).as(species.id() + " monsters of any kind").isGreaterThanOrEqualTo(4000);
+                }
+                case MYTHIC -> {
+                    assertThat(needs).as(species.id()).hasSizeGreaterThanOrEqualTo(8);
+                    for (String boss : List.of("WITHER", "ENDER_DRAGON", "WARDEN", "ELDER_GUARDIAN")) {
+                        assertThat(needs).as(species.id() + " needs " + boss + " three times")
+                                .anyMatch(need -> need.activity() == ActivityKind.BOSS && need.what().equals(boss)
+                                        && need.count() >= 3);
+                    }
+                    assertThat(monsters).as(species.id() + " monsters of any kind").isGreaterThanOrEqualTo(15000);
+                }
+                default -> { }
+            }
+        }
     }
 
     @Test
