@@ -139,7 +139,7 @@ public final class SummonService implements IPetService {
                 .missile(missile)
                 .rideable(settings.riding())
                 .attackTicks((int) Math.round((species.role().fighting() == Fighting.RANGED ? 30 : 20) / speedFactor))
-                .name(name(pet, settings.ownerInName() ? ownerName : ""))
+                .name(name(pet, species.rarity(), settings.ownerInName() ? ownerName : ""))
                 .particle(pet.particle(), shape(pet.particleShape()))
                 .wander(pet.temperament().wanderRadius(), pet.temperament().wanderEagerness())
                 .silent(pet.muted())
@@ -157,9 +157,9 @@ public final class SummonService implements IPetService {
         }
     }
 
-    /** Its name, painted as its owner chose, and whose it is. */
-    public static Component name(Pet pet, String ownerName) {
-        Component name = Gradients.styled(pet.name(), NameStyle.parse(pet.style()));
+    /** Its name, painted as its owner chose — or in its rarity's gradient — and whose it is. */
+    public static Component name(Pet pet, de.raindancer.modules.pets.model.Rarity rarity, String ownerName) {
+        Component name = Gradients.styled(pet.name(), rarity.styleFor(pet.style()));
         return ownerName == null || ownerName.isEmpty() ? name
                 : name.append(Component.text(" (" + ownerName + ")", NamedTextColor.GRAY));
     }
