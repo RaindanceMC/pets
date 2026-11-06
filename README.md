@@ -1,7 +1,7 @@
 # RaindanceMC/pets
 
 - **`pets-module`** — Rain's Flexible Modules — Pets: pets that fight beside you. Vanilla animals and monsters — up to a
-  mythic wither, warden and ender dragon — shrunk to a third or half a player, in four roles (fighter, guard, ranged,
+  mythic wither and warden — shrunk to a third or half a player, in four roles (fighter, guard, ranged,
   healer), with levels, a personality their owner bends a little, knock-outs instead of death, riding (flying ones
   fly), names painted like their owner's own. Earned by playing, bought (common ones only), granted by a rank or an
   admin, or kept for supporters; rarer species stay secret until somebody has seen one.

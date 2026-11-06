@@ -10,7 +10,7 @@ import org.bukkit.Material;
  * @param damage     a hit at level one, in half hearts; a healer's mend
  * @param speed      blocks per tick when following or ridden
  * @param size       how tall it stands, in player heights ({@link #SMALLEST} to {@link #LARGEST}) — a parrot
- *                   is tiny, a dragon the biggest, and every pet smaller than its wild self
+ *                   is tiny, a wither the biggest, and every pet smaller than its wild self
  * @param flies      whether it flies when following and when ridden
  * @param baby       whether it is the young version, where the mob has one
  * @param missile    what a ranged pet throws, as Bukkit's {@code EntityType} name

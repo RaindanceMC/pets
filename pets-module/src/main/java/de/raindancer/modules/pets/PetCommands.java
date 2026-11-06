@@ -18,8 +18,8 @@ public final class PetCommands {
         return List.of(ModuleCommand.of("pets", "Your pets: call them, send them home, name them, ride them",
                         new PetCommand(PetCommands::require))
                 .aliased("pet")
-                .taking("with nothing — your pets", "call|home|stay|follow|mode|rename|colours|particle <pet>",
-                        "species — every species and how to get it",
+                .taking("with nothing — your pets", "call|home|stay|follow|mode|rename|colours|particle|mute <pet>",
+                        "species — every species and how to get it", "hideothers — other players' pets out of your sight",
                         "admin give|take|personality|list <player> …")
                 .needing(PermissionNodes.USE));
     }

@@ -105,6 +105,15 @@ public final class PetCollectionMenu extends PaginatedMenu<Pet> implements IPetS
                         "<gray>What there is, how rare,", "<gray>and how to get each one.", "",
                         "<yellow>Click<gray> to look."),
                 click -> new SpeciesMenu(services, viewer, this).open());
+        boolean seeing = de.raindancer.modules.pets.service.CareService.SEE_OTHERS.isOn(viewer);
+        toolbar(6, Icons.of(seeing ? Material.ENDER_EYE : Material.ENDER_PEARL,
+                        seeing ? "<white>Hide other players' pets" : "<white>Show other players' pets",
+                        seeing ? "<gray>Theirs out of your sight and ears." : "<gray>You see only your own now.", "",
+                        "<yellow>Click<gray> to switch."),
+                click -> {
+                    services.care().toggleOthers(viewer);
+                    refresh();
+                });
     }
 
     @Override

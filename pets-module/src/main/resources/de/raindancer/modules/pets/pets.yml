@@ -413,19 +413,6 @@ species:
     blurb: A thank-you for supporting the server. Floats you anywhere, mends you on the way.
 
   # ------------------------------------------------------------------ mythic
-  ender_dragon:
-    title: Ender Dragon
-    mob: ENDER_DRAGON
-    size: 0.6
-    role: fighter
-    rarity: mythic
-    icon: DRAGON_HEAD
-    health: 120
-    damage: 12
-    speed: 0.6
-    flies: true
-    unlock: earn boss ender_dragon 3 + boss wither 1 + boss warden 1 + boss elder_guardian 1 + raid 1 + monster 2500 + explore 100
-    blurb: For whoever has beaten every boss there is, and the dragon three times — a dragon of their own.
   wither:
     title: Wither
     mob: WITHER

@@ -20,8 +20,8 @@
 
     <!-- This repository's own versions: bump them here. CI publishes a new version on the next push to master. -->
     <properties>
-        <pets-module.version>0.2.0</pets-module.version>
-        <rainscore.version>2.43.0</rainscore.version>
+        <pets-module.version>0.3.0</pets-module.version>
+        <rainscore.version>2.44.0</rainscore.version>
             </properties>
 
     <modules>

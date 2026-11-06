@@ -44,21 +44,22 @@ class SpeciesCatalogueTest {
         assertThat(all).extracting(Species::id).doesNotHaveDuplicates();
         assertThat(all).allMatch(species -> species.size() <= Species.LARGEST && species.size() >= Species.SMALLEST);
         double parrot = all.stream().filter(s -> s.id().equals("parrot")).findFirst().orElseThrow().size();
-        double dragon = all.stream().filter(s -> s.id().equals("ender_dragon")).findFirst().orElseThrow().size();
-        assertThat(parrot).isLessThan(dragon);
+        double wither = all.stream().filter(s -> s.id().equals("wither")).findFirst().orElseThrow().size();
+        assertThat(parrot).isLessThan(wither);
         EnumSet<de.raindancer.modules.pets.model.Rarity> rarities = EnumSet.noneOf(de.raindancer.modules.pets.model.Rarity.class);
         all.forEach(species -> rarities.add(species.rarity()));
         assertThat(rarities).containsExactlyInAnyOrder(de.raindancer.modules.pets.model.Rarity.values());
-        assertThat(all).extracting(Species::id).contains("ender_dragon", "wither", "warden");
-        Species mythicDragon = all.stream().filter(s -> s.id().equals("ender_dragon")).findFirst().orElseThrow();
-        assertThat(mythicDragon.unlock().needs()).extracting(de.raindancer.modules.pets.model.Requirement::what)
+        // the client will not shrink an ender dragon, so there is no dragon pet
+        assertThat(all).extracting(Species::id).contains("wither", "warden").doesNotContain("ender_dragon");
+        Species mythicWither = all.stream().filter(s -> s.id().equals("wither")).findFirst().orElseThrow();
+        assertThat(mythicWither.unlock().needs()).extracting(de.raindancer.modules.pets.model.Requirement::what)
                 .contains("ENDER_DRAGON", "WITHER", "WARDEN", "ELDER_GUARDIAN");
         for (Species mythic : all.stream().filter(s -> s.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC).toList()) {
             assertThat(mythic.unlock().needs()).as(mythic.id()).hasSizeGreaterThanOrEqualTo(7);
         }
         assertThat(all).filteredOn(Species::flies).hasSizeGreaterThanOrEqualTo(5);
         assertThat(all).filteredOn(species -> species.rarity() == de.raindancer.modules.pets.model.Rarity.MYTHIC)
-                .extracting(Species::id).contains("ender_dragon", "wither", "warden");
+                .extracting(Species::id).contains("wither", "warden");
     }
 
     @Test
