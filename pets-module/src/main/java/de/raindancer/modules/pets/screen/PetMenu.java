@@ -13,7 +13,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,6 @@ import java.util.UUID;
 public final class PetMenu extends Menu implements IPetScreen {
 
     private static final MiniMessage MINI = MiniMessage.miniMessage();
-    private static final Duration TO_ANSWER = Duration.ofSeconds(60);
 
     private final PetServices services;
     private final UUID petId;
@@ -111,7 +109,7 @@ public final class PetMenu extends Menu implements IPetScreen {
                         "<green>Points to spend: <white>" + left, "", "<yellow>Click<gray> to open it."),
                 click -> new PetTreeMenu(services, viewer, this, pet.id()).open());
         band(MenuLayout.LAND, 3, Icons.of(Material.NAME_TAG, "<white>Rename it",
-                        "<gray>Called " + pet.name() + " now.", "", "<yellow>Click<gray> and type its new name."),
+                        "<gray>Called " + pet.name() + " now.", "", "<yellow>Click<gray> to type its new name."),
                 click -> rename(pet));
         band(MenuLayout.LAND, 4, Icons.of(Material.BLAZE_POWDER, "<white>Particles",
                         "<gray>Any effect you may wear yourself,", "<gray>worn around " + pet.name() + ".", "",
@@ -129,21 +127,14 @@ public final class PetMenu extends Menu implements IPetScreen {
                         .open());
     }
 
+    /** In a window rather than in chat: the player stays in the menus, and comes back to this page either way. */
     private void rename(Pet pet) {
-        viewer.closeInventory();
-        boolean asking = services.core().prompts().ask(viewer.getUniqueId(), "pets", TO_ANSWER,
+        de.raindancer.core.ui.prompt.AnvilInput.open(viewer, "A name for " + pet.name(), pet.name(),
+                de.raindancer.core.ui.prompt.Parsers.text(de.raindancer.modules.pets.rules.PetNameRule.LONGEST),
                 answer -> {
-                    if (answer != null && !answer.equalsIgnoreCase("cancel")) {
-                        pet().ifPresent(now -> services.care().rename(viewer, now, answer));
-                    }
+                    pet().ifPresent(now -> services.care().rename(viewer, now, answer));
                     open();
                 }, this::open);
-        if (!asking) {
-            services.messages().send(viewer, "pets.busy");
-            open();
-            return;
-        }
-        services.messages().send(viewer, "pets.ask-name", "name", pet.name());
     }
 
     @Override
