@@ -201,9 +201,10 @@ public final class SummonService implements IPetService {
         }
     }
 
-    /** Its name, painted as its owner chose — or in its rarity's gradient — and whose it is. */
+    /** Its name, painted as its owner chose — or in its rarity's gradient — its level, and whose it is. */
     public static Component name(Pet pet, de.raindancer.modules.pets.model.Rarity rarity, String ownerName) {
-        Component name = Gradients.styled(pet.name(), rarity.styleFor(pet.style()));
+        Component name = Gradients.styled(pet.name(), rarity.styleFor(pet.style()))
+                .append(Component.text(" Lv " + pet.level(), NamedTextColor.GRAY));
         return ownerName == null || ownerName.isEmpty() ? name
                 : name.append(Component.text(" (" + ownerName + ")", NamedTextColor.GRAY));
     }
