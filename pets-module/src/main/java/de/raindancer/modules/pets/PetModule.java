@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PetModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.12.0")
+    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.13.0")
             .describedAs("Pets that fight beside you: follow, defend, level up, can be ridden, and come back after "
                     + "a knock-out")
             .by("Raindancer118");
@@ -77,6 +77,19 @@ public final class PetModule implements FlexModule {
         CollectionService collection = new CollectionService(store, catalogue, new UnlockRule(), new DiscoveryRule(),
                 context.core().supporters(), task -> Scheduling.async(context.plugin(), task), clock, now);
         summoning = new SummonService(context.plugin(), context.core().companions(), collection, clock, now);
+        // The pet that is out, on its owner's sidebar (Core 2.58.0); hidden or moved on their sidebar page.
+        de.raindancer.core.ui.scoreboard.SidebarSections.register("pets", "Your pet", 45, id -> {
+            java.util.List<net.kyori.adventure.text.Component> lines = new java.util.ArrayList<>();
+            for (de.raindancer.modules.pets.model.OutPet out : summoning.of(id)) {
+                if (lines.isEmpty()) {
+                    lines.add(net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().deserialize("<dark_gray>▪ <gray>Out with you"));
+                }
+                lines.add(net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().deserialize("   <white>"
+                        + de.raindancer.core.ui.text.Text.literal(out.pet().name()) + " <dark_gray>· <gray>Lv " + out.pet().level()));
+            }
+            return lines;
+        });
+        context.closeWith(() -> de.raindancer.core.ui.scoreboard.SidebarSections.unregister("pets"));
         ExperienceService experience = new ExperienceService(collection, summoning, context.core().messages(),
                 server::getPlayer, now);
         PetNameRule names = new PetNameRule();
