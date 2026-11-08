@@ -65,6 +65,7 @@ public final class CollectionService implements IPetService {
     private final Clock clock;
     private final Random random = new Random();
     private final Map<UUID, Holdings> held = new ConcurrentHashMap<>();
+    private final Map<UUID, CompletableFuture<Holdings>> loading = new ConcurrentHashMap<>();
     private volatile PetSettings settings;
 
     public CollectionService(PetStore store, SpeciesCatalogue catalogue, UnlockRule unlocks, DiscoveryRule discovery,
@@ -86,19 +87,55 @@ public final class CollectionService implements IPetService {
 
     // ------------------------------------------------------------------ holding
 
-    /** Reads a player's pets off the main thread; the future completes there too. */
+    /** The database could not be asked, so what a player has is not known — which is not "nothing". */
+    public static final class LoadFailed extends RuntimeException {
+        public LoadFailed(UUID owner) {
+            super("could not read the pets of " + owner);
+        }
+    }
+
+    /**
+     * Reads a player's pets off the main thread; the future completes there too. A read that fails completes
+     * exceptionally with {@link LoadFailed} and holds nothing, so the next call tries again; a read already under
+     * way is the one answered.
+     */
     public CompletableFuture<Holdings> load(UUID owner) {
         CompletableFuture<Holdings> done = new CompletableFuture<>();
+        CompletableFuture<Holdings> running = loading.putIfAbsent(owner, done);
+        if (running != null) {
+            return running;
+        }
         async.accept(() -> {
             try {
-                Holdings read = new Holdings(store.of(owner), store.progress(owner), store.seen(owner));
-                held.put(owner, read);
-                done.complete(read);
+                Optional<List<Pet>> pets = store.of(owner);
+                Optional<Map<String, Long>> progress = pets.isPresent() ? store.progress(owner) : Optional.empty();
+                Optional<Set<String>> seen = progress.isPresent() ? store.seen(owner) : Optional.empty();
+                if (seen.isEmpty()) {
+                    done.completeExceptionally(new LoadFailed(owner));
+                } else {
+                    Holdings read = new Holdings(pets.get(), progress.get(), seen.get());
+                    held.put(owner, read);
+                    done.complete(read);
+                }
             } catch (RuntimeException failed) {
                 done.completeExceptionally(failed);
+            } finally {
+                loading.remove(owner);
             }
         });
         return done;
+    }
+
+    /**
+     * Whether their pets are known; when they are not, starts reading them again, so a command typed meanwhile
+     * helps along what the join could not do.
+     */
+    public boolean ready(UUID owner) {
+        if (loaded(owner)) {
+            return true;
+        }
+        load(owner);
+        return false;
     }
 
     /** What somebody has, held or read — for an admin looking at a player who is not online. */
@@ -108,7 +145,8 @@ public final class CollectionService implements IPetService {
             return CompletableFuture.completedFuture(holdings.pets());
         }
         CompletableFuture<List<Pet>> done = new CompletableFuture<>();
-        async.accept(() -> done.complete(store.of(owner)));
+        async.accept(() -> store.of(owner).ifPresentOrElse(done::complete,
+                () -> done.completeExceptionally(new LoadFailed(owner))));
         return done;
     }
 

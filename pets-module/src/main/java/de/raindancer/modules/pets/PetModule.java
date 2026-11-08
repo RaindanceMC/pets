@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PetModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.11.0")
+    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.12.0")
             .describedAs("Pets that fight beside you: follow, defend, level up, can be ridden, and come back after "
                     + "a knock-out")
             .by("Raindancer118");
@@ -87,28 +87,52 @@ public final class PetModule implements FlexModule {
 
         PetServices[] built = new PetServices[1];
         IPetScreensOpener screens = new IPetScreensOpener() {
+            /** Until their pets are known the menus would show an empty collection and offer the free ones again. */
+            private boolean ready(Player viewer) {
+                if (collection.ready(viewer.getUniqueId())) {
+                    return true;
+                }
+                context.core().messages().send(viewer, "pets.not-loaded");
+                return false;
+            }
+
             @Override
             public void collection(Player viewer) {
+                if (!ready(viewer)) {
+                    return;
+                }
                 new PetCollectionMenu(built[0], viewer, null).open();
             }
 
             @Override
             public void species(Player viewer) {
+                if (!ready(viewer)) {
+                    return;
+                }
                 new SpeciesMenu(built[0], viewer, null).open();
             }
 
             @Override
             public void pet(Player viewer, Pet pet) {
+                if (!ready(viewer)) {
+                    return;
+                }
                 new PetMenu(built[0], viewer, null, pet.id()).open();
             }
 
             @Override
             public void particles(Player viewer, Pet pet) {
+                if (!ready(viewer)) {
+                    return;
+                }
                 new de.raindancer.modules.pets.screen.PetParticleMenu(built[0], viewer, null, pet.id()).open();
             }
 
             @Override
             public void skills(Player viewer, Pet pet) {
+                if (!ready(viewer)) {
+                    return;
+                }
                 new de.raindancer.modules.pets.screen.PetTreeMenu(built[0], viewer, null, pet.id()).open();
             }
         };

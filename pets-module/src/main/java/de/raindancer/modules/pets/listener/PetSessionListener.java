@@ -17,6 +17,9 @@ import java.util.UUID;
  */
 public final class PetSessionListener implements IPetListener {
 
+    private static final int RETRIES = 8;
+    private static final long RETRY_SECONDS = 15;
+
     private final PetServices services;
 
     public PetSessionListener(PetServices services) {
@@ -31,17 +34,42 @@ public final class PetSessionListener implements IPetListener {
         if (!de.raindancer.modules.pets.service.CareService.SEE_OTHERS.isOn(player)) {
             services.summoning().companions().seeOthers(player, false);
         }
-        services.collection().load(player.getUniqueId()).thenAccept(holdings ->
-                Scheduling.entityLater(services.plugin(), player, 20, () -> {
-                    if (!player.isOnline()) {
-                        return;
+        load(player, 1);
+    }
+
+    /** A read that fails is tried again — and told once — rather than taken for "no pets". */
+    private void load(Player player, int attempt) {
+        services.collection().load(player.getUniqueId()).whenComplete((holdings, failure) -> {
+            if (failure != null) {
+                retry(player, attempt);
+                return;
+            }
+            Scheduling.entityLater(services.plugin(), player, 20, () -> {
+                if (!player.isOnline()) {
+                    return;
+                }
+                for (Pet pet : holdings.pets()) {
+                    if (pet.out()) {
+                        services.summoning().call(player, pet);
                     }
-                    for (Pet pet : holdings.pets()) {
-                        if (pet.out()) {
-                            services.summoning().call(player, pet);
-                        }
-                    }
-                }));
+                }
+            });
+        });
+    }
+
+    private void retry(Player player, int attempt) {
+        if (!player.isOnline() || services.collection().loaded(player.getUniqueId())) {
+            return;
+        }
+        if (attempt == 1) {
+            Scheduling.entity(services.plugin(), player, () -> services.messages().send(player, "pets.load-failed"));
+        }
+        if (attempt >= RETRIES) {
+            Scheduling.entity(services.plugin(), player, () -> services.messages().send(player, "pets.load-given-up"));
+            return;
+        }
+        Scheduling.asyncLater(services.plugin(), RETRY_SECONDS, java.util.concurrent.TimeUnit.SECONDS,
+                () -> load(player, attempt + 1));
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

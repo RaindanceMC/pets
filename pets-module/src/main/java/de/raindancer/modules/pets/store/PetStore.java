@@ -13,9 +13,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
-/** Every player's pets, and how far each player is towards earning a species. Disk work: call off the main thread. */
+/**
+ * Every player's pets, and how far each player is towards earning a species. Disk work: call off the main thread.
+ * Reads answer empty when the database could not be asked, never an empty answer made up.
+ */
 public final class PetStore {
 
     private final Database database;
@@ -24,7 +28,8 @@ public final class PetStore {
         this.database = database;
     }
 
-    public List<Pet> of(UUID owner) {
+    /** Their pets, or empty when the database could not be asked — which is not the same as having none. */
+    public Optional<List<Pet>> of(UUID owner) {
         return database.read(connection -> {
             List<Pet> pets = new ArrayList<>();
             try (PreparedStatement query = connection.prepareStatement(
@@ -47,7 +52,7 @@ public final class PetStore {
                 }
             }
             return pets;
-        }).orElse(List.of());
+        });
     }
 
     public boolean save(Pet pet) {
@@ -107,7 +112,7 @@ public final class PetStore {
     }
 
     /** The species a player has seen out with somebody. */
-    public java.util.Set<String> seen(UUID owner) {
+    public Optional<java.util.Set<String>> seen(UUID owner) {
         return database.read(connection -> {
             java.util.Set<String> seen = new java.util.HashSet<>();
             try (PreparedStatement query = connection.prepareStatement("SELECT species FROM seen WHERE owner = ?")) {
@@ -119,7 +124,7 @@ public final class PetStore {
                 }
             }
             return seen;
-        }).orElse(java.util.Set.of());
+        });
     }
 
     public boolean markSeen(UUID owner, String species) {
@@ -134,7 +139,7 @@ public final class PetStore {
     }
 
     /** Done so far towards each species being earned. */
-    public Map<String, Long> progress(UUID owner) {
+    public Optional<Map<String, Long>> progress(UUID owner) {
         return database.read(connection -> {
             Map<String, Long> done = new HashMap<>();
             try (PreparedStatement query = connection.prepareStatement(
@@ -147,7 +152,7 @@ public final class PetStore {
                 }
             }
             return done;
-        }).orElse(Map.of());
+        });
     }
 
     public boolean addProgress(UUID owner, String species, long amount) {

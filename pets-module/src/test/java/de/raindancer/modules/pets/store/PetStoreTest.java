@@ -17,7 +17,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("where pets are kept")
-class PetStoreTest {
+public class PetStoreTest {
 
     private static final UUID ALICE = UUID.nameUUIDFromBytes("alice".getBytes());
     private static final UUID BOB = UUID.nameUUIDFromBytes("bob".getBytes());
@@ -29,8 +29,8 @@ class PetStoreTest {
         Pet rex = Pet.adopt(ALICE, "wolf", "Rex", Temperament.of(Personality.CHEEKY), Instant.ofEpochSecond(1_000));
 
         assertThat(store.save(rex)).isTrue();
-        assertThat(store.of(BOB)).isEmpty();
-        assertThat(store.of(ALICE)).containsExactly(rex);
+        assertThat(store.of(BOB)).contains(java.util.List.of());
+        assertThat(store.of(ALICE).orElseThrow()).containsExactly(rex);
 
         Pet grown = rex.withProgress(7, 42).withMode(Mode.AGGRESSIVE)
                 .withTactic(de.raindancer.modules.pets.model.Tactic.HIT_AND_RUN).withName("Rex II").withOut(true)
@@ -41,7 +41,7 @@ class PetStoreTest {
                 .withMuted(true)
                 .withSkills(java.util.Map.of("calling_guard", 1, "thick_hide", 3), 123_456L);
         assertThat(store.save(grown)).isTrue();
-        assertThat(store.of(ALICE)).containsExactly(grown);
+        assertThat(store.of(ALICE).orElseThrow()).containsExactly(grown);
     }
 
     @Test
@@ -50,13 +50,13 @@ class PetStoreTest {
         Database database = TestDatabases.open(folder.resolve("pets.db"), PetDatabase.SCHEMA);
         PetStore store = new PetStore(database);
 
-        assertThat(store.progress(ALICE)).isEmpty();
+        assertThat(store.progress(ALICE).orElseThrow()).isEmpty();
         store.addProgress(ALICE, "fox", 5);
         store.addProgress(ALICE, "fox", 7);
         store.addProgress(ALICE, "cat", 1);
         store.addProgress(BOB, "fox", 100);
 
-        assertThat(store.progress(ALICE)).containsEntry("fox", 12L).containsEntry("cat", 1L).hasSize(2);
+        assertThat(store.progress(ALICE).orElseThrow()).containsEntry("fox", 12L).containsEntry("cat", 1L).hasSize(2);
     }
 
     @Test
@@ -69,18 +69,44 @@ class PetStoreTest {
         store.save(tom);
 
         assertThat(store.remove(rex.id())).isTrue();
-        assertThat(store.of(ALICE)).containsExactly(tom);
+        assertThat(store.of(ALICE).orElseThrow()).containsExactly(tom);
     }
 
     @Test
     @DisplayName("a species once seen stays seen, per player")
     void seen(@TempDir Path folder) {
         PetStore store = new PetStore(TestDatabases.open(folder.resolve("pets.db"), PetDatabase.SCHEMA));
-        assertThat(store.seen(ALICE)).isEmpty();
+        assertThat(store.seen(ALICE).orElseThrow()).isEmpty();
         store.markSeen(ALICE, "warden");
         store.markSeen(ALICE, "warden");
         store.markSeen(ALICE, "allay");
         store.markSeen(BOB, "wither");
-        assertThat(store.seen(ALICE)).containsExactlyInAnyOrder("warden", "allay");
+        assertThat(store.seen(ALICE).orElseThrow()).containsExactlyInAnyOrder("warden", "allay");
+    }
+
+    /** A database that answers no read while {@code down} is set. */
+    public static Database flaky(Database real, java.util.concurrent.atomic.AtomicBoolean down) {
+        return (Database) java.lang.reflect.Proxy.newProxyInstance(Database.class.getClassLoader(),
+                new Class<?>[] {Database.class}, (proxy, method, args) -> {
+                    if (down.get() && method.getName().equals("read")) {
+                        return java.util.Optional.empty();
+                    }
+                    try {
+                        return method.invoke(real, args);
+                    } catch (java.lang.reflect.InvocationTargetException failed) {
+                        throw failed.getCause();
+                    }
+                });
+    }
+
+    @Test
+    @DisplayName("a database that cannot be asked is not an owner with no pets")
+    void failureIsNotEmpty(@TempDir Path folder) {
+        java.util.concurrent.atomic.AtomicBoolean down = new java.util.concurrent.atomic.AtomicBoolean();
+        PetStore store = new PetStore(flaky(TestDatabases.open(folder.resolve("pets.db"), PetDatabase.SCHEMA), down));
+        down.set(true);
+        assertThat(store.of(ALICE)).isEmpty();
+        assertThat(store.seen(ALICE)).isEmpty();
+        assertThat(store.progress(ALICE)).isEmpty();
     }
 }

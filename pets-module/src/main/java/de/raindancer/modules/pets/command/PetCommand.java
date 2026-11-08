@@ -53,6 +53,10 @@ public final class PetCommand implements IPetCommand {
             live.messages().send(sender, "pets.only-a-player");
             return;
         }
+        if (args.length > 0 && !live.collection().ready(player.getUniqueId())) {
+            live.messages().send(player, "pets.not-loaded");
+            return;
+        }
         if (args.length == 0) {
             live.screens().collection(player);
             return;
@@ -224,6 +228,9 @@ public final class PetCommand implements IPetCommand {
                     live.messages().send(sender, "pets.admin-list-line", "name", pet.name(), "species", pet.species(),
                             "level", pet.level(), "personality", pet.personality().title());
                 }
+            }).exceptionally(failure -> {
+                live.messages().send(sender, "pets.admin-unreadable", "player", who);
+                return null;
             });
             default -> live.messages().send(sender, "pets.admin-usage");
         }
@@ -245,6 +252,9 @@ public final class PetCommand implements IPetCommand {
                 return;
             }
             then.accept(pet.get());
+        }).exceptionally(failure -> {
+            live.messages().send(sender, "pets.admin-unreadable", "player", who);
+            return null;
         });
     }
 
