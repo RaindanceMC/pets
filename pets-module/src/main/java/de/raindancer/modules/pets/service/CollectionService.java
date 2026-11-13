@@ -11,6 +11,7 @@ import de.raindancer.modules.pets.rules.DiscoveryRule;
 import de.raindancer.modules.pets.rules.UnlockRule;
 import de.raindancer.modules.pets.store.PetStore;
 import de.raindancer.modules.pets.store.SpeciesCatalogue;
+import de.raindancer.modules.pets.util.PermissionNodes;
 import org.bukkit.entity.Player;
 
 import java.time.Clock;
@@ -192,6 +193,11 @@ public final class CollectionService implements IPetService {
         return supporters.isSupporter(player.getUniqueId()) || player.hasPermission("rains.supporter");
     }
 
+    /** Whether the species kept for supporters are theirs: a supporter, or a creator. Not what raises the pets out at once. */
+    public boolean opensSupporterSpecies(Player player) {
+        return isSupporter(player) || player.hasPermission(PermissionNodes.CREATOR);
+    }
+
     public UnlockRule.Verdict verdict(Player player, Species species) {
         UUID owner = player.getUniqueId();
         Map<String, Long> done = of(owner).progress();
@@ -199,7 +205,7 @@ public final class CollectionService implements IPetService {
         for (int part = 0; part < species.unlock().needs().size(); part++) {
             progress.add(done.getOrDefault(species.unlock().keyFor(species.id(), part), 0L));
         }
-        return unlocks.judge(species, new UnlockRule.Facts(owns(owner, species.id()), isSupporter(player),
+        return unlocks.judge(species, new UnlockRule.Facts(owns(owner, species.id()), opensSupporterSpecies(player),
                 player.hasPermission(species.permission()), progress));
     }
 

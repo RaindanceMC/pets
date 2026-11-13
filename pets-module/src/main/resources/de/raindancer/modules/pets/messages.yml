@@ -64,6 +64,7 @@ pets:
   particle-not-yours: "<red>Only particles you may wear yourself — see <white>/cosmetics</white>."
   styled: "<green><white><name></white>'s name is painted anew."
   bad-style: "<red>That is not a style: <white><detail></white>. Try <white>#8932B8 #1D1D21 bold animated</white>."
+  prime-perk: "<gold>✦ Particles and name colours for pets are a <white>Prime</white> perk — see <white>/prime</white>. Your pets stay yours either way."
   style-not-yours: "<red>You may not paint names like that — only as you may paint your own."
 
   # ---------------------------------------------------------------- the command

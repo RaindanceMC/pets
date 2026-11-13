@@ -111,20 +111,33 @@ public final class PetMenu extends Menu implements IPetScreen {
         band(MenuLayout.LAND, 3, Icons.of(Material.NAME_TAG, "<white>Rename it",
                         "<gray>Called " + pet.name() + " now.", "", "<yellow>Click<gray> to type its new name."),
                 click -> rename(pet));
+        boolean prime = services.care().mayDecorate(viewer);
         band(MenuLayout.LAND, 4, Icons.of(Material.BLAZE_POWDER, "<white>Particles",
                         "<gray>Any effect you may wear yourself,", "<gray>worn around " + pet.name() + ".", "",
-                        "<yellow>Click<gray> to pick one."),
-                click -> new PetParticleMenu(services, viewer, this, pet.id()).open());
+                        prime ? "<yellow>Click<gray> to pick one." : "<gold>✦ A Prime perk<gray> — see /prime"),
+                click -> {
+                    if (prime) {
+                        new PetParticleMenu(services, viewer, this, pet.id()).open();
+                    } else {
+                        services.care().primePerk(viewer);
+                    }
+                });
         band(MenuLayout.LAND, 5, Icons.of(Material.BRUSH, "<white>Colour its name",
                         "<gray>Painted like your own name can be:", "<gray>colours, gradients, bold and the rest.", "",
-                        "<yellow>Click<gray> to paint it."),
-                click -> StyleEditor.of(viewer, services.brand(), this)
-                        .heading("Colours for " + pet.name())
-                        .sample(() -> pet().map(Pet::name).orElse(pet.name()))
-                        .current(() -> pet().map(now -> NameStyle.parse(now.style())).orElse(NameStyle.NONE))
-                        .onChange(style -> pet().ifPresent(now -> services.care().style(now, style)))
-                        .grants(services.care().styleGrantsOf(viewer))
-                        .open());
+                        prime ? "<yellow>Click<gray> to paint it." : "<gold>✦ A Prime perk<gray> — see /prime"),
+                click -> {
+                    if (!prime) {
+                        services.care().primePerk(viewer);
+                        return;
+                    }
+                    StyleEditor.of(viewer, services.brand(), this)
+                            .heading("Colours for " + pet.name())
+                            .sample(() -> pet().map(Pet::name).orElse(pet.name()))
+                            .current(() -> pet().map(now -> NameStyle.parse(now.style())).orElse(NameStyle.NONE))
+                            .onChange(style -> pet().ifPresent(now -> services.care().style(now, style)))
+                            .grants(services.care().styleGrantsOf(viewer))
+                            .open();
+                });
     }
 
     /** In a window rather than in chat: the player stays in the menus, and comes back to this page either way. */

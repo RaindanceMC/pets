@@ -10,6 +10,7 @@ import de.raindancer.modules.pets.model.OutPet;
 import de.raindancer.modules.pets.model.Pet;
 import de.raindancer.modules.pets.model.Species;
 import de.raindancer.modules.pets.rules.PetNameRule;
+import de.raindancer.modules.pets.util.PermissionNodes;
 import org.bukkit.entity.Player;
 
 import java.time.Clock;
@@ -167,6 +168,10 @@ public final class CareService implements IPetService {
             messages.send(player, "pets.bad-style", "detail", read.problem());
             return false;
         }
+        if (!mayDecorate(player)) {
+            primePerk(player);
+            return false;
+        }
         if (!styleGrantsOf(player).allows(read.style().get())) {
             messages.send(player, "pets.style-not-yours");
             return false;
@@ -180,8 +185,20 @@ public final class CareService implements IPetService {
         experience.keep(pet.withStyle(style.isEmpty() ? "" : style.encode()));
     }
 
+    public void primePerk(Player player) {
+        messages.send(player, "pets.prime-perk");
+    }
+
+    /** Particles and name colours on a pet are a Prime perk. */
+    public boolean mayDecorate(Player player) {
+        return player.hasPermission(PermissionNodes.COSMETICS);
+    }
+
     /** The particle effects this player may put on a pet: the ones they may wear themselves. */
     public java.util.List<String> particlesOf(Player player) {
+        if (!mayDecorate(player)) {
+            return java.util.List.of();
+        }
         return de.raindancer.core.ui.choose.ParticleGrants.of(player).orElse(java.util.List.of());
     }
 
@@ -192,6 +209,10 @@ public final class CareService implements IPetService {
     }
 
     public boolean particle(Player player, Pet pet, String particle, de.raindancer.core.ui.effect.ParticleShape shape) {
+        if (!particle.isEmpty() && !mayDecorate(player)) {
+            primePerk(player);
+            return false;
+        }
         if (!particle.isEmpty() && !particlesOf(player).contains(particle)) {
             messages.send(player, "pets.particle-not-yours");
             return false;
@@ -203,6 +224,9 @@ public final class CareService implements IPetService {
 
     /** What this player may paint their pet's name with: what they may paint their own with. */
     public StyleGrants styleGrantsOf(Player player) {
+        if (!mayDecorate(player)) {
+            return StyleGrants.NOTHING;
+        }
         return NameStyleGrants.of(player).orElse(settings.coloursWithoutCosmetics()
                 ? StyleGrants.ALL : StyleGrants.NOTHING);
     }
