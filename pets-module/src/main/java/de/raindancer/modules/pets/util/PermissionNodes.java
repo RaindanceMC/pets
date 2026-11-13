@@ -23,6 +23,9 @@ public final class PermissionNodes {
     /** Particles and name colours on a pet: a Prime perk, so {@code rains.prime} holds it. */
     public static final String COSMETICS = "rainspets.cosmetics";
 
+    /** Cosmetics' node for staff (seeded into every staff group); looked at, not declared here. */
+    public static final String STAFF_PERKS = "rainscosmetics.perks";
+
     private PermissionNodes() {
     }
 

@@ -189,9 +189,9 @@ public final class CareService implements IPetService {
         messages.send(player, "pets.prime-perk");
     }
 
-    /** Particles and name colours on a pet are a Prime perk. */
+    /** Particles and name colours on a pet are a Prime perk — and staff's, by the node Cosmetics gives them. */
     public boolean mayDecorate(Player player) {
-        return player.hasPermission(PermissionNodes.COSMETICS);
+        return player.hasPermission(PermissionNodes.COSMETICS) || player.hasPermission(PermissionNodes.STAFF_PERKS);
     }
 
     /** The particle effects this player may put on a pet: the ones they may wear themselves. */

@@ -2,6 +2,7 @@ package de.raindancer.modules.pets.service;
 
 import de.raindancer.core.social.economy.EconomyResult;
 import de.raindancer.core.social.economy.Fees;
+import de.raindancer.core.social.support.PrimePermission;
 import de.raindancer.core.social.support.Supporters;
 import de.raindancer.modules.pets.PetSettings;
 import de.raindancer.modules.pets.model.Pet;
@@ -193,9 +194,10 @@ public final class CollectionService implements IPetService {
         return supporters.isSupporter(player.getUniqueId()) || player.hasPermission("rains.supporter");
     }
 
-    /** Whether the species kept for supporters are theirs: a supporter, or a creator. Not what raises the pets out at once. */
+    /** Whether the species kept for supporters are theirs: a supporter, a creator or Prime. Not what raises the pets out at once. */
     public boolean opensSupporterSpecies(Player player) {
-        return isSupporter(player) || player.hasPermission(PermissionNodes.CREATOR);
+        return isSupporter(player) || player.hasPermission(PermissionNodes.CREATOR)
+                || player.hasPermission(PrimePermission.NODE);
     }
 
     public UnlockRule.Verdict verdict(Player player, Species species) {

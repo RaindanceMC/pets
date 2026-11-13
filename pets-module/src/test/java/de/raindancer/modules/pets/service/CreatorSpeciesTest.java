@@ -98,4 +98,14 @@ class CreatorSpeciesTest {
         assertThat(collection.claim(player, thankYou).outcome()).isEqualTo(CollectionService.Outcome.ADOPTED);
         assertThat(collection.isSupporter(player)).isTrue();
     }
+
+    @Test
+    @DisplayName("Prime members take them too, and do not get the extra pets out at once for it")
+    void primeTakes() {
+        Player player = alice("rains.prime");
+        assertThat(collection.verdict(player, thankYou).state()).isEqualTo(UnlockRule.State.CLAIMABLE);
+        assertThat(collection.knows(player, thankYou)).isTrue();
+        assertThat(collection.claim(player, thankYou).outcome()).isEqualTo(CollectionService.Outcome.ADOPTED);
+        assertThat(collection.isSupporter(player)).isFalse();
+    }
 }

@@ -125,4 +125,11 @@ class PetCosmeticsTest {
         assertThat(care.particle(player, rex, "FLAME", ParticleShape.values()[0])).isTrue();
         assertThat(care.style(player, rex, List.of("#8932B8", "bold"))).isTrue();
     }
+
+    @Test
+    @DisplayName("staff with Cosmetics' perks node may decorate too, as with the other cosmetics")
+    void staffMay() {
+        assertThat(care.mayDecorate(player("rainscosmetics.perks"))).isTrue();
+        assertThat(care.mayDecorate(player())).isFalse();
+    }
 }
