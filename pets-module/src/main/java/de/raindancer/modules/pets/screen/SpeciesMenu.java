@@ -94,7 +94,7 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
                             + part.requirement().count());
                 }
             }
-            case SUPPORTERS_ONLY -> lore.add("<light_purple>A thank-you for the server's supporters — /support");
+            case SUPPORTERS_ONLY -> lore.add("<light_purple>A Prime pet — /prime");
             case RANK_ONLY -> lore.add("<gray>Given by a rank.");
         }
         return Icons.of(species.icon(), "<color:" + species.rarity().colour() + ">" + species.title(), lore);

@@ -10,7 +10,7 @@
 #             With "+", every part has to be done: "earn boss wither 3 + raid 1".
 #             drop monster|boss <mob> 1/<n>: never earned, only found — one kill in about n of that mob lets it fall
 #             (spawner mobs never); a legendary or mythic one that falls is told to the whole server.
-#             Only common pets can be bought; anything rarer is earned, granted or a supporters' thank-you.
+#             Only common pets can be bought; anything rarer is earned, granted or a Prime pet (unlock: supporter — Prime members and the server's supporters).
 #             activities: monster boss fish breed harvest mine dig excavate chop forage craft cook brew build
 #             tame explore travel raid trade enchant …  ("earn boss ender_dragon 1": slay the dragon once)
 #             Whatever the way, pets.species.<id> hands the species to a rank.

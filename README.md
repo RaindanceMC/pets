@@ -4,7 +4,7 @@
   mythic — shrunk to a third or half a player, in four roles (fighter, guard, ranged,
   healer), with levels, a personality their owner bends a little, knock-outs instead of death, riding (flying ones
   fly), names painted like their owner's own. Earned by playing, bought (common ones only), granted by a rank or an
-  admin, or kept for supporters; rarer species stay secret until somebody has seen one.
+  admin, or Prime pets (kept for Prime members and supporters); rarer species stay secret until somebody has seen one.
 - **`pets-standalone`** — Rain's Pets: the pets module and the standard wrapper, shaded together.
 
 The pets in the world are RainsCore's companions (`world.companion`, Core 2.42.0+): Core makes, drives and protects

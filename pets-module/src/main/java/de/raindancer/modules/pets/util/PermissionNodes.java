@@ -18,8 +18,6 @@ public final class PermissionNodes {
 
     public static final String USE = "pets.use";
     public static final String ADMIN = "pets.admin";
-    /** Creators: the supporters' species are theirs to take. Nothing else a supporter gets. */
-    public static final String CREATOR = "rainspets.creator";
     /** Particles and name colours on a pet: a Prime perk, so {@code rains.prime} holds it. */
     public static final String COSMETICS = "rainspets.cosmetics";
 
@@ -33,8 +31,6 @@ public final class PermissionNodes {
         List<Permission> nodes = new ArrayList<>();
         nodes.add(new Permission(USE, "Have pets, call them, ride them", PermissionDefault.TRUE));
         nodes.add(new Permission(ADMIN, "Give and take pets, set their personality", PermissionDefault.OP));
-        nodes.add(new Permission(CREATOR, "Take the species kept for the server's supporters — creators",
-                PermissionDefault.FALSE));
         nodes.add(new Permission(COSMETICS, "Put particles and name colours on a pet — a Prime perk",
                 PermissionDefault.FALSE));
         for (Species each : species) {

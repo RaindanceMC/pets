@@ -194,10 +194,9 @@ public final class CollectionService implements IPetService {
         return supporters.isSupporter(player.getUniqueId()) || player.hasPermission("rains.supporter");
     }
 
-    /** Whether the species kept for supporters are theirs: a supporter, a creator or Prime. Not what raises the pets out at once. */
+    /** Whether the species kept for supporters are theirs: a supporter or Prime. Not what raises the pets out at once. */
     public boolean opensSupporterSpecies(Player player) {
-        return isSupporter(player) || player.hasPermission(PermissionNodes.CREATOR)
-                || player.hasPermission(PrimePermission.NODE);
+        return isSupporter(player) || player.hasPermission(PrimePermission.NODE);
     }
 
     public UnlockRule.Verdict verdict(Player player, Species species) {

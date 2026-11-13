@@ -32,7 +32,7 @@ pets:
   adopted: "<green>A new friend: the <white><species></white> <gray>(<rarity>)</gray> is yours. Call it from <white>/pets</white>."
   already-owned: "<yellow>You already have the <white><species></white>."
   locked: "<yellow>The <white><species></white> is not earned yet."
-  supporters-only: "<light_purple>The <white><species></white> is a thank-you for the server's supporters — <white>/support</white>."
+  supporters-only: "<light_purple>The <white><species></white> is a Prime pet — <white>/prime</white>."
   rank-only: "<yellow>The <white><species></white> is given by a rank."
   too-poor: "<red>You cannot afford the <white><species></white> yet."
   no-economy: "<red>Nothing can be bought here right now."

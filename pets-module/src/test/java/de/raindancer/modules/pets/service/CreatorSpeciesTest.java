@@ -10,7 +10,6 @@ import de.raindancer.modules.pets.rules.UnlockRule;
 import de.raindancer.modules.pets.store.PetDatabase;
 import de.raindancer.modules.pets.store.PetStore;
 import de.raindancer.modules.pets.store.SpeciesCatalogue;
-import de.raindancer.modules.pets.util.PermissionNodes;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@DisplayName("creators and the supporters' species")
+@DisplayName("who may take the supporters' species")
 class CreatorSpeciesTest {
 
     private static final UUID ALICE = UUID.nameUUIDFromBytes("alice".getBytes());
@@ -57,13 +56,7 @@ class CreatorSpeciesTest {
     }
 
     @Test
-    @DisplayName("the node is rainspets.creator")
-    void node() {
-        assertThat(PermissionNodes.CREATOR).isEqualTo("rainspets.creator");
-    }
-
-    @Test
-    @DisplayName("somebody who is neither supporter nor creator is told the species is for supporters")
+    @DisplayName("somebody who is neither supporter nor Prime is told the species is for supporters")
     void stranger() {
         Player player = alice();
         assertThat(collection.verdict(player, thankYou).state()).isEqualTo(UnlockRule.State.SUPPORTERS_ONLY);
@@ -72,21 +65,11 @@ class CreatorSpeciesTest {
     }
 
     @Test
-    @DisplayName("a creator may take them, knows them and has them listed as open")
-    void creatorTakes() {
-        Player player = alice(PermissionNodes.CREATOR);
-        assertThat(collection.verdict(player, thankYou).state()).isEqualTo(UnlockRule.State.CLAIMABLE);
-        assertThat(collection.knows(player, thankYou)).isTrue();
-        CollectionService.Adoption adoption = collection.claim(player, thankYou);
-        assertThat(adoption.outcome()).isEqualTo(CollectionService.Outcome.ADOPTED);
-        assertThat(collection.owns(ALICE, thankYou.id())).isTrue();
-        assertThat(collection.verdict(player, thankYou).state()).isEqualTo(UnlockRule.State.OWNED);
-    }
-
-    @Test
-    @DisplayName("a creator does not get the supporters' extra pets out at once")
-    void notTheCount() {
-        Player player = alice(PermissionNodes.CREATOR);
+    @DisplayName("a creator does not get them for being one: the old rainspets.creator node opens nothing")
+    void creatorGetsNothing() {
+        Player player = alice("rainspets.creator");
+        assertThat(collection.verdict(player, thankYou).state()).isEqualTo(UnlockRule.State.SUPPORTERS_ONLY);
+        assertThat(collection.claim(player, thankYou).outcome()).isEqualTo(CollectionService.Outcome.SUPPORTERS_ONLY);
         assertThat(collection.isSupporter(player)).isFalse();
     }
 
@@ -100,7 +83,7 @@ class CreatorSpeciesTest {
     }
 
     @Test
-    @DisplayName("Prime members take them too, and do not get the extra pets out at once for it")
+    @DisplayName("Prime members take them, and do not get the extra pets out at once for it")
     void primeTakes() {
         Player player = alice("rains.prime");
         assertThat(collection.verdict(player, thankYou).state()).isEqualTo(UnlockRule.State.CLAIMABLE);

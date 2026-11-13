@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 class PermissionNodesTest {
 
     @Test
-    @DisplayName("registering makes pet cosmetics a child of rains.prime, and leaves creators to be granted")
+    @DisplayName("registering makes pet cosmetics a child of rains.prime")
     void primeHoldsCosmetics() {
         Map<String, Permission> known = new HashMap<>();
         PluginManager manager = mock(PluginManager.class);
@@ -42,8 +42,6 @@ class PermissionNodesTest {
         }
 
         assertThat(known.get("rains.prime").getChildren()).containsEntry(PermissionNodes.COSMETICS, true);
-        assertThat(known.get("rains.prime").getChildren()).doesNotContainKey(PermissionNodes.CREATOR);
-        assertThat(known.get(PermissionNodes.CREATOR)).isNotNull();
         assertThat(known.get(PermissionNodes.COSMETICS)).isNotNull();
     }
 }
