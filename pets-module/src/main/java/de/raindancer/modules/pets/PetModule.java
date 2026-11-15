@@ -61,7 +61,6 @@ public final class PetModule implements FlexModule {
         settings = context.settings(PetSettings.class, PetSettings.DEFAULTS);
         context.core().messages().defineFrom(PetModule.class.getResourceAsStream("messages.yml"),
                 context.chat().brand()::chatPrefix);
-        context.core().messages().seriousFrom(PetModule.class.getResourceAsStream("messages-serious.yml"));
 
         SpeciesCatalogue catalogue = new SpeciesCatalogue(context.dataFolder().resolve("pets.yml"),
                 () -> PetModule.class.getResourceAsStream("pets.yml"));
