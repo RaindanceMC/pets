@@ -59,7 +59,7 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
     @Override
     protected ItemStack icon(Species species) {
         if (!services.collection().knows(viewer, species)) {
-            return Icons.of(Material.GRAY_DYE, PetLook.rarity(species.rarity()) + " <gray>???",
+            return Icons.of(Material.GRAY_DYE, PetLook.rarity(species.rarity()) + " <gray>Unknown",
                     "<gray>A " + species.rarity().title().toLowerCase(Locale.ROOT) + " pet nobody has shown you yet.",
                     "<dark_gray>See one out with somebody to learn what it is.");
         }
@@ -82,7 +82,7 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
                 if (species.unlock().way() == de.raindancer.modules.pets.model.Unlock.Way.DROP) {
                     String mob = species.unlock().what().toLowerCase(Locale.ROOT).replace('_', ' ');
                     lore.add("<gray>Never earned, only found: now and then");
-                    lore.add("<gray>a slain " + mob + " lets one fall —");
+                    lore.add("<gray>a slain " + mob + " lets one fall,");
                     lore.add("<gray>about once in <white>" + Math.round(1 / species.unlock().chance()) + "<gray> kills.");
                     break;
                 }
@@ -94,7 +94,7 @@ public final class SpeciesMenu extends PaginatedMenu<Species> implements IPetScr
                             + part.requirement().count());
                 }
             }
-            case SUPPORTERS_ONLY -> lore.add("<light_purple>A Prime pet — /prime");
+            case SUPPORTERS_ONLY -> lore.add("<light_purple>A Prime pet. See /prime");
             case RANK_ONLY -> lore.add("<gray>Given by a rank.");
         }
         return Icons.of(species.icon(), "<color:" + species.rarity().colour() + ">" + species.title(), lore);

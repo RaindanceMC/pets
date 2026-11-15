@@ -64,7 +64,7 @@ public final class PetTreeMenu extends LearningMenu implements IPetScreen {
         public String blurb() {
             return species().map(species -> {
                 Role role = rule().role(species, ranks());
-                return role.title() + (role == species.role() ? " by nature" : " by calling") + " — " + role.blurb();
+                return role.title() + (role == species.role() ? " by nature" : " by calling") + ": " + role.blurb();
             }).orElse("");
         }
 

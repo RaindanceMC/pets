@@ -26,7 +26,7 @@ final class PetLook {
         long next = levels.toNext(pet.level());
         lore.add("<gray>Level <white>" + pet.level() + (pet.level() >= levels.maxLevel() ? " <gold>(highest)"
                 : " <dark_gray>" + bar(pet.xp(), next) + " <gray>" + pet.xp() + "/" + next));
-        lore.add("<gray>Personality: <white>" + pet.personality().title() + " <dark_gray>— "
+        lore.add("<gray>Personality: <white>" + pet.personality().title() + " <dark_gray>· "
                 + pet.personality().blurb());
         Temperament nature = pet.temperament();
         lore.add("<dark_gray>Courage " + nature.courage() + " · Energy " + nature.energy() + " · Temper "

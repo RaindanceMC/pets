@@ -28,7 +28,7 @@ public record PetSettings(
         int outAtOnce,
 
         @In("pets/out") @Title("Pets out at once, for supporters") @Range(min = 1, max = 5)
-        @Describe("The same for the server's supporters — a thank-you. Never fewer than for everybody.")
+        @Describe("The same for the server's supporters, as a thank-you. Never fewer than for everybody.")
         @Key("pets.out-at-once-supporters")
         int outAtOnceSupporters,
 
@@ -48,7 +48,7 @@ public record PetSettings(
         int catchUpBlocks,
 
         @In("pets/out") @Title("Worlds without pets")
-        @Describe("World names, separated by commas, where no pet may be out — a minigame's, say.")
+        @Describe("World names, separated by commas, where no pet may be out, for example a minigame's.")
         @Key("pets.worlds-without")
         String worldsWithout,
 
@@ -80,7 +80,7 @@ public record PetSettings(
         boolean ownerInName,
 
         @In("pets") @Title("Pets squabble")
-        @Describe("Fierce pets now and then square up to other players' pets — they huff and hop, nobody is hurt. "
+        @Describe("Fierce pets now and then square up to other players' pets. They huff and hop, and nobody is hurt. "
                 + "Off, no pet ever does; on, each player can still turn it off for their own (/pets squabbles).")
         @Key("pets.squabbles")
         boolean squabbles) {

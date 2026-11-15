@@ -66,7 +66,7 @@ public final class PetParticleMenu extends Menu implements IPetScreen {
                 Icons.of(Material.BLAZE_POWDER, "<green>Pick a particle",
                         "<gray>Any effect you may wear yourself.", "",
                         "<dark_gray>Left-click one to see it, right-click to put it on."),
-                "You may not wear any particles yet — see /cosmetics",
+                "You may not wear any particles yet. See /cosmetics",
                 click -> new ParticleChooser(viewer, services.brand(), this, "Pick a particle",
                         particle -> pet().ifPresent(now -> services.care().particle(viewer, now, particle,
                                 SummonService.shape(now.particleShape()))),

@@ -138,7 +138,7 @@ public final class SpeciesCatalogue {
                         + "' is not common, uncommon, rare, epic, legendary or mythic"));
         Unlock unlock = unlock(entry.getString("unlock", "free"));
         if (unlock.way() == Unlock.Way.BUY && rarity != Rarity.COMMON) {
-            throw new IllegalArgumentException("only common pets can be bought — a " + rarity.title().toLowerCase(Locale.ROOT)
+            throw new IllegalArgumentException("only common pets can be bought: a " + rarity.title().toLowerCase(Locale.ROOT)
                     + " one is earned, granted or kept for supporters");
         }
         Material icon = Material.matchMaterial(entry.getString("icon", "BONE"));

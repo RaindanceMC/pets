@@ -114,7 +114,7 @@ public final class PetMenu extends Menu implements IPetScreen {
         boolean prime = services.care().mayDecorate(viewer);
         band(MenuLayout.LAND, 4, Icons.of(Material.BLAZE_POWDER, "<white>Particles",
                         "<gray>Any effect you may wear yourself,", "<gray>worn around " + pet.name() + ".", "",
-                        prime ? "<yellow>Click<gray> to pick one." : "<gold>✦ A Prime perk<gray> — see /prime"),
+                        prime ? "<yellow>Click<gray> to pick one." : "<gold>✦ A Prime perk<gray>. See /prime"),
                 click -> {
                     if (prime) {
                         new PetParticleMenu(services, viewer, this, pet.id()).open();
@@ -124,7 +124,7 @@ public final class PetMenu extends Menu implements IPetScreen {
                 });
         band(MenuLayout.LAND, 5, Icons.of(Material.BRUSH, "<white>Colour its name",
                         "<gray>Painted like your own name can be:", "<gray>colours, gradients, bold and the rest.", "",
-                        prime ? "<yellow>Click<gray> to paint it." : "<gold>✦ A Prime perk<gray> — see /prime"),
+                        prime ? "<yellow>Click<gray> to paint it." : "<gold>✦ A Prime perk<gray>. See /prime"),
                 click -> {
                     if (!prime) {
                         services.care().primePerk(viewer);

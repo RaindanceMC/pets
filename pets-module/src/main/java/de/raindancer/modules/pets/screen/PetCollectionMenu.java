@@ -75,7 +75,7 @@ public final class PetCollectionMenu extends PaginatedMenu<Pet> implements IPetS
             lore.add("<green>Out with you.");
             lore.add("<yellow>Click<gray> to send it home.");
         } else if (pet.restingAt(Instant.now())) {
-            lore.add("<red>Knocked out — back in "
+            lore.add("<red>Knocked out, back in "
                     + Math.max(1, Duration.between(Instant.now(), pet.restingUntil()).toSeconds()) + "s.");
         } else {
             lore.add("<yellow>Click<gray> to call it.");

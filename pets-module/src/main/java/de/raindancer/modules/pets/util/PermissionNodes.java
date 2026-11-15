@@ -31,7 +31,7 @@ public final class PermissionNodes {
         List<Permission> nodes = new ArrayList<>();
         nodes.add(new Permission(USE, "Have pets, call them, ride them", PermissionDefault.TRUE));
         nodes.add(new Permission(ADMIN, "Give and take pets, set their personality", PermissionDefault.OP));
-        nodes.add(new Permission(COSMETICS, "Put particles and name colours on a pet — a Prime perk",
+        nodes.add(new Permission(COSMETICS, "Put particles and name colours on a pet (a Prime perk)",
                 PermissionDefault.FALSE));
         for (Species each : species) {
             nodes.add(new Permission(each.permission(), "Have the " + each.title() + " whatever its way",
