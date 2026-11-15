@@ -1,8 +1,8 @@
-# Rain's Pets — the skill tree every pet grows on, read by Core's SkillTree. A point a level.
+# Rain's Pets: the skill tree every pet grows on, read by Core's SkillTree. A point a level.
 # Seven role branches, each opening with its calling: a pet follows one calling at a time (they shut each
 # other), its own species' is free, another costs its points; the role's nodes need its calling. Two branches
 # for any pet: Bond and Steed. Every branch ends in a mastery badge, free once the rest of it is taken.
-# Effects (per rank): percent unless said — health damage speed attack_speed regen heal xp ability_power
+# Effects (per rank): percent unless said: health damage speed attack_speed regen heal xp ability_power
 # ability_haste lifesteal toughness thorns; collect and spot in blocks; aura_<effect> in levels of that effect.
 branches:
   fighter:
@@ -40,7 +40,7 @@ branches:
   steed:
     title: Steed
     icon: saddle
-    blurb: "Carries you faster — and a legendary's power hits harder, sooner."
+    blurb: "Carries you faster, and a legendary's power hits harder and sooner."
 
 nodes:
   calling_fighter: {branch: fighter, at: [0, 1], title: "Calling: Fighter", icon: iron_sword, choice: true, cost: 3, excludes: [calling_guard, calling_ranged, calling_healer, calling_gatherer, calling_support, calling_scout], effects: {calling_fighter: 1}}

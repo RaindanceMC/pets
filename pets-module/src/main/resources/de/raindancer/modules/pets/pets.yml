@@ -1,22 +1,22 @@
-# Rain's Pets — the species this server offers. Written once into plugins/RainsPets/pets.yml; edit that copy.
+# Rain's Pets: the species this server offers. Written once into plugins/RainsPets/pets.yml; edit that copy.
 #
 #   mob:      the vanilla mob (Bukkit's EntityType name)       role:   fighter | guard | ranged | healer
-#   rarity:   common | uncommon | rare | epic | legendary | mythic — the pages of /pets
+#   rarity:   common | uncommon | rare | epic | legendary | mythic (the pages of /pets)
 #   health:   half hearts at level one                        damage: a hit (a healer's mend) at level one
-#   speed:    blocks per tick, following and ridden           size:   how tall, in player heights (0.15–0.6);
+#   speed:    blocks per tick, following and ridden           size:   how tall, in player heights (0.15 to 0.6);
 #                                                                     always smaller than the wild mob
 #   flies:    flies when following and when ridden            baby:   the young version, where there is one
 #   unlock:   free | earn <activity> [thing] <count> [+ <activity> [thing] <count> …] | buy <price> | permission | supporter
 #             With "+", every part has to be done: "earn boss wither 3 + raid 1".
-#             drop monster|boss <mob> 1/<n>: never earned, only found — one kill in about n of that mob lets it fall
+#             drop monster|boss <mob> 1/<n>: never earned, only found: one kill in about n of that mob lets it fall
 #             (spawner mobs never); a legendary or mythic one that falls is told to the whole server.
-#             Only common pets can be bought; anything rarer is earned, granted or a Prime pet (unlock: supporter — Prime members and the server's supporters).
+#             Only common pets can be bought; anything rarer is earned, granted or a Prime pet (unlock: supporter, for Prime members and the server's supporters).
 #             activities: monster boss fish breed harvest mine dig excavate chop forage craft cook brew build
 #             tame explore travel raid trade enchant …  ("earn boss ender_dragon 1": slay the dragon once)
 #             Whatever the way, pets.species.<id> hands the species to a rank.
-#   ability:  legendary and mythic only — what it does when its rider swings at the air: wither_skulls,
+#   ability:  legendary and mythic only: what it does when its rider swings at the air: wither_skulls,
 #             sonic_boom, fireball, flame_volley, gust, roar, curse, mending_rain, illusion
-#   missile:  what a ranged pet throws — none of them breaks or burns anything
+#   missile:  what a ranged pet throws; none of them breaks or burns anything
 species:
 
   # ------------------------------------------------------------------ common
@@ -56,7 +56,7 @@ species:
     damage: 3
     speed: 0.42
     unlock: buy 750
-    blurb: Small, fast, surprisingly bitey.
+    blurb: Small, fast and bites harder than it looks.
   chicken:
     title: Chicken
     mob: CHICKEN
@@ -69,7 +69,7 @@ species:
     speed: 0.3
     flies: true
     unlock: earn breed 25
-    blurb: Clucks you back to health. Flaps, too.
+    blurb: Clucks you back to health.
   cat:
     title: Cat
     mob: CAT
@@ -109,7 +109,7 @@ species:
     damage: 3
     speed: 0.32
     unlock: earn mine 800
-    blurb: Rams first, asks never.
+    blurb: Rams its way in first.
   llama:
     title: Llama
     mob: LLAMA
@@ -123,7 +123,7 @@ species:
     baby: true
     missile: LLAMA_SPIT
     unlock: earn trade 60
-    blurb: Spits at your enemies. Mostly.
+    blurb: Spits at your enemies.
   parrot:
     title: Parrot
     mob: PARROT
@@ -136,7 +136,7 @@ species:
     speed: 0.4
     flies: true
     unlock: earn explore 20
-    blurb: Sings you on. Loudly.
+    blurb: Sings you on.
   bee:
     title: Bee
     mob: BEE
@@ -161,7 +161,7 @@ species:
     damage: 4
     speed: 0.36
     unlock: supporter
-    blurb: A thank-you for supporting the server. Tongue first.
+    blurb: A thank-you for supporting the server. Fights with its tongue.
 
   # ------------------------------------------------------------------ rare
   polar_bear:
@@ -292,7 +292,7 @@ species:
     speed: 0.5
     flies: true
     unlock: drop monster phantom 1/500
-    blurb: Swoops out of the night — for you, for once.
+    blurb: Swoops out of the night to fight for you.
   blaze:
     title: Blaze
     mob: BLAZE
@@ -320,7 +320,7 @@ species:
     speed: 0.34
     baby: true
     unlock: drop monster hoglin 1/400
-    blurb: Tusks first.
+    blurb: Charges tusks first.
   vex:
     title: Vex
     mob: VEX
@@ -450,7 +450,7 @@ species:
     speed: 0.32
     ability: sonic_boom
     unlock: drop boss warden 1/25
-    blurb: Once in a long while a slain Warden leaves one behind. It heard you were in trouble.
+    blurb: Once in a long while a slain Warden leaves one behind.
 
   # ------------------------------------------------------------------ villagers, monsters and more
   cow:
@@ -491,7 +491,7 @@ species:
     speed: 0.3
     baby: true
     unlock: earn trade 30
-    blurb: Patches you up and haggles with the monsters.
+    blurb: Patches you up.
   zombie:
     title: Zombie
     mob: ZOMBIE
@@ -517,7 +517,7 @@ species:
     speed: 0.32
     missile: ARROW
     unlock: earn monster skeleton 50
-    blurb: Never misses. Often.
+    blurb: Shoots from a distance.
   spider:
     title: Spider
     mob: SPIDER
@@ -553,7 +553,7 @@ species:
     damage: 4.5
     speed: 0.32
     unlock: earn monster creeper 80
-    blurb: Hugs. Never explodes. Promise.
+    blurb: Hugs and does not explode.
   husk:
     title: Husk
     mob: HUSK
@@ -668,7 +668,7 @@ species:
     damage: 6
     speed: 0.4
     unlock: drop monster enderman 1/400
-    blurb: Don't look it in the eyes. It is shy.
+    blurb: Shy. Do not look it in the eyes.
   piglin:
     title: Piglin
     mob: PIGLIN
@@ -913,7 +913,7 @@ species:
     damage: 4
     speed: 0.4
     unlock: earn monster cave_spider 80
-    blurb: Small, fast and very, very rude.
+    blurb: Small, fast and aggressive.
   magma_cube:
     title: Magma Cube
     mob: MAGMA_CUBE

@@ -1,6 +1,6 @@
 id: pets
 title: Pets
-summary: Pets that fight beside you — how to get one, call it, ride it, name it, and how it grows.
+summary: "Pets that fight beside you: how to get one, call it, ride it, name it, and how it grows."
 intro: |
   A pet follows you, fights for you, and can be ridden. It grows with you, and its nature changes a little with how you treat it.
 icon: BONE
@@ -14,7 +14,7 @@ sections:
   - question: How do I get a pet?
     title: Getting one
     text: |
-      {run:/pets species} shows every species, from common to mythic. Common ones are free or bought; everything rarer is earned by playing — fishing, foraging, slaying monsters — given by a rank, or a Prime pet — those come with Prime. The rarest are only ever found: once in a long while a slain monster lets one of its own kind fall for whoever slew it — and when it is a legendary or a mythic, the whole server hears of it.
+      {run:/pets species} shows every species, from common to mythic. Common ones are free or bought; everything rarer is earned by playing (fishing, foraging, slaying monsters), given by a rank, or comes with Prime. The rarest are only ever found: once in a long while a slain monster lets one of its own kind fall for whoever slew it. When it is a legendary or a mythic, the whole server hears of it.
       Rarer pets stay a question mark until you have seen one out with somebody.
   - question: How do I call and send home my pet?
     title: Out and home
@@ -25,27 +25,27 @@ sections:
     title: Riding
     when: pets:pets.riding
     text: |
-      Right-click your own pet to climb on; walk with the usual keys, sprint to go faster. A flying pet flies with you — look where you want to go, jump to climb. Sneak to get off. Legendary and mythic pets have a power of their own: swing at the air while you ride to set it off. It hurts only what you may fight and breaks nothing; then it needs a few seconds again.
+      Right-click your own pet to climb on; walk with the usual keys, sprint to go faster. A flying pet flies with you: look where you want to go, jump to climb. Sneak to get off. Legendary and mythic pets have a power of their own: swing at the air while you ride to set it off. It hurts only what you may fight and breaks nothing; then it needs a few seconds again.
   - question: How does my pet fight?
     title: Fighting
     text: |
       Fighters bite, guards draw monsters onto themselves, ranged pets throw, healers mend you. {cmd:/pets mode <pet>} switches between aggressive (joins your fights, hunts monsters near you), defensive (only what hurts you) and passive.
       {cmd:/pets tactic <pet>} picks how it fights: balanced (circles and darts in), relentless (presses in, chases further), hit and run (bites and backs off) or cautious (stays near you, comes back early when hurt). Pets go first for whatever hurts you, then the weakest and nearest, and leave a foe your other pets will finish anyway.
-      Each of your pets keeps its own spot behind you, and none climbs on another — though while you stand about, two of yours now and then cuddle up. A fierce pet may square up to other players' pets: it huffs and hops, nobody gets hurt. {cmd:/pets squabbles} lets yours leave them in peace.
-      Out of a fight and near you, a hurt pet mends by itself — a seasoned one quicker — and keeps close to you until it has; a badly hurt one is slower and rests more.
+      Each of your pets keeps its own spot behind you, and none climbs on another. While you stand about, two of yours now and then cuddle up. A fierce pet may square up to other players' pets: it huffs and hops. Nobody gets hurt. {cmd:/pets squabbles} lets yours leave them in peace.
+      Out of a fight and near you, a hurt pet mends by itself (a seasoned one quicker) and keeps close to you until it has. A badly hurt one is slower and rests more.
       A beaten pet is never lost: it is knocked out for {setting:pets:pets.knocked-out-seconds|count} seconds and can be called again.
   - question: How does my pet grow?
     title: Levels and personality
     text: |
       Every monster it finishes off brings experience, up to level {setting:pets:pets.highest-level|count}; each level adds health and bite, and gives it a skill point.
-      Every pet is born with a personality — brave, timid, playful, lazy, fierce, gentle, cheeky, stoic, curious or balanced — that changes how hard it hits, how fast it runs, how long it lasts and how far it wanders. Fighting together makes it bolder and wilder, riding livelier, treats gentler (hold food and right-click it), finding new places with you more curious. It bends, but only so far.
-      Whenever you stand about, or have told it to stay, your pet goes exploring nearby — a curious one far and often, an incurious one hardly at all.
+      Every pet is born with a personality (brave, timid, playful, lazy, fierce, gentle, cheeky, stoic, curious or balanced) that changes how hard it hits, how fast it runs, how long it lasts and how far it wanders. Fighting together makes it bolder and wilder, riding livelier, treats gentler (hold food and right-click it), finding new places with you more curious. It only changes so far.
+      Whenever you stand about, or have told it to stay, your pet goes exploring nearby. A curious one goes far and often, an incurious one hardly at all.
   - question: What is a pet's skill tree?
     title: Skill tree and roles
     text: |
-      {cmd:/pets skills <pet>}, or the book on its page in {run:/pets}: every pet has its own tree to spend its points on. Seven branches are roles — fighter, guard, ranged, healer, gatherer (fetches drops and experience to you), support (keeps Speed, Strength and more on you) and scout (fast, marks monsters near you for your eyes) — each opening with its calling. A pet follows one calling at a time: its own species' is free, another costs points and makes it that role. Bond and Steed are for any pet: tougher, quicker to learn, faster to ride, a stronger power when ridden.
+      {cmd:/pets skills <pet>}, or the book on its page in {run:/pets}: every pet has its own tree to spend its points on. Seven branches are roles: fighter, guard, ranged, healer, gatherer (fetches drops and experience to you), support (keeps Speed, Strength and more on you) and scout (fast, marks monsters near you for your eyes). Each opens with its calling. A pet follows one calling at a time: its own species' is free, another costs points and makes it that role. Bond and Steed are for any pet: tougher, quicker to learn, faster to ride, a stronger power when ridden.
       Every branch ends in a mastery badge, free once the rest of it is taken. Shift-click the middle button to take every point back, once a day.
   - question: Can I name my pet?
     title: Names
     text: |
-      {cmd:/pets rename <pet> <name>}, or right-click it in {run:/pets}. Its name can be painted like your own — colours, gradients, bold and the rest — and everybody sees whose it is.
+      {cmd:/pets rename <pet> <name>}, or right-click it in {run:/pets}. Its name can be styled like your own (colours, gradients, bold and the rest), and everybody sees whose it is.
