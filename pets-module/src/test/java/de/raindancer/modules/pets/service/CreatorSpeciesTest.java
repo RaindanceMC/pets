@@ -91,4 +91,17 @@ class CreatorSpeciesTest {
         assertThat(collection.claim(player, thankYou).outcome()).isEqualTo(CollectionService.Outcome.ADOPTED);
         assertThat(collection.isSupporter(player)).isFalse();
     }
+
+    @Test
+    @DisplayName("on a network without coffee supporters the coffee list counts for nothing; rains.supporter (Prime's there) does")
+    void supportersOff() {
+        when(supporters.isSupporter(ALICE)).thenReturn(true);
+        de.raindancer.core.social.support.Thanks.supporters(false);
+        try {
+            assertThat(collection.isSupporter(alice())).isFalse();
+            assertThat(collection.isSupporter(alice("rains.supporter"))).isTrue();
+        } finally {
+            de.raindancer.core.social.support.Thanks.supporters(true);
+        }
+    }
 }

@@ -191,7 +191,17 @@ public final class CollectionService implements IPetService {
     // ------------------------------------------------------------------ asking
 
     public boolean isSupporter(Player player) {
-        return supporters.isSupporter(player.getUniqueId()) || player.hasPermission("rains.supporter");
+        return (coffeeSupporters() && supporters.isSupporter(player.getUniqueId()))
+                || player.hasPermission("rains.supporter");
+    }
+
+    /** Whether the network thanks coffee supporters at all; without, Core hangs rains.supporter under Prime. */
+    private static boolean coffeeSupporters() {
+        try {
+            return de.raindancer.core.social.support.Thanks.supportersOn();
+        } catch (LinkageError olderCore) {
+            return true;
+        }
     }
 
     /** Whether the species kept for supporters are theirs: a supporter or Prime. Not what raises the pets out at once. */
