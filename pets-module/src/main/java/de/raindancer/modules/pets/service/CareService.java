@@ -124,7 +124,11 @@ public final class CareService implements IPetService {
             new de.raindancer.core.ui.profile.PlayerSwitch("rainspets", "see-others-pets", true);
 
     public void toggleOthers(Player player) {
-        boolean see = SEE_OTHERS.toggle(player);
+        setOthers(player, !SEE_OTHERS.isOn(player));
+    }
+
+    public void setOthers(Player player, boolean see) {
+        SEE_OTHERS.set(player, see);
         summoning.companions().seeOthers(player, see);
         messages.send(player, see ? "pets.others-shown" : "pets.others-hidden");
     }
@@ -134,7 +138,11 @@ public final class CareService implements IPetService {
             new de.raindancer.core.ui.profile.PlayerSwitch("rainspets", "squabbles", true);
 
     public void toggleSquabbles(Player player) {
-        boolean on = SQUABBLES.toggle(player);
+        setSquabbles(player, !SQUABBLES.isOn(player));
+    }
+
+    public void setSquabbles(Player player, boolean on) {
+        SQUABBLES.set(player, on);
         summoning.squabbles(player.getUniqueId(), on);
         summoning.of(player.getUniqueId()).forEach(live -> summoning.refresh(live.pet(), player.getName()));
         messages.send(player, on ? "pets.squabbles-on" : "pets.squabbles-off");

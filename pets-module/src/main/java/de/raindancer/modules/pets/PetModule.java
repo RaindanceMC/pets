@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PetModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.18.0")
+    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.19.0")
             .describedAs("Pets that fight beside you: follow, defend, level up, can be ridden, and come back after "
                     + "a knock-out")
             .by("Raindancer118");
@@ -161,6 +161,16 @@ public final class PetModule implements FlexModule {
             context.closeWith(() -> de.raindancer.core.ui.cosmetic.CosmeticDoors.retract(looks));
         } catch (LinkageError olderCore) {
             log.info("RainsCore is older than 2.34.0: pet looks stay in /pets only.");
+        }
+
+        // Personal switches are on /preferences (Core 2.103.0); the /pets commands keep working.
+        try {
+            for (de.raindancer.core.ui.preference.Preference each : PetPreferences.build(care, settings::current)) {
+                de.raindancer.core.ui.preference.Preferences.offer(context.plugin(), each);
+                context.closeWith(() -> de.raindancer.core.ui.preference.Preferences.withdraw(each));
+            }
+        } catch (LinkageError olderCore) {
+            log.info("RainsCore is older than 2.103.0: hiding other pets and squabbles are not on /preferences.");
         }
 
         settings.onChange(fresh -> {
