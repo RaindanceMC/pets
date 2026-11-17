@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PetModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.17.1")
+    private static final ModuleInfo INFO = ModuleInfo.of("pets", "Pets", "0.18.0")
             .describedAs("Pets that fight beside you: follow, defend, level up, can be ridden, and come back after "
                     + "a knock-out")
             .by("Raindancer118");
@@ -153,6 +153,15 @@ public final class PetModule implements FlexModule {
         summoning.tellThrough(hooks::of);
         built[0] = new PetServices(context.plugin(), server, context.core(), log, context.core().messages(),
                 context.chat().brand(), settings::current, collection, summoning, experience, care, names, screens);
+        // Pets' particles and name colours are also reached from the cosmetics page, where everything worn is put on.
+        try {
+            de.raindancer.core.ui.cosmetic.CosmeticDoor looks =
+                    new de.raindancer.modules.pets.screen.PetLooksDoor(() -> built[0]);
+            de.raindancer.core.ui.cosmetic.CosmeticDoors.provide(context.plugin(), looks);
+            context.closeWith(() -> de.raindancer.core.ui.cosmetic.CosmeticDoors.retract(looks));
+        } catch (LinkageError olderCore) {
+            log.info("RainsCore is older than 2.34.0: pet looks stay in /pets only.");
+        }
 
         settings.onChange(fresh -> {
             collection.settings(fresh);
